@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../demo-shim.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Overview | Cashbook for Contractors</title>
+    <script src="../../js/core/theme.js"></script>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/shell.css">
+    <link rel="stylesheet" href="../../css/analytics.css">
+    <link rel="stylesheet" href="../../css/print-preview.css">
+    <link rel="stylesheet" href="../../css/print-preview-fixes.css">
+    <link rel="stylesheet" href="../../css/design-system.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <img src="../../assets/logo/logo.png" alt="Cashbook for Contractors">
+        <div>
+            <h2>Cashbook for Contractors</h2>
+            <p>Portfolio Overview</p>
+        </div>
+    </div>
+
+    <button type="button" class="back-button" data-href="../dashboard/dashboard.html">
+        &larr; Dashboard
+    </button>
+</header>
+
+<main class="container an-page">
+    <div class="an-filter">
+        <label class="form-field"><span>Client</span><select id="pfClient"><option value="">All clients</option></select></label>
+    </div>
+
+    <section id="pfBanner"></section>
+    <section class="an-tiles" id="pfTilesCounts" aria-label="Projects by status"></section>
+    <section class="an-tiles" id="pfTilesMoney" aria-label="Budget, cost and performance"></section>
+
+    <section class="an-charts">
+        <div class="an-card">
+            <h2>Project Status</h2>
+            <p>Ongoing, on hold and completed projects.</p>
+            <div class="an-donut-row"><canvas id="pfDonut" class="short" aria-label="Projects by status"></canvas><div id="pfDonutLegend"></div></div>
+        </div>
+        <div class="an-card">
+            <h2>Budget Distribution</h2>
+            <p>Project budgets, largest first.</p>
+            <canvas id="pfBudget" class="short" aria-label="Budget by project"></canvas>
+        </div>
+    </section>
+
+    <section class="an-charts">
+        <div class="an-card">
+            <h2>Monthly Progress Trend</h2>
+            <p>Average progress of the projects that had started, month by month.</p>
+            <canvas id="pfTrend" class="short" aria-label="Average cumulative progress by month"></canvas>
+        </div>
+        <div class="an-card">
+            <h2>Planned vs Actual Progress</h2>
+            <p>Where each scheduled project should be today, against where it is.</p>
+            <canvas id="pfPva" class="short" aria-label="Planned versus actual progress by project"></canvas>
+            <div id="pfPvaLegend"></div>
+        </div>
+    </section>
+
+    <section class="an-charts wide">
+        <div class="an-card">
+            <h2>Schedule and Cost Performance by Project</h2>
+            <p>SPI is actual progress divided by planned progress. CPI is earned value divided by cost. 1.00 or more is on target.</p>
+            <canvas id="pfIndex" class="short" aria-label="SPI and CPI by project"></canvas>
+            <div id="pfIndexLegend"></div>
+        </div>
+    </section>
+
+    <section class="an-card" style="margin-bottom:24px;">
+        <h2>All Projects</h2>
+        <p>Open a project from its client's portal.</p>
+        <div class="an-table-wrap"><table class="an-table"><thead><tr>
+            <th>Project</th><th>Client</th><th>Status</th><th class="num">Budget</th><th class="num">Cost</th><th class="num">Planned</th><th class="num">Actual</th><th class="num">SPI</th><th class="num">CPI</th><th class="num">Forecast delay</th>
+        </tr></thead><tbody id="pfRows"></tbody></table></div>
+        <p id="pfEmpty" class="empty-state" hidden>No projects to show.</p>
+    </section>
+
+    <details class="an-help">
+        <summary>How these numbers are worked out</summary>
+        <p><strong>Delayed</strong> counts ongoing projects that are already past their target end date or are projected to finish late at their recent pace. Planned and actual progress are compared over the projects that have a Program of Works schedule, weighted by budget.</p>
+        <p><strong>SPI</strong> and <strong>CPI</strong> are totals across projects: total earned value divided by total planned value, and by total cost. They are only as good as the progress and expenses that have been recorded.</p>
+    </details>
+</main>
+
+<script src="../../js/core/storage.js"></script>
+<script src="../../js/core/workspace-core.js"></script>
+<script src="../../js/core/client-brand.js"></script>
+<script src="../../js/core/portfolio-core.js"></script>
+<script src="../../js/core/evm-core.js"></script>
+<script src="../../js/core/mini-charts.js"></script>
+<script src="../../js/core/shell.js"></script>
+<script src="../../js/pages/portfolio.js"></script>
+<script src="../../js/core/header-menu.js"></script>
+<script src="../../assets/vendor/pdf.min.js"></script>
+<script src="../../js/print-preview.js"></script>
+<script src="../../js/core/navigation.js"></script>
+</body>
+</html>

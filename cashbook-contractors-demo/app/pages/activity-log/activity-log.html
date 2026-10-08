@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../demo-shim.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Log | Cashbook for Contractors</title>
+    <script src="../../js/core/theme.js"></script>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/print-preview.css">
+    <link rel="stylesheet" href="../../css/print-preview-fixes.css">
+    <link rel="stylesheet" href="../../css/shell.css">
+    <link rel="stylesheet" href="../../css/design-system.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <img src="../../assets/logo/logo.png" alt="Cashbook for Contractors">
+        <div>
+            <h2>Cashbook for Contractors</h2>
+            <p>Activity Log</p>
+        </div>
+    </div>
+
+    <button type="button" class="back-button" data-back>
+        &larr; Back
+    </button>
+</header>
+
+<main class="container">
+
+    <!-- Shown when no project is picked yet: choose which project's activity to view -->
+    <section class="form-card" id="projectPickerSection" hidden>
+        <h2>Select a Project</h2>
+        <p style="margin-top: 8px; margin-bottom: 14px; color: var(--muted); font-size: 13px;">
+            The activity log is kept out of the way (and out of the way of any lag from large histories) until you ask for it. Pick a project below to view its log.
+        </p>
+        <div id="projectPickerList"></div>
+        <p id="projectPickerEmpty" class="empty-state" hidden>No projects yet.</p>
+    </section>
+
+    <!-- Shown once a project is picked (via ?id=) -->
+    <section class="form-card" id="activityLogSection" hidden>
+        <h2 id="activityLogTitle">Activity Log</h2>
+        <p style="margin-top: 8px; margin-bottom: 4px; color: var(--muted); font-size: 13px;">
+            Shows the latest action for current records, most recent first (up to 100). Superseded corrections and deleted records remain protected in the internal audit data but are not shown here.
+        </p>
+        <a href="#" id="backToProjectLink" style="display:inline-block; margin-bottom: 16px; font-size: 13px;">&larr; Back to project</a>
+        <table>
+            <thead><tr><th>Date and time</th><th>Action</th><th>Area</th><th>Details</th></tr></thead>
+            <tbody id="auditTrailBody"></tbody>
+        </table>
+        <p id="auditTrailEmpty" class="empty-state" hidden>No current activity has been recorded yet.</p>
+    </section>
+
+    <p id="notFoundState" class="empty-state" hidden>
+        That project could not be found. It may have been deleted.
+    </p>
+
+</main>
+
+<script src="../../js/core/storage.js"></script>
+<script src="../../js/core/workspace-core.js"></script>
+<script src="../../js/core/shell.js"></script>
+<script src="../../js/pages/activity-log.js"></script>
+<script src="../../js/core/header-menu.js"></script>
+<script src="../../assets/vendor/pdf.min.js"></script>
+<script src="../../js/print-preview.js"></script>
+<script src="../../js/core/navigation.js"></script>
+</body>
+</html>

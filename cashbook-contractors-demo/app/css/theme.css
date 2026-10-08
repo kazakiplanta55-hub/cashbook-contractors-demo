@@ -1,0 +1,319 @@
+/* ============================================================
+   DARK MODE
+   This app already uses CSS custom properties throughout, so
+   dark mode just redefines the palette — no filter tricks needed.
+   ============================================================ */
+
+html[data-theme="dark"] {
+    color-scheme: dark;
+}
+
+html[data-theme="dark"] :root,
+html[data-theme="dark"] {
+    --brand-primary: #4f8fc4;
+    --brand-primary-dark: #6ba4d1;
+    --brand-accent: #d99a52;
+    --brand-accent-dark: #e3ac6d;
+    --brand-teal: #4fa19a;
+    --brand-teal-dark: #6bb8b1;
+    --ink: #e8edf2;
+    --muted: #a39c8f;
+    --line: #3a4148;
+    --bg: #14181c;
+    --card-bg: #1d2227;
+    --positive: #4caf72;
+    --negative: #d1795f;
+}
+
+html[data-theme="dark"] body {
+    background: var(--bg);
+    color: var(--ink);
+}
+
+html[data-theme="dark"] th {
+    background: #232a31;
+}
+
+html[data-theme="dark"] .nav-card-icon,
+html[data-theme="dark"] .client-group-count {
+    background: #232a31;
+}
+
+html[data-theme="dark"] .status-badge.ongoing {
+    background: #232a31;
+}
+
+html[data-theme="dark"] .status-badge.completed {
+    background: #1e2e24;
+}
+
+html[data-theme="dark"] .status-badge.on-hold {
+    background: #2e2620;
+}
+
+html[data-theme="dark"] .back-button,
+html[data-theme="dark"] .secondary-button,
+html[data-theme="dark"] .table-action,
+html[data-theme="dark"] .icon-button,
+html[data-theme="dark"] .form-field input,
+html[data-theme="dark"] .form-field select,
+html[data-theme="dark"] .form-field textarea,
+html[data-theme="dark"] select {
+    background: var(--card-bg) !important;
+    color: var(--ink) !important;
+    border-color: var(--line) !important;
+}
+
+html[data-theme="dark"] .back-button:hover,
+html[data-theme="dark"] .secondary-button:hover,
+html[data-theme="dark"] .table-action:hover,
+html[data-theme="dark"] .icon-button:hover {
+    background: #29323a !important;
+    color: #f1f5f8 !important;
+    border-color: #596572 !important;
+}
+
+html[data-theme="dark"] .primary-button:hover {
+    background: #3977a8 !important;
+    border-color: #78b2df !important;
+    color: #ffffff !important;
+}
+
+html[data-theme="dark"] tbody tr:hover,
+html[data-theme="dark"] .client-group-header:hover,
+html[data-theme="dark"] .project-card:hover,
+html[data-theme="dark"] .nav-card:hover,
+html[data-theme="dark"] .due-item:hover,
+html[data-theme="dark"] .pow-item:hover {
+    background: #252d34 !important;
+    color: var(--ink) !important;
+}
+
+html[data-theme="dark"] .pow-item .icon-button:hover {
+    background: #303942 !important;
+    color: #f09a80 !important;
+}
+
+html[data-theme="dark"] .header-menu-button:hover,
+html[data-theme="dark"] .header-menu-item:hover,
+html[data-theme="dark"] .status-menu button:hover {
+    background: #252d34 !important;
+    color: #f1f5f8 !important;
+}
+
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+    color: #8f99a3;
+}
+
+button:disabled,
+input:disabled,
+select:disabled {
+    cursor: not-allowed !important;
+    opacity: 0.55;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid var(--brand-accent) !important;
+    outline-offset: 2px;
+}
+
+/* ============================================================
+   HEADER SETTINGS MENU
+   ============================================================ */
+
+.header-menu {
+    position: relative;
+    display: inline-flex;
+}
+
+.topbar,
+.entry-topbar {
+    justify-content: flex-start !important;
+    gap: 16px;
+}
+
+.topbar > :first-child,
+.entry-topbar > :first-child {
+    margin-right: auto;
+}
+
+.header-menu-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--card-bg);
+    color: var(--ink);
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.header-menu-button:hover {
+    background: var(--bg);
+}
+
+.header-menu-button[aria-expanded="true"] {
+    transform: rotate(20deg);
+}
+
+.header-menu-panel {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    min-width: 240px;
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(20, 30, 40, 0.25);
+    padding: 8px;
+    z-index: 500;
+    display: none;
+}
+
+.header-menu-panel.open {
+    display: block;
+}
+
+.header-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 12px;
+    border: none;
+    background: none;
+    border-radius: 8px;
+    font-size: 14px;
+    color: var(--ink);
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.header-menu-item:hover {
+    background: var(--bg);
+}
+
+.header-menu-item.danger {
+    color: #b3261e;
+}
+
+.header-menu-item.danger:hover {
+    background: #fbe3da;
+}
+
+html[data-theme="dark"] .header-menu-item.danger:hover {
+    background: #3a2a24;
+}
+
+.header-menu-icon {
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.header-menu-divider {
+    height: 1px;
+    background: var(--line);
+    margin: 6px 4px;
+}
+
+.header-menu-theme-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+}
+
+.header-menu-theme-row span {
+    font-size: 14px;
+    color: var(--ink);
+}
+
+.theme-switch {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    border-radius: 999px;
+    border: none;
+    background: var(--line);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.theme-switch::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #ffffff;
+    transition: left 0.15s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.theme-switch.on {
+    background: var(--brand-primary);
+}
+
+.theme-switch.on::after {
+    left: 23px;
+}
+
+.header-menu-contact {
+    padding: 10px 12px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.header-menu-contact a {
+    color: var(--brand-primary);
+    word-break: break-all;
+}
+
+/* ============================================================
+   PRINT
+   Only the readable content — summary cards, tables, charts —
+   should appear on paper. Buttons, forms, and the settings menu
+   are interactive-only and get hidden.
+   ============================================================ */
+
+@media print {
+    .header-menu,
+    .back-button,
+    button,
+    form,
+    .nav-card-grid {
+        display: none !important;
+    }
+
+    body {
+        background: #ffffff;
+    }
+
+    .summary-card,
+    .form-card,
+    .chart-card,
+    .bento-card,
+    table {
+        box-shadow: none !important;
+        border: 1px solid #ddd;
+    }
+
+    .screen-only,
+    .milestone-toggle {
+        display: none !important;
+    }
+}

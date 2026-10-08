@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../demo-shim.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress & Timeline | Cashbook for Contractors</title>
+    <script src="../../js/core/theme.js"></script>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/print-preview.css">
+    <link rel="stylesheet" href="../../css/print-preview-fixes.css">
+    <link rel="stylesheet" href="../../css/shell.css">
+    <link rel="stylesheet" href="../../css/design-system.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <img src="../../assets/logo/logo.png" alt="Cashbook for Contractors">
+        <div>
+            <h2 id="projectTitle">Project</h2>
+            <p id="projectClientName">Progress & Timeline</p>
+        </div>
+    </div>
+
+    <a href="../project-detail/project-detail.html" class="back-button" data-project-link>
+        &larr; Back to Project
+    </a>
+</header>
+
+<main class="container">
+
+    <section class="form-card">
+        <h2>Current Status</h2>
+
+        <div class="progress-track">
+            <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+        </div>
+        <div class="progress-label">
+            <span id="progressPercentLabel">0% complete</span>
+            <span id="projectDates">— → —</span>
+        </div>
+
+        <div class="form-grid" style="margin-top: 22px;">
+            <div>
+                <span style="color: var(--muted); font-size: 13px;">Status</span>
+                <p id="projectStatus" style="margin-top: 4px; font-weight: 600;">—</p>
+            </div>
+            <div>
+                <span style="color: var(--muted); font-size: 13px;">Site Address</span>
+                <p id="projectAddress" style="margin-top: 4px;">—</p>
+            </div>
+            <div style="grid-column: 1 / -1;">
+                <span style="color: var(--muted); font-size: 13px;">Notes</span>
+                <p id="projectNotes" style="margin-top: 4px;">—</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="chart-card">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;">
+            <div><h2>Actual vs Planned Progress</h2><p style="color:var(--muted);font-size:13px;">Planned progress follows each sub-item's start and finish schedule. Actual progress follows completed sub-items.</p></div>
+            <div style="text-align:right;"><strong id="scheduleVarianceLabel"></strong><br><a href="../project-scurve/scurve.html" data-project-link style="font-size:13px;">S-Curve, forecast, SPI and CPI &rarr;</a></div>
+        </div>
+        <canvas id="progressChart" width="1000" height="260" aria-label="Actual versus planned project progress over time"></canvas>
+        <div class="chart-legend">
+            <span><span class="swatch" style="background:#c97a2b;"></span> Planned</span>
+            <span><span class="swatch" style="background:#1f4e79;"></span> Actual</span>
+        </div>
+    </section>
+
+    <!-- PROGRAM OF WORKS -->
+    <section class="form-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:16px;">
+            <h2 style="margin:0;">Program of Works</h2>
+            <button type="button" class="primary-button" id="addProgramBtn">Add Program of Work</button>
+        </div>
+        <p style="color:var(--muted); font-size:13px; margin-bottom:16px;">
+            Overall Actual progress is calculated from checked sub-items. Program and sub-item start/finish dates calculate the Planned schedule.
+        </p>
+        <div id="programsContainer"></div>
+        <p id="programsEmptyState" class="empty-state" hidden>No programs of work yet. Add one to start tracking checklist progress.</p>
+    </section>
+
+    <!-- ADJUSTMENT LOG -->
+    <section class="form-card">
+        <h2>Adjustment Log</h2>
+        <p style="color:var(--muted); font-size:13px; margin-bottom:14px;">
+            An approved override temporarily becomes the displayed project progress. Clear it to return to the Program of Works calculation.
+        </p>
+        <p id="progressSourceLabel" style="color:var(--brand-primary);font-weight:600;margin-bottom:14px;"></p>
+
+        <form id="adjustForm">
+            <div class="form-grid">
+                <label class="form-field" style="grid-column: 1 / -1;">
+                    <span>Progress override (optional): <span id="adjustPercentLabel">—</span></span>
+                    <input id="adjustPercent" type="range" min="0" max="100" step="1" value="0">
+                </label>
+
+                <label class="form-field">
+                    <span>New Target End Date</span>
+                    <input id="adjustTargetEndDate" type="date">
+                </label>
+
+                <label class="form-field" style="grid-column: 1 / -1;">
+                    <span>Note / Reason *</span>
+                    <input id="adjustNote" type="text" required autocomplete="off" placeholder="e.g. Delayed due to weather, waiting for materials, client change order">
+                </label>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="primary-button">Save Approved Override</button>
+                <button type="button" class="secondary-button" id="clearProgressOverride" hidden>Clear Override</button>
+            </div>
+        </form>
+    </section>
+
+    <p id="notFoundState" class="empty-state" hidden>
+        Project not found. It may have been deleted.
+    </p>
+
+</main>
+
+<!-- Modal: Add/Edit Program -->
+<div id="programModal" class="modal-overlay" hidden>
+    <div class="modal-card">
+        <h3 id="programModalTitle">Add Program of Work</h3>
+        <form id="programForm">
+            <input type="hidden" id="programEditId">
+            <div class="form-grid">
+                <label class="form-field" style="grid-column:1/-1;">
+                    <span>Program Name *</span>
+                    <input id="programName" type="text" required placeholder="e.g. Land Development, Structural Works">
+                </label>
+                <label class="form-field">
+                    <span>Start Schedule</span>
+                    <input id="programStart" type="date" required>
+                </label>
+                <label class="form-field">
+                    <span>End Schedule</span>
+                    <input id="programEnd" type="date" required>
+                </label>
+                <label class="form-field">
+                    <span>Weight (%) <small style="color:var(--muted)">(share of total project)</small></span>
+                    <input id="programWeight" type="number" min="0.01" step="0.01" value="100" required>
+                </label>
+            </div>
+            <p id="programWeightHint" style="color:var(--muted);font-size:12px;margin-top:10px;"></p>
+            <div class="form-actions" style="margin-top:16px;">
+                <button type="button" class="secondary-button" id="programModalCancel">Cancel</button>
+                <button type="submit" class="primary-button">Save Program</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal: Add Sub-item -->
+<div id="subItemModal" class="modal-overlay" hidden>
+    <div class="modal-card">
+        <h3 id="subItemModalTitle">Add Sub-Program Item</h3>
+        <form id="subItemForm">
+            <input type="hidden" id="subItemProgramId">
+            <input type="hidden" id="subItemEditId">
+            <p id="subItemScheduleLimit" style="color:var(--muted);font-size:13px;margin-bottom:14px;"></p>
+            <div class="form-grid">
+                <label class="form-field" style="grid-column:1/-1;">
+                    <span>Item Name *</span>
+                    <input id="subItemName" type="text" required placeholder="e.g. Cleaning, Geodetic Scaling">
+                </label>
+                <label class="form-field">
+                    <span>Planned Start *</span>
+                    <input id="subItemStart" type="date" required>
+                </label>
+                <label class="form-field">
+                    <span>Planned Finish *</span>
+                    <input id="subItemEnd" type="date" required>
+                </label>
+                <label class="form-field">
+                    <span>Weight (%) <small style="color:var(--muted)">(share of this program)</small></span>
+                    <input id="subItemWeight" type="number" min="0.01" step="0.01" value="100" required>
+                </label>
+            </div>
+            <p id="subItemWeightHint" style="color:var(--muted);font-size:12px;margin-top:10px;"></p>
+            <div class="form-actions" style="margin-top:16px;">
+                <button type="button" class="secondary-button" id="subItemModalCancel">Cancel</button>
+                <button type="submit" class="primary-button" id="subItemSaveButton">Add Item</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal: Mark Item Complete -->
+<div id="completeItemModal" class="modal-overlay" hidden>
+    <div class="modal-card">
+        <h3>Mark Item Complete</h3>
+        <p id="completeItemName" style="color:var(--muted);margin-bottom:16px;"></p>
+        <form id="completeItemForm">
+            <input type="hidden" id="completeItemProgramId">
+            <input type="hidden" id="completeItemId">
+            <div class="form-grid">
+                <label class="form-field" style="grid-column:1/-1;">
+                    <span>Date Completed *</span>
+                    <input id="completeItemDate" type="date" required>
+                </label>
+            </div>
+            <p style="color:var(--muted);font-size:12px;margin-top:10px;">
+                Defaults to today — edit it if the work actually finished on a different date.
+            </p>
+            <div class="form-actions" style="margin-top:16px;">
+                <button type="button" class="secondary-button" id="completeItemCancel">Cancel</button>
+                <button type="submit" class="primary-button">Confirm Complete</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="../../js/core/storage.js"></script>
+<script src="../../js/core/workspace-core.js"></script>
+<script src="../../js/core/client-brand.js"></script>
+<script src="../../js/core/shell.js"></script>
+<script src="../../js/pages/progress.js"></script>
+<script src="../../js/core/header-menu.js"></script>
+<script src="../../assets/vendor/pdf.min.js"></script>
+<script src="../../js/print-preview.js"></script>
+<script src="../../js/core/navigation.js"></script>
+</body>
+</html>

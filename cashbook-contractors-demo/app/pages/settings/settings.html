@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../demo-shim.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | Cashbook for Contractors</title>
+    <script src="../../js/core/theme.js"></script>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/print-preview.css">
+    <link rel="stylesheet" href="../../css/print-preview-fixes.css">
+    <link rel="stylesheet" href="../../css/shell.css">
+    <link rel="stylesheet" href="../../css/settings.css">
+    <link rel="stylesheet" href="../../css/design-system.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <img src="../../assets/logo/logo.png" alt="Cashbook for Contractors">
+        <div>
+            <h2>Cashbook for Contractors</h2>
+            <p>Settings</p>
+        </div>
+    </div>
+
+    <button type="button" class="back-button" data-href="../dashboard/dashboard.html">
+        &larr; Dashboard
+    </button>
+</header>
+
+<main class="container">
+    <div class="aset">
+        <nav class="aset-nav" aria-label="Settings sections">
+            <button type="button" class="aset-tab" data-panel="appearance">Appearance</button>
+            <button type="button" class="aset-tab" data-panel="backup">Backup & Restore</button>
+            <button type="button" class="aset-tab" data-panel="activity">Activity Log</button>
+            <button type="button" class="aset-tab" data-panel="contact">Contact</button>
+            <button type="button" class="aset-tab danger" data-panel="reset">Factory Reset</button>
+        </nav>
+
+        <div class="aset-content">
+            <section class="aset-panel" id="appearance">
+                <h2>Appearance</h2>
+                <p class="aset-lead">Choose how the app looks on this computer.</p>
+                <div class="aset-group">
+                    <div class="aset-row">
+                        <div class="aset-row-text">
+                            <span class="aset-row-title">Dark mode</span>
+                            <span class="aset-row-desc" id="setThemeLabel">Light Mode</span>
+                        </div>
+                        <div class="aset-row-control">
+                            <button type="button" class="theme-switch" id="setTheme" role="switch" aria-label="Toggle dark mode" aria-checked="false"></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="aset-panel" id="backup">
+                <h2>Backup & Restore</h2>
+                <p class="aset-lead">Keep a copy of your clients and projects, or bring one back.</p>
+                <div class="aset-group">
+                    <div class="aset-row">
+                        <div class="aset-row-text">
+                            <span class="aset-row-title">Export backup file</span>
+                            <span class="aset-row-desc">Save a copy of all clients and projects to a file.</span>
+                        </div>
+                        <div class="aset-row-control"><button type="button" class="primary-button" id="setBackup">Export Backup File</button></div>
+                    </div>
+                    <div class="aset-row">
+                        <div class="aset-row-text">
+                            <span class="aset-row-title">Restore exported backup</span>
+                            <span class="aset-row-desc">Restoring replaces everything currently in the app.</span>
+                        </div>
+                        <div class="aset-row-control">
+                            <button type="button" class="secondary-button" id="setRestore">Restore Exported Backup</button>
+                            <input type="file" id="setRestoreFile" accept="application/json" hidden>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="aset-panel" id="activity">
+                <h2>Activity Log</h2>
+                <p class="aset-lead">See what was added, changed, or removed, project by project.</p>
+                <div class="aset-group">
+                    <div class="aset-row">
+                        <div class="aset-row-text">
+                            <span class="aset-row-title">Activity Log</span>
+                            <span class="aset-row-desc">Review the history of every project.</span>
+                        </div>
+                        <div class="aset-row-control"><a class="secondary-button" id="setLog" href="../activity-log/activity-log.html">Open Activity Log</a></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="aset-panel" id="contact">
+                <h2>Contact</h2>
+                <p class="aset-lead">Questions or feedback about the app.</p>
+                <div class="aset-group">
+                    <div class="aset-row">
+                        <div class="aset-row-text">
+                            <span class="aset-row-title">Email</span>
+                            <span class="aset-row-desc"><a href="mailto:Rosenitoplanta24@gmail.com">Rosenitoplanta24@gmail.com</a></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="aset-panel" id="reset">
+                <h2>Factory Reset</h2>
+                <p class="aset-lead">Start over with an empty app.</p>
+                <div class="aset-group aset-danger">
+                    <div class="aset-row">
+                        <div class="aset-row-text">
+                            <span class="aset-row-title">Erase all data</span>
+                            <span class="aset-row-desc">Erases every client, project, and record. A backup file is downloaded first, and you must type RESET to confirm.</span>
+                        </div>
+                        <div class="aset-row-control"><button type="button" class="danger-button" id="setReset">Factory Reset</button></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+
+<script src="../../js/core/storage.js"></script>
+<script src="../../js/core/shell.js"></script>
+<script src="../../js/core/header-menu.js"></script>
+<script src="../../js/pages/settings.js"></script>
+<script src="../../js/core/settings-layout.js"></script>
+<script src="../../js/core/navigation.js"></script>
+</body>
+</html>

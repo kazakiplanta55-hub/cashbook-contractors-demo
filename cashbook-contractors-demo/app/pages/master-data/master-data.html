@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../demo-shim.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Data | Cashbook for Contractors</title>
+    <script src="../../js/core/theme.js"></script>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/print-preview.css">
+    <link rel="stylesheet" href="../../css/print-preview-fixes.css">
+    <link rel="stylesheet" href="../../css/shell.css">
+    <link rel="stylesheet" href="../../css/portal.css">
+    <link rel="stylesheet" href="../../css/master-data.css">
+    <link rel="stylesheet" href="../../css/design-system.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <img src="../../assets/logo/logo.png" alt="Cashbook for Contractors">
+        <div>
+            <h2>Cashbook for Contractors</h2>
+            <p>Master Data</p>
+        </div>
+    </div>
+
+    <button type="button" class="back-button" data-href="../dashboard/dashboard.html">
+        &larr; Dashboard
+    </button>
+</header>
+
+<main class="container">
+    <section class="form-card">
+        <h2>Master Data</h2>
+        <p style="color: var(--muted); margin-bottom: 18px;">Every client and their projects, in one list. This page is view-only: use View details on any client for a full summary you can print. New client profiles are created in Client Portal.</p>
+
+        <div class="ledger-toolbar">
+            <label class="form-field"><span>Search</span><input id="mdSearch" type="search" placeholder="Client, business, project, or site" autocomplete="off"></label>
+            <label class="form-field"><span>Project status</span>
+                <select id="mdStatus">
+                    <option value="all">All statuses</option>
+                    <option value="Ongoing">Ongoing</option>
+                    <option value="On Hold">On Hold</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Archived">Archived projects</option>
+                </select>
+            </label>
+            <label class="form-field"><span>Sort by</span>
+                <select id="mdSort">
+                    <option value="client">Client name (A to Z)</option>
+                    <option value="latest">Newest project first</option>
+                </select>
+            </label>
+            <button type="button" class="secondary-button" id="mdPrint">Print</button>
+        </div>
+
+        <p id="mdCount" class="md-count"></p>
+
+        <div class="ledger-wrap"><table class="ledger-table md-table"><thead><tr>
+            <th>Project</th><th>Status</th><th class="num">Progress</th><th>Start</th><th>Target end</th>
+            <th class="num">Budget</th><th class="num">Income</th><th class="num">Expenses</th>
+        </tr></thead><tbody id="mdBody"></tbody></table></div>
+
+        <p id="mdEmpty" class="empty-state" hidden></p>
+        <p class="pt-note">Income and Expenses are the entries recorded in each project. Reversed entries are left out.</p>
+    </section>
+</main>
+
+<div class="md-popup-overlay" id="mdPopup" hidden>
+    <section class="md-popup" role="dialog" aria-modal="true" aria-labelledby="mdPopupTitle">
+        <div class="md-popup-bar">
+            <strong>Client details</strong>
+            <div class="md-popup-actions">
+                <button type="button" class="primary-button" id="mdPopupPrint">Print</button>
+                <button type="button" class="secondary-button" id="mdPopupClose">Close</button>
+            </div>
+        </div>
+        <div class="md-popup-body" id="mdPopupBody"></div>
+    </section>
+</div>
+
+<script src="../../js/core/storage.js"></script>
+<script src="../../js/core/project-summary.js"></script>
+<script src="../../js/core/master-data-core.js"></script>
+<script src="../../js/core/shell.js"></script>
+<script src="../../js/pages/master-data.js"></script>
+<script src="../../js/core/header-menu.js"></script>
+<script src="../../assets/vendor/pdf.min.js"></script>
+<script src="../../js/print-preview.js"></script>
+<script src="../../js/core/navigation.js"></script>
+</body>
+</html>

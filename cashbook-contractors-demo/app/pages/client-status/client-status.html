@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../demo-shim.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Portal | Cashbook for Contractors</title>
+    <script src="../../js/core/theme.js"></script>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/print-preview.css">
+    <link rel="stylesheet" href="../../css/print-preview-fixes.css">
+    <link rel="stylesheet" href="../../css/shell.css">
+    <link rel="stylesheet" href="../../css/portal.css">
+    <link rel="stylesheet" href="../../css/design-system.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <img src="../../assets/logo/logo.png" alt="Cashbook for Contractors">
+        <div>
+            <h2>Cashbook for Contractors</h2>
+            <p>Client Portal</p>
+        </div>
+    </div>
+
+    <button type="button" class="back-button" data-href="../client-portal/client-portal.html">
+        &larr; Switch client
+    </button>
+</header>
+
+<main class="container pt-portal" id="portalRoot">
+    <div id="portalHead"></div>
+    <div class="pt-tabs" role="tablist" aria-label="Client portal sections" id="portalTabs"></div>
+    <div id="portalPanel" role="tabpanel"></div>
+</main>
+<div id="portalModalHost"></div>
+
+<script src="../../js/core/storage.js"></script>
+<script src="../../js/core/workspace-core.js"></script>
+<script src="../../js/core/project-summary.js"></script>
+<script src="../../js/core/client-brand.js"></script>
+<script src="../../js/core/shell.js"></script>
+<script src="../../js/pages/client-status.js"></script>
+<script src="../../js/core/navigation.js"></script>
+</body>
+</html>

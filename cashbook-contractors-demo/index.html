@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cashbook for Contractors — Live Demo</title>
+<style>
+  :root{--bar:#14202b;--bar2:#1c2d3b;--accent:#f0a020;--accent2:#ffb93f;--ink:#e8eef3;--mut:#9fb0bf}
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Inter,"Segoe UI",system-ui,Arial,sans-serif;background:#e9edf0}
+  body{display:flex;flex-direction:column}
+  .bar{flex:0 0 auto;display:flex;align-items:center;gap:14px;padding:8px 16px;background:linear-gradient(90deg,var(--bar),var(--bar2));color:var(--ink);box-shadow:0 2px 8px rgba(0,0,0,.25);z-index:5}
+  .bar img{height:34px;width:auto;border-radius:6px;background:#fff;padding:2px}
+  .brand{display:flex;flex-direction:column;line-height:1.15}
+  .brand b{font-size:15px;letter-spacing:.2px}.brand small{color:var(--mut);font-size:11.5px}
+  .pill{display:inline-flex;align-items:center;gap:7px;background:rgba(240,160,32,.14);color:var(--accent2);border:1px solid rgba(240,160,32,.45);border-radius:999px;padding:5px 12px;font-size:12px;font-weight:600;white-space:nowrap}
+  .pill i{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 rgba(240,160,32,.7);animation:pulse 2s infinite}
+  @keyframes pulse{70%{box-shadow:0 0 0 7px rgba(240,160,32,0)}100%{box-shadow:0 0 0 0 rgba(240,160,32,0)}}
+  .sp{flex:1}
+  .btn{appearance:none;border:1px solid rgba(255,255,255,.28);background:transparent;color:var(--ink);font:600 13px inherit;font-family:inherit;padding:8px 14px;border-radius:8px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+  .btn:hover{background:rgba(255,255,255,.1)}
+  .btn.dirty{border-color:var(--accent);color:var(--accent2)}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#1b1305}
+  .btn.primary:hover{background:var(--accent2)}
+  .stage{flex:1 1 auto;position:relative;min-height:0}
+  iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
+  .modal{position:fixed;inset:0;background:rgba(10,18,26,.66);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;z-index:20;padding:16px}
+  .modal[hidden]{display:none}
+  .card{background:#fff;color:#1d2a35;max-width:560px;width:100%;border-radius:16px;padding:28px 30px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+  .card .logo{height:54px;margin-bottom:10px}
+  .card h2{margin:0 0 6px;font-size:22px}
+  .card p{margin:8px 0;line-height:1.5;color:#41525f;font-size:14.5px}
+  .card ul{margin:10px 0 14px;padding-left:20px;color:#41525f;font-size:14px;line-height:1.55}
+  .card .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .card .btn{border-color:#c5d0d8;color:#1d2a35}.card .btn:hover{background:#eef2f5}
+  .card .btn.primary{background:var(--accent);border-color:var(--accent);color:#1b1305}
+  .note{font-size:12px;color:#6b7c89;margin-top:14px}
+  .mobile{display:none;background:#fff4dc;color:#6a4a00;padding:8px 14px;font-size:12.5px;border-bottom:1px solid #ecd9a8}
+  @media(max-width:900px){.mobile{display:block}.pill span.long{display:none}.brand small{display:none}.btn .lbl{display:none}}
+</style>
+</head>
+<body>
+<div class="bar">
+  <img src="demo/logo.png" alt="">
+  <div class="brand"><b>Cashbook for Contractors</b><small>Interactive demo — Rosenito &amp; Rhomalyn Planta</small></div>
+  <span class="pill"><i></i><span>DEMO MODE<span class="long"> · changes are not saved</span></span></span>
+  <div class="sp"></div>
+  <button class="btn" id="btnGuide" title="What can I try?">❔ <span class="lbl">What can I try?</span></button>
+  <button class="btn" id="btnReset" title="Restore the original sample data">↺ <span class="lbl">Reset demo</span></button>
+  <a class="btn primary" id="btnDownload" href="https://drive.google.com/drive/folders/1VavB53O3_KIGGqQ6bSFGcQhKVecyN5Ca?usp=drive_link" target="_blank" rel="noopener">⬇ <span class="lbl">Download full version</span></a>
+</div>
+<div class="mobile">This program is designed for a desktop or laptop screen. For the best demo experience, open this page on a computer.</div>
+<div class="stage"><iframe id="app" title="Cashbook for Contractors demo" src="about:blank"></iframe></div>
+
+<div class="modal" id="welcome">
+  <div class="card">
+    <img class="logo" src="demo/logo.png" alt="Cashbook">
+    <h2>Try Cashbook for Contractors — no install needed</h2>
+    <p>This is the real program running in your browser, loaded with a sample construction business: <b>3 clients, 4 projects</b>, payroll, purchase orders, cheques, progress schedules and HR files.</p>
+    <ul>
+      <li>Add, edit and delete anything. Every feature works.</li>
+      <li><b>Nothing is saved.</b> When you press <i>Reset demo</i>, refresh, or close the tab, everything returns to the original sample data.</li>
+      <li>Tip: open <b>Client Portal</b> → pick a client → <b>Projects</b> → <b>Open</b> to enter a project workspace.</li>
+    </ul>
+    <div class="row">
+      <button class="btn primary" id="btnStart">Start exploring</button>
+      <a class="btn" href="https://drive.google.com/drive/folders/1VavB53O3_KIGGqQ6bSFGcQhKVecyN5Ca?usp=drive_link" target="_blank" rel="noopener">⬇ Download full version</a>
+    </div>
+    <div class="note">The full version installs on Windows and keeps your data on your computer.</div>
+  </div>
+</div>
+
+<div class="modal" id="guide" hidden>
+  <div class="card">
+    <h2>What can I try?</h2>
+    <ul>
+      <li><b>Dashboard &amp; Portfolio</b> — budget summary, timeline status, planned vs actual progress.</li>
+      <li><b>Client Portal</b> — pick a client, then <b>Projects → Open</b> to enter the project workspace.</li>
+      <li><b>Inside a project</b> — Income &amp; Expenses, Materials &amp; Procurement (purchase orders, installments, stock), Payroll (daily timesheet), Project 201 Files, Progress &amp; Timeline, S-Curve &amp; Forecast, Cheque Register.</li>
+      <li><b>Human Resources</b> — company 201 files and required-document checklists.</li>
+      <li><b>Print</b> — press the print button on any page for the print preview, print area and signature block.</li>
+      <li><b>Data Transfer</b> — export an Excel/backup file; it downloads to your computer, but nothing is kept in the demo.</li>
+    </ul>
+    <div class="row"><button class="btn primary" id="btnGuideClose">Got it</button><button class="btn" id="btnGuideReset">Reset demo</button></div>
+  </div>
+</div>
+
+<div class="modal" id="blocked" hidden>
+  <div class="card">
+    <h2>Please open this demo from a web address</h2>
+    <p>This page was opened directly from a file on your computer, and browsers block the demo from running that way. Upload the folder to any web host (for example GitHub Pages, Netlify or your own website), or run a small local server, then open the page again.</p>
+  </div>
+</div>
+
+<script src="demo/html2canvas.min.js"></script>
+<script src="demo/seed.js"></script>
+<script src="demo/print-bridge.js"></script>
+<script>
+"use strict";
+(function () {
+    if (location.protocol === "file:") { document.getElementById("blocked").hidden = false; document.getElementById("welcome").hidden = true; return; }
+    const mem = () => { const m = new Map(); return { getItem: (k) => (m.has(String(k)) ? m.get(String(k)) : null), setItem: (k, v) => { m.set(String(k), String(v)); }, removeItem: (k) => { m.delete(String(k)); }, clear: () => m.clear(), key: (i) => ([...m.keys()][i] ?? null), get length() { return m.size; } }; };
+    const D = { data: {}, local: mem(), session: mem(), dirty: false };
+    const btnReset = document.getElementById("btnReset"), frame = document.getElementById("app");
+    D.touch = () => { if (!D.dirty) { D.dirty = true; btnReset.classList.add("dirty"); } };
+    function seed() {
+        const s = window.CBDEMO_SEED();
+        D.data = { contractors_clients: s.clients, contractors_projects: s.projects, contractors_company_201: s.company201 };
+        Object.entries(s.docs).forEach(([id, dataUrl]) => { D.data["contractors_doc_" + id.replace(/[^a-z0-9]/gi, "_")] = { id, dataUrl }; });
+        D.local.clear(); D.session.clear(); D.dirty = false; btnReset.classList.remove("dirty");
+    }
+    window.__CBDEMO = D;
+    seed();
+    const START = "app/pages/dashboard/dashboard.html";
+    frame.src = START;
+    function reset() { seed(); frame.src = "about:blank"; setTimeout(() => { frame.src = START; }, 30); }
+    btnReset.addEventListener("click", () => { if (!D.dirty || confirm("Reset the demo? Everything you changed will go back to the original sample data.")) reset(); });
+    const show = (id, on) => { document.getElementById(id).hidden = !on; };
+    document.getElementById("btnStart").addEventListener("click", () => show("welcome", false));
+    document.getElementById("btnGuide").addEventListener("click", () => show("guide", true));
+    document.getElementById("btnGuideClose").addEventListener("click", () => show("guide", false));
+    document.getElementById("btnGuideReset").addEventListener("click", () => { show("guide", false); reset(); });
+})();
+</script>
+</body>
+</html>

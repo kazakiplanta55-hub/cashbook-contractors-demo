@@ -1,0 +1,47 @@
+/* Income & Expense page (bento). Builds on bento.css and materials-page.css. Palette variables only. */
+
+.bn-tile.negative::before { background: var(--negative); }
+.bn-tile.negative strong { color: var(--negative); }
+.bn-tile.positive strong { color: var(--positive); }
+.bn-tile.warn.over strong { color: var(--negative); }
+
+/* ---- Cash flow chart ---- */
+.ie-legend { display: flex; align-items: center; gap: 14px; font-size: 12.5px; color: var(--muted); }
+.ie-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.ie-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; }
+.ie-chart { position: relative; width: 100%; }
+.ie-chart canvas { display: block; width: 100%; height: auto; }
+
+/* ---- Add entry form ---- */
+.ie-form { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.ie-form .mp-span { grid-column: 1 / -1; }
+.ie-form .form-field[hidden] { display: none !important; }
+.ie-form .form-field > span { font-size: 12.5px; font-weight: 600; color: var(--muted); }
+.ie-form .form-field input, .ie-form .form-field select { background: var(--card-bg); font-size: 13.5px; min-width: 0; }
+#ieAdd .form-actions { margin-top: 16px; }
+#ieAdd .form-actions .primary-button { width: 100%; }
+@media (max-width: 520px) { .ie-form { grid-template-columns: 1fr; } }
+
+/* ---- Entries table ---- */
+#ieEntries .bn-title { display: flex; align-items: center; gap: 8px; }
+.ie-table { box-shadow: none; border-radius: 0; background: transparent; }
+.ie-table td { vertical-align: middle; }
+.ie-table td small { display: block; margin-top: 2px; font-size: 12px; color: var(--muted); }
+.ie-table .ie-date { white-space: nowrap; color: var(--muted); font-weight: 600; }
+.ie-table .ie-desc { min-width: 200px; color: var(--ink); font-weight: 600; }
+.ie-table .ie-amt { font-weight: 700; }
+.ie-table .ie-amt.in { color: var(--positive); }
+.ie-table .ie-amt.out { color: var(--negative); }
+.ie-table tr.is-reversed td { opacity: .6; }
+.ie-table .mp-row-actions { justify-content: flex-end; }
+#ieTableWrap[hidden] { display: none !important; }
+
+/* Cards in the chart / form row share one height */
+.ie .bn-grid { align-items: stretch; }
+.ie-chart { display: flex; align-items: center; min-height: 240px; }
+.ie-table td small { font-weight: 400; }
+
+/* Show reversed tickbox */
+.ie-check { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--ink); cursor: pointer; user-select: none; }
+.ie-check input { width: 16px; height: 16px; margin: 0; accent-color: var(--brand-primary); cursor: pointer; }
+.ie-check small { color: var(--muted); font-weight: 500; }

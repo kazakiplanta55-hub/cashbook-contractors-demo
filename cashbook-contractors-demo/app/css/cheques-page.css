@@ -1,0 +1,29 @@
+/* Cheque Tracker (bento). Builds on bento.css. Palette variables only. */
+.cq-toolbar { padding: 14px 18px; }
+.cq-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.cq-search { flex: 1 1 240px; min-width: 200px; margin: 0; }
+#chequeFormCard[hidden] { display: none !important; }
+#chequeFormCard .form-actions { margin-top: 14px; }
+
+.cq-list { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.cq-list:empty { display: none; }
+.cq-item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 14px; align-items: center; padding: 12px 14px; border-top: 1px solid var(--line); box-shadow: inset 3px 0 0 transparent; }
+.cq-item:first-child { border-top: 0; }
+.cq-item.is-matured { box-shadow: inset 3px 0 0 var(--negative); background: rgba(196, 70, 60, .06); }
+.cq-item.is-near { box-shadow: inset 3px 0 0 var(--brand-accent); }
+.cq-item.is-bounced { box-shadow: inset 3px 0 0 var(--negative); }
+.cq-item.is-cleared { opacity: .72; }
+.cq-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; min-width: 0; }
+.cq-party { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink); font-size: 13.5px; }
+.cq-amt { font-weight: 700; font-variant-numeric: tabular-nums; color: var(--ink); font-size: 14px; white-space: nowrap; }
+.cq-sub { margin-top: 2px; font-size: 12.5px; color: var(--muted); }
+.cq-due { margin-left: 6px; font-weight: 600; }
+.cq-due.bad { color: var(--negative); }
+.cq-due.warn { color: var(--brand-accent); }
+.cq-due.ok { color: var(--positive); }
+.cq-note { margin-top: 3px; font-size: 12px; color: var(--muted); font-style: italic; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cq-side { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.cq-acts { display: flex; gap: 6px; }
+.cq-acts button { padding: 3px 11px; font-size: 12px; }
+.cq-acts button[disabled] { opacity: .45; cursor: not-allowed; }
+@media (max-width: 560px) { .cq-item { grid-template-columns: 1fr; } .cq-side { flex-direction: row; align-items: center; justify-content: space-between; } }

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../demo-shim.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income & Expenses | Cashbook for Contractors</title>
+    <script src="../../js/core/theme.js"></script>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/print-preview.css">
+    <link rel="stylesheet" href="../../css/print-preview-fixes.css">
+    <link rel="stylesheet" href="../../css/shell.css">
+    <link rel="stylesheet" href="../../css/materials-page.css">
+    <link rel="stylesheet" href="../../css/bento.css">
+    <link rel="stylesheet" href="../../css/income-expense-page.css">
+    <link rel="stylesheet" href="../../css/design-system.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <img src="../../assets/logo/logo.png" alt="Cashbook for Contractors">
+        <div>
+            <h2 id="projectTitle">Project</h2>
+            <p id="projectClientName">Income & Expenses</p>
+        </div>
+    </div>
+
+    <a href="../project-detail/project-detail.html" class="back-button" data-project-link>
+        &larr; Back to Project
+    </a>
+</header>
+
+<main class="container mp ie bn-page">
+
+    <nav class="mp-nav" aria-label="On this page">
+        <a href="#ieOverview">Overview</a>
+        <a href="#ieCashFlow">Cash Flow</a>
+        <a href="#ieAdd">Add Entry</a>
+        <a href="#ieEntries">Entries</a>
+    </nav>
+
+    <!-- Overview -->
+    <section id="ieOverview" class="bn-tiles" aria-label="Income and expense summary">
+        <div class="bn-tile">
+            <span class="bn-tile-label">Budget</span>
+            <strong id="projectBudget">₱0.00</strong>
+            <small>Contract budget</small>
+        </div>
+        <div class="bn-tile positive">
+            <span class="bn-tile-label">Income recorded</span>
+            <strong id="projectIncome">₱0.00</strong>
+            <small id="ieIncomeNote">Nothing received yet</small>
+        </div>
+        <div class="bn-tile negative">
+            <span class="bn-tile-label">Expenses recorded</span>
+            <strong id="projectExpense">₱0.00</strong>
+            <small id="ieExpenseNote">Nothing spent yet</small>
+        </div>
+        <div class="bn-tile warn">
+            <span class="bn-tile-label">Remaining budget</span>
+            <strong id="projectRemaining">₱0.00</strong>
+            <small id="ieRemainingNote">Budget less expenses</small>
+        </div>
+    </section>
+
+    <div class="bn-grid">
+
+        <!-- Cash Flow chart -->
+        <section id="ieCashFlow" class="bn-card bn-span-7">
+            <div class="bn-head">
+                <div>
+                    <h2 class="bn-title">Cash Flow</h2>
+                    <p class="bn-sub">Income and expenses for each month.</p>
+                </div>
+                <div class="ie-legend" aria-label="Chart legend">
+                    <span><i style="background: var(--positive);"></i>Income</span>
+                    <span><i style="background: var(--negative);"></i>Expense</span>
+                </div>
+            </div>
+            <div class="ie-chart">
+                <canvas id="cashFlowChart" width="1000" height="300" role="img" aria-label="Income versus expense by month"></canvas>
+            </div>
+        </section>
+
+        <!-- Add Entry -->
+        <section id="ieAdd" class="bn-card bn-span-5">
+            <div class="bn-head">
+                <div>
+                    <h2 class="bn-title">Add Entry</h2>
+                    <p class="bn-sub">Record money received or spent on this project.</p>
+                </div>
+            </div>
+
+            <form id="entryForm">
+                <div class="form-grid ie-form">
+                    <label class="form-field">
+                        <span>Type *</span>
+                        <select id="entryType" required>
+                            <option value="income">Income</option>
+                            <option value="expense">Expense</option>
+                        </select>
+                    </label>
+
+                    <label class="form-field">
+                        <span>Date *</span>
+                        <input id="entryDate" type="date" required>
+                    </label>
+
+                    <label class="form-field" id="incomeCategoryField">
+                        <span>Category</span>
+                        <select id="incomeCategory">
+                            <option value="Billed">Billed to Client</option>
+                            <option value="Down Payment">Down Payment</option>
+                            <option value="Progress Payment">Progress Payment</option>
+                            <option value="Final Payment">Final Payment</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </label>
+
+                    <label class="form-field" id="expenseCategoryField" hidden>
+                        <span>Category</span>
+                        <select id="expenseCategory">
+                            <option value="Labor">Labor</option>
+                            <option value="Materials">Materials</option>
+                            <option value="Equipment">Equipment</option>
+                            <option value="Permits">Permits</option>
+                            <option value="Subcontractor">Subcontractor</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </label>
+
+                    <label class="form-field">
+                        <span>Amount (₱) *</span>
+                        <input id="entryAmount" type="number" min="0" step="0.01" required>
+                    </label>
+
+                    <label class="form-field mp-span">
+                        <span>Description *</span>
+                        <input id="entryDescription" type="text" required autocomplete="off">
+                    </label>
+
+                    <label class="form-field mp-span">
+                        <span>Reference No.</span>
+                        <input id="entryReference" type="text" autocomplete="off">
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="primary-button">Save Entry</button>
+                </div>
+
+                <p id="entryFormMessage" class="bn-msg err" aria-live="polite"></p>
+            </form>
+        </section>
+
+        <!-- Entries -->
+        <section id="ieEntries" class="bn-card">
+            <div class="bn-head">
+                <div>
+                    <h2 class="bn-title">Entries <span id="ieCount" class="bn-chip info">0</span></h2>
+                    <p class="bn-sub">Newest first. Posted entries are never deleted; use Reverse to correct one. Reversed entries stay in the audit trail and are hidden unless you tick Show reversed.</p>
+                </div>
+                <div class="bn-actions">
+                    <label class="ie-check" for="ieShowReversed">
+                        <input type="checkbox" id="ieShowReversed">
+                        <span>Show reversed <small id="ieReversedCount"></small></span>
+                    </label>
+                    <div class="bn-seg" role="group" aria-label="Filter entries">
+                        <button type="button" data-filter="all" aria-pressed="true">All</button>
+                        <button type="button" data-filter="income" aria-pressed="false">Income</button>
+                        <button type="button" data-filter="expense" aria-pressed="false">Expense</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mp-table-wrap" id="ieTableWrap">
+                <table class="mp-table ie-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Reference</th>
+                            <th class="mp-num">Amount</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="entryTableBody"></tbody>
+                </table>
+            </div>
+
+            <p id="entryEmptyState" class="bn-empty" hidden>
+                No income or expense entries recorded yet.
+            </p>
+        </section>
+
+    </div>
+
+    <p id="notFoundState" class="empty-state" hidden>
+        Project not found. It may have been deleted.
+    </p>
+
+</main>
+
+<script src="../../js/core/storage.js"></script>
+<script src="../../js/core/workspace-core.js"></script>
+<script src="../../js/core/client-brand.js"></script>
+<script src="../../js/core/shell.js"></script>
+<script src="../../js/pages/income-expense.js"></script>
+<script src="../../js/core/header-menu.js"></script>
+<script src="../../assets/vendor/pdf.min.js"></script>
+<script src="../../js/print-preview.js"></script>
+<script src="../../js/core/navigation.js"></script>
+</body>
+</html>

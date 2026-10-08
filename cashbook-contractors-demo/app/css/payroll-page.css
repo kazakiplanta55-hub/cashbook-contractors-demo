@@ -1,0 +1,91 @@
+/* Payroll page (bento). Builds on bento.css and materials-page.css. Palette variables only. */
+.py-rate-summary { align-self: end; margin: 0 0 10px; color: var(--muted); font-size: 13px; }
+.py-extra-btn { margin-top: 14px; }
+.py-extra { margin-top: 14px; }
+.py-extra[hidden] { display: none !important; }
+.py .form-actions { margin-top: 14px; }
+.ts-formtitle { margin: 0 0 14px; font-size: 14px; color: var(--ink); }
+.py-posted { display: block; color: var(--positive); font-weight: 700; font-size: 12px; }
+@media print { .py .mp-nav, .py .bn-card:not(#pyLog) { display: none !important; } }
+
+/* ---- Daily timesheet ---- */
+.ts-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 14px; margin-bottom: 12px; }
+.ts-date { display: flex; align-items: center; gap: 6px; }
+.ts-date input { width: auto; min-width: 150px; margin: 0; }
+.ts-date .secondary-button { padding: 6px 12px; line-height: 1; font-size: 16px; }
+.ts-rows { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.ts-rows:empty { display: none; }
+.ts-row { display: grid; grid-template-columns: minmax(130px, 1fr) auto 70px 70px 90px; align-items: center; gap: 10px 10px; padding: 10px 14px; border-top: 1px solid var(--line); }
+.ts-row:first-child { border-top: 0; }
+.ts-row.is-set { background: rgba(79, 143, 196, .07); }
+.ts-row.is-locked { background: rgba(128, 128, 128, .06); }
+.ts-who { min-width: 0; }
+.ts-who strong { display: block; font-size: 13.5px; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ts-who small { display: block; font-size: 12px; color: var(--muted); }
+.ts-who small.bad { color: var(--brand-accent); font-weight: 600; }
+.ts-ot { display: flex; flex-direction: column; gap: 2px; margin: 0; }
+.ts-ot span { font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+.ts-ot input { width: 100%; margin: 0; padding: 5px 8px; font-size: 13px; text-align: right; }
+.ts-pay { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--ink); font-size: 13.5px; }
+.ts-pay.zero { color: var(--muted); font-weight: 500; }
+.ts-locked-info { grid-column: 2 / 5; text-align: right; font-size: 12.5px; color: var(--muted); }
+.ts-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; margin-top: 14px; }
+.ts-total { display: flex; align-items: baseline; gap: 12px; font-size: 13px; color: var(--muted); }
+.ts-total strong { font-size: 20px; color: var(--ink); font-variant-numeric: tabular-nums; }
+@media (max-width: 700px) {
+    .ts-row { grid-template-columns: 1fr 1fr 1fr; }
+    .ts-who { grid-column: 1 / -1; }
+    .ts-days { grid-column: 1 / -1; }
+    .ts-days button { flex: 1; }
+}
+
+/* ---- Cash Out ---- */
+.co-presets { margin-bottom: 12px; flex-wrap: wrap; }
+.co-dates { margin-bottom: 12px; }
+.co-dates .form-field { flex: 1 1 140px; }
+.co-preview { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding: 12px 14px; margin-bottom: 14px; border: 1px dashed var(--line); border-radius: 12px; font-size: 13px; color: var(--muted); }
+.co-preview strong { font-size: 18px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.co-post { width: 100%; }
+
+/* ---- Payroll log (Gmail-style) ---- */
+.lg-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-bottom: 12px; }
+.lg-search { flex: 1 1 220px; min-width: 180px; margin: 0; }
+.lg-pager { display: flex; align-items: center; gap: 6px; margin-left: auto; font-size: 12.5px; color: var(--muted); }
+.lg-pager .secondary-button { padding: 5px 12px; line-height: 1; font-size: 16px; }
+.lg-pager .secondary-button[disabled] { opacity: .4; cursor: not-allowed; }
+.lg-list { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.lg-list:empty { display: none; }
+.lg-item { border-top: 1px solid var(--line); }
+.lg-item:first-child { border-top: 0; }
+.lg-item.open { background: rgba(79, 143, 196, .05); box-shadow: inset 3px 0 0 var(--brand-primary); }
+.lg-row { display: grid; grid-template-columns: 18px 92px minmax(0, 1fr) auto 84px; align-items: center; gap: 12px; width: 100%; padding: 11px 14px; border: 0; background: transparent; color: var(--ink); font: inherit; text-align: left; cursor: pointer; }
+.lg-row:hover { background: rgba(79, 143, 196, .07); }
+.lg-row:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: -2px; }
+.lg-chev { color: var(--muted); font-size: 11px; transition: transform .15s ease; }
+.lg-item.open .lg-chev { transform: rotate(90deg); color: var(--brand-primary); }
+.lg-date { font-size: 12.5px; font-weight: 600; color: var(--muted); white-space: nowrap; }
+.lg-main { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13.5px; }
+.lg-main strong { color: var(--ink); }
+.lg-snip { color: var(--muted); font-size: 12.5px; margin-left: 8px; }
+.lg-amt { font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; font-size: 13.5px; }
+.lg-state { text-align: right; }
+.lg-panel { padding: 4px 16px 16px 44px; }
+.lg-panel[hidden] { display: none; }
+.lg-parts { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 12px; }
+.lg-part { padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--card-bg); }
+.lg-part span { display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+.lg-part strong { display: block; margin-top: 2px; font-size: 14px; font-variant-numeric: tabular-nums; color: var(--ink); }
+.lg-part small { display: block; font-size: 11.5px; color: var(--muted); }
+.lg-part.total { border-color: var(--brand-primary); }
+.lg-note { margin: 0 0 12px; font-size: 13px; color: var(--ink); }
+.lg-note span { color: var(--muted); }
+.lg-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.lg-actions button { padding: 5px 14px; font-size: 12.5px; }
+.lg-actions button[disabled] { opacity: .5; cursor: not-allowed; }
+@media (max-width: 760px) {
+    .lg-row { grid-template-columns: 16px 1fr auto; }
+    .lg-date { grid-column: 2; }
+    .lg-main { grid-column: 2 / 4; grid-row: 2; }
+    .lg-state { display: none; }
+    .lg-panel { padding-left: 16px; }
+}

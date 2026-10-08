@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../demo-shim.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Guide | Cashbook for Contractors</title>
+    <script src="../../js/core/theme.js"></script>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/print-preview.css">
+    <link rel="stylesheet" href="../../css/print-preview-fixes.css">
+    <link rel="stylesheet" href="../../css/shell.css">
+    <link rel="stylesheet" href="../../css/guide.css">
+    <link rel="stylesheet" href="../../css/design-system.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <img src="../../assets/logo/logo.png" alt="Cashbook for Contractors">
+        <div>
+            <h2>Cashbook for Contractors</h2>
+            <p>User Guide</p>
+        </div>
+    </div>
+    <button type="button" class="back-button" data-back>&larr; Back</button>
+</header>
+
+<main class="container gd-page">
+    <section class="gd-hero">
+        <h1>How to use Cashbook for Contractors</h1>
+        <p>A step-by-step guide, from your first client to your monthly backup. Use the list on the left to jump to a topic, or search for a word such as <em>cheque</em>, <em>payroll</em> or <em>backup</em>.</p>
+        <label class="gd-search"><span class="gd-sr">Search the guide</span><input id="gdSearch" type="search" placeholder="Search the guide..." autocomplete="off"></label>
+        <p id="gdCount" class="gd-count" role="status"></p>
+    </section>
+
+    <div class="gd-layout">
+        <nav class="gd-toc" id="gdToc" aria-label="Guide topics">
+            <strong>Topics</strong>
+            <a href="#start">Quick start</a>
+            <a href="#layout">Finding your way</a>
+            <a href="#clients">Clients &amp; Client Portal</a>
+            <a href="#projects">Projects</a>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#crew">Crew &amp; pay rates</a>
+            <a href="#payroll">Payroll</a>
+            <a href="#income">Income &amp; Expenses</a>
+            <a href="#materials">Materials &amp; Purchase Orders</a>
+            <a href="#cheques">Cheque Register</a>
+            <a href="#progress">Progress &amp; Timeline</a>
+            <a href="#scurve">S-Curve &amp; Forecast</a>
+            <a href="#hr">Human Resources</a>
+            <a href="#master">Master Data</a>
+            <a href="#transfer">Data Transfer</a>
+            <a href="#backup">Backup &amp; Settings</a>
+            <a href="#print">Printing &amp; PDF</a>
+            <a href="#faq">Common questions</a>
+        </nav>
+
+        <div class="gd-main" id="gdMain">
+
+            <section class="gd-sec" id="start">
+                <h2>Quick start</h2>
+                <p>Follow these eight steps once and the rest of the app will make sense.</p>
+                <ol class="gd-steps">
+                    <li><strong>Create the client.</strong> Sidebar <span class="gd-where">Records &rsaquo; Client Portal</span>, press <b>Create New Profile</b>, fill in the name (required) and <b>Save Client</b>.</li>
+                    <li><strong>Add the project.</strong> Open the client, go to the <b>Projects</b> tab and press <b>+ Add project</b>. Enter the name, budget and start date.</li>
+                    <li><strong>Open the project.</strong> In the Projects tab press <b>Open</b> on the project. The sidebar now shows a <b>Current Project</b> menu.</li>
+                    <li><strong>Add your crew and their pay rates.</strong> <span class="gd-where">Project 201 Files</span> &rsaquo; <b>Add Person</b>. Fill in the daily, hourly and OT rates.</li>
+                    <li><strong>Set up the Program of Works.</strong> <span class="gd-where">Progress &amp; Timeline</span> &rsaquo; <b>Add Program of Work</b>, then add items with planned start and finish dates.</li>
+                    <li><strong>Record the money.</strong> Payroll each day, then payments received and expenses in <span class="gd-where">Income &amp; Expenses</span>.</li>
+                    <li><strong>Check how you are doing.</strong> The <b>Dashboard</b> and <b>Portfolio</b> show budget, progress and what is due.</li>
+                    <li><strong>Back up.</strong> Gear icon &rsaquo; <b>Export Backup File</b>. Do this at least once a week.</li>
+                </ol>
+                <p class="gd-tip"><b>Tip:</b> when you are done with a project, press <b>Close Project</b> on the coloured card at the top of the sidebar.</p>
+            </section>
+
+            <section class="gd-sec" id="layout">
+                <h2>Finding your way</h2>
+                <ul>
+                    <li><b>Sidebar (left).</b> <i>Overview</i> has Dashboard and Portfolio. <i>Records</i> has Master Data, Client Portal and Human Resources. <i>Tools</i> has Settings, Data Transfer, User Guide and About.</li>
+                    <li><b>Inside a project.</b> The sidebar shows a coloured card with the client, project and project code, then the <b>Current Project</b> menu: Overview, Income &amp; Expenses, Materials &amp; Procurement, Payroll, Project 201 Files, Progress &amp; Timeline, S-Curve &amp; Forecast and Cheque Register.</li>
+                    <li><b>&#9776; button.</b> Collapses or opens the sidebar. The app remembers your choice.</li>
+                    <li><b>Gear icon (top right of each page).</b> Export Backup File, Restore Exported Backup, Print, Activity Log, Light/Dark Mode and Factory Reset.</li>
+                    <li><b>Dark mode.</b> Gear icon, or <span class="gd-where">Settings &rsaquo; Appearance</span>.</li>
+                </ul>
+                <p class="gd-note">Project pages open only from inside a client's portal. If you open one from an old bookmark, the app takes you to the Client Portal to pick the client first.</p>
+            </section>
+
+            <section class="gd-sec" id="clients">
+                <h2>Clients &amp; Client Portal</h2>
+                <p>The Client Portal is the door into a client. Everything for that client lives behind it.</p>
+                <h3>Create a client</h3>
+                <ol class="gd-steps">
+                    <li><span class="gd-where">Records &rsaquo; Client Portal</span> &rsaquo; <b>Create New Profile</b>.</li>
+                    <li>Enter the client name (required). Business name, contact number, email, TIN and address are optional. The TIN is used when you send data to the Accountant Edition.</li>
+                    <li>Optional: add a logo and pick a brand colour. The client's status page uses them.</li>
+                    <li>Press <b>Save Client</b>.</li>
+                </ol>
+                <h3>Open a client</h3>
+                <p>Type in <b>Find a client</b> or use the list, then press <b>Open Portal</b>. You get three tabs:</p>
+                <ul>
+                    <li><b>Status</b> is the client-facing view with progress and payments. It never shows your costs, and you can print it with <b>Print status</b>.</li>
+                    <li><b>Profile</b> lets you edit the details, logo and brand colour, or archive the client.</li>
+                    <li><b>Projects</b> lets you add, edit, archive or restore projects, and <b>Open</b> a project's full workspace.</li>
+                </ul>
+                <p class="gd-tip"><b>Tip:</b> archiving hides a client or project without deleting anything. You can restore it later.</p>
+            </section>
+
+            <section class="gd-sec" id="projects">
+                <h2>Projects</h2>
+                <ol class="gd-steps">
+                    <li>From the client's <b>Projects</b> tab press <b>+ Add project</b> (or use <span class="gd-where">Client Portal &rsaquo; Add / edit projects</span>).</li>
+                    <li>Choose the client. Fill in the project name, site address, budget, status, start date, target end date and notes. Name, budget and start date are required.</li>
+                    <li>Press <b>Save Project</b>. Each project gets a project code such as PRJ-2026-001.</li>
+                </ol>
+                <p>Status is Ongoing, On Hold or Completed. Change it any time by editing the project. The <b>Project Overview</b> page shows the budget, income recorded, expenses recorded, remaining budget, timeline and a short Recent Activity list.</p>
+            </section>
+
+            <section class="gd-sec" id="dashboard">
+                <h2>Dashboard</h2>
+                <p>Your daily view. Use <b>Client</b> to choose All Clients or one client, and <b>Featured project</b> to choose which project is shown (Auto picks the most recently active one). The figures follow your choice.</p>
+                <ul>
+                    <li><b>Featured project</b> with its progress and a <b>View Projects</b> button that lists every project with status and progress.</li>
+                    <li><b>Budget Summary</b>: Cash In, Cash Out, Collectibles (budget not yet paid) and Payables (unpaid PO installments and issued cheques not yet cleared). <b>Details</b> breaks it down by project.</li>
+                    <li><b>Timeline Status</b>: the real timeline against the contract timeline. <b>Details</b> shows each project.</li>
+                    <li><b>Due This Week</b>: what needs attention soon. Click an item to go to that project.</li>
+                </ul>
+            </section>
+
+            <section class="gd-sec" id="portfolio">
+                <h2>Portfolio</h2>
+                <p>All projects at a glance, side by side. <span class="gd-where">Overview &rsaquo; Portfolio</span>. Filter by client at the top.</p>
+                <ul>
+                    <li>Projects by status, number delayed, total budget and cost.</li>
+                    <li>Charts for status, budget distribution, monthly progress trend and planned against actual progress.</li>
+                    <li><b>SPI</b> (schedule performance) and <b>CPI</b> (cost performance). Above 1.0 is good; below 1.0 means behind schedule or over cost.</li>
+                    <li>An <b>All Projects</b> table at the bottom.</li>
+                </ul>
+            </section>
+
+            <section class="gd-sec" id="crew">
+                <h2>Crew &amp; pay rates (Project 201 Files)</h2>
+                <p>Payroll cannot be recorded for someone without a pay rate, so set the crew up first. <span class="gd-where">Current Project &rsaquo; Project 201 Files</span>.</p>
+                <ol class="gd-steps">
+                    <li>Press <b>Add Person</b>, or <b>Add from Company 201</b> to copy someone from Human Resources.</li>
+                    <li>Choose the worker type: <b>Worker</b>, <b>Employee</b> or <b>Subcontracted</b>. Subcontracted workers have no rank or 201 file.</li>
+                    <li>Under <b>Pay rates</b> enter the <b>Daily rate</b>, <b>Hourly rate</b> and <b>OT rate</b> (per hour).</li>
+                    <li>Optional: use <b>Role Hierarchy</b> and <b>Add Role</b> to list roles, top role first. The crew list follows that order.</li>
+                </ol>
+                <p>Press <b>Export to Excel</b> to download the crew list.</p>
+                <p class="gd-note">If you leave a rate empty, the app works it out: daily rate &divide; 8 for the hourly rate, and 125% of the hourly rate for overtime.</p>
+            </section>
+
+            <section class="gd-sec" id="payroll">
+                <h2>Payroll</h2>
+                <p><span class="gd-where">Current Project &rsaquo; Payroll</span>. Record each day, check the log, then post the pay to Cash Out.</p>
+                <h3>Record a day (Daily Timesheet)</h3>
+                <ol class="gd-steps">
+                    <li>Choose the date. Use the arrows to move one day.</li>
+                    <li>For each person tap <b>Absent</b>, <b>&frac12; Day</b> or <b>1 Day</b>. Add overtime hours if any. For a partial day type the regular <b>Hours</b> worked instead.</li>
+                    <li>Shortcuts: <b>Mark All Present</b> and <b>Same as Last Day</b>. <b>Clear</b> starts over.</li>
+                    <li>Press <b>Save Day</b>. Pay is calculated from each person's rates.</li>
+                </ol>
+                <p>A person can be recorded only once per date. To add extra pay or deductions for someone, use the <b>Single Entry</b> tab.</p>
+                <h3>Payroll Log</h3>
+                <p>Entries are listed 30 per page, newest first. Click a row to see its pay breakdown. Search by worker, date or note, and filter by <b>All</b>, <b>Unposted</b> or <b>Posted</b>. <b>Expand Page</b> opens every row.</p>
+                <h3>Pay the crew (post to Cash Out)</h3>
+                <ol class="gd-steps">
+                    <li>In the Cash Out card choose a period: <b>This Week</b>, <b>Last Week</b>, <b>1st&ndash;15th</b> or <b>16th&ndash;End</b>, or pick your own dates.</li>
+                    <li>Check the preview.</li>
+                    <li>Press <b>Post Payroll to Cash Out</b>. The payroll is added to your expenses once, so it cannot be counted twice.</li>
+                </ol>
+            </section>
+
+            <section class="gd-sec" id="income">
+                <h2>Income &amp; Expenses</h2>
+                <p><span class="gd-where">Current Project &rsaquo; Income &amp; Expenses</span>. This is the project's cashbook.</p>
+                <ol class="gd-steps">
+                    <li>Press <b>Add Entry</b> and choose <b>Income</b> or <b>Expense</b>.</li>
+                    <li>Enter the date, amount, description and a reference number (such as an OR or invoice number).</li>
+                    <li>Pick a category. Income: Billed to Client, Down Payment, Progress Payment, Final Payment, Other. Expense: Labor, Materials, Equipment, Permits, Subcontractor, Other.</li>
+                    <li>Press <b>Save Entry</b>.</li>
+                </ol>
+                <p>Filter the list with <b>All</b>, <b>Income</b> or <b>Expense</b>. Posted entries are corrected by a reversal with a reason, so the history stays complete. Tick <b>Show reversed</b> to see them.</p>
+                <p class="gd-tip"><b>Tip:</b> payroll, material orders and cleared cheques post here for you. You do not need to type them again.</p>
+            </section>
+
+            <section class="gd-sec" id="materials">
+                <h2>Materials &amp; Purchase Orders</h2>
+                <p><span class="gd-where">Current Project &rsaquo; Materials &amp; Procurement</span>.</p>
+                <h3>Budget and stock</h3>
+                <ol class="gd-steps">
+                    <li>Enter the <b>Materials Budget</b> and press <b>Save Budget</b>.</li>
+                    <li>Press <b>Record Movement</b>. Enter the material name, direction (in or out), date, quantity, unit and unit cost. For an <i>out</i> movement give a reason, such as "Used on site".</li>
+                    <li><b>Stock on Hand</b> shows what is left. The app will not let you take out more than you have, and a material must always use the same unit.</li>
+                    <li>To count a delivery as an expense, tick it and press <b>Post selected to Cash Out</b>.</li>
+                </ol>
+                <h3>Purchase orders</h3>
+                <ol class="gd-steps">
+                    <li>Press <b>New Purchase Order</b>. Enter the material, supplier, quantity and total, and split the payment into installments with due dates if you pay in parts.</li>
+                    <li>When you pay an installment, press <b>Mark paid</b>. That posts one cash-out, and <b>Undo</b> reverses it.</li>
+                    <li>When the goods arrive, press <b>Mark delivered</b>. This adds the stock automatically and does not post cash again.</li>
+                </ol>
+                <p class="gd-note">Unpaid installments appear as <b>Payables</b> and in <b>Due This Week</b> on the Dashboard.</p>
+            </section>
+
+            <section class="gd-sec" id="cheques">
+                <h2>Cheque Register</h2>
+                <p><span class="gd-where">Current Project &rsaquo; Cheque Register</span>. Tracks cheques you issue and cheques you receive.</p>
+                <ol class="gd-steps">
+                    <li>Press <b>Add Cheque</b> and choose the type: <b>Issued</b> (you pay) or <b>Received</b> (you are paid).</li>
+                    <li>Enter the cheque number, bank, payee or payer, amount and maturity date.</li>
+                    <li>Press <b>Save Cheque</b>. The same cheque number for the same bank and direction cannot be entered twice.</li>
+                    <li>Later, open the status menu on the cheque and choose <b>Cleared</b> or <b>Bounced</b>. Clearing posts the cash movement once.</li>
+                </ol>
+                <p>The top tiles show cheques that have <b>Matured</b> and those <b>Maturing in 7 days</b>, with amounts. Filter by <b>All</b>, <b>Needs Attention</b>, <b>Pending</b>, <b>Cleared</b> or <b>Bounced</b>, and search by payee, number, bank or note.</p>
+            </section>
+
+            <section class="gd-sec" id="progress">
+                <h2>Progress &amp; Timeline</h2>
+                <p><span class="gd-where">Current Project &rsaquo; Progress &amp; Timeline</span>. Progress is measured from the work you plan and complete, so the numbers are honest.</p>
+                <ol class="gd-steps">
+                    <li>Press <b>Add Program of Work</b> (for example "Foundation"). Give it start and end dates inside the project dates.</li>
+                    <li>Inside it press <b>Add Sub-Program Item</b>. Give each item a name and a planned start and finish within its program.</li>
+                    <li>As work finishes, open the item and press <b>Mark Item Complete</b>, enter the <b>Date Completed</b> and press <b>Confirm Complete</b>.</li>
+                </ol>
+                <ul>
+                    <li><b>Planned</b> progress comes from the item schedules. <b>Actual</b> progress comes from completed items.</li>
+                    <li>The chart compares Planned (orange) and Actual (blue), and states whether you are ahead, behind or on schedule.</li>
+                    <li>If the client agrees to a new finish date, use <b>Save Approved Override</b>. Enter the new target date and the reason. <b>Clear Override</b> removes it.</li>
+                </ul>
+                <p class="gd-note">If something is missing, the page tells you what to add (for example "Add start and finish dates to 2 sub-items") instead of showing a wrong percentage.</p>
+            </section>
+
+            <section class="gd-sec" id="scurve">
+                <h2>S-Curve &amp; Forecast</h2>
+                <p><span class="gd-where">Current Project &rsaquo; S-Curve &amp; Forecast</span>. It shows where the project is heading.</p>
+                <ul>
+                    <li><b>Progress S-Curve:</b> planned, actual and forecast progress.</li>
+                    <li><b>Financial S-Curve:</b> planned value, earned value and actual cost.</li>
+                    <li>Variance, monthly rate, remaining duration, forecast completion, delay forecast, <b>SPI</b>, <b>CPI</b> and forecast final cost.</li>
+                </ul>
+                <p class="gd-note">A figure is left blank, with the reason, when it cannot be trusted yet: no schedule, no costs, or less than two weeks of progress. Fill in the Program of Works and record some costs and it fills in.</p>
+            </section>
+
+            <section class="gd-sec" id="hr">
+                <h2>Human Resources</h2>
+                <p><span class="gd-where">Records &rsaquo; Human Resources</span>. The company's own 201 files.</p>
+                <ol class="gd-steps">
+                    <li>Press <b>Add Employee</b>. Enter the name, rank, position, hire date, contact details and government numbers.</li>
+                    <li>Add documents: 2x2 photo, 201 details form, government ID, employment contract, credentials, clearance or other. The checklist shows which required documents are still missing.</li>
+                    <li>Print the 201 sheet, or use <b>Export to Excel</b> for one person or everyone.</li>
+                </ol>
+                <p class="gd-note">The Excel file holds the details and document names, not the scanned files. Scanned documents are kept separately and are included in <b>Export Backup File</b>.</p>
+            </section>
+
+            <section class="gd-sec" id="master">
+                <h2>Master Data</h2>
+                <p><span class="gd-where">Records &rsaquo; Master Data</span>. Every client and their projects in one list. This page is view-only: use <b>View details</b> on a client for a full summary you can print. New clients are created in Client Portal.</p>
+            </section>
+
+            <section class="gd-sec" id="transfer">
+                <h2>Data Transfer</h2>
+                <p><span class="gd-where">Tools &rsaquo; Data Transfer</span>.</p>
+                <ul>
+                    <li><b>Send to Accountant:</b> choose the clients to include and press <b>Export Transfer Package (.cftransfer)</b>.</li>
+                    <li><b>Import Package:</b> load a .cftransfer file from Cashbook for Business or the Accountant Edition into a chosen project, review it, then press <b>Import Entries</b>.</li>
+                    <li><b>Full Data Package:</b> <b>Export Full Data</b> and <b>Import Full Data</b> to move everything to another computer. Import offers <b>Merge</b> (add to what you have) or <b>Replace</b> (overwrite).</li>
+                </ul>
+            </section>
+
+            <section class="gd-sec" id="backup">
+                <h2>Backup &amp; Settings</h2>
+                <ol class="gd-steps">
+                    <li>Gear icon (or <span class="gd-where">Settings &rsaquo; Backup &amp; Restore</span>) &rsaquo; <b>Export Backup File</b>. Save the file on a USB drive or cloud folder, not only on this computer.</li>
+                    <li>To restore, press <b>Restore Exported Backup</b> and choose the file. It replaces all current clients and projects, and the app asks you to confirm first.</li>
+                </ol>
+                <p>The app also keeps automatic restore points on this computer, but scanned HR documents are not in them. <b>Export Backup File</b> is what protects them.</p>
+                <p><span class="gd-where">Settings</span> also has <b>Appearance</b>, the <b>Activity Log</b> (what changed and when), <b>Contact</b> and <b>Factory Reset</b>.</p>
+                <p class="gd-warn"><b>Careful:</b> Factory Reset erases everything. Export a backup first.</p>
+            </section>
+
+            <section class="gd-sec" id="print">
+                <h2>Printing &amp; PDF</h2>
+                <ol class="gd-steps">
+                    <li>On any page press <b>Ctrl + P</b>, or use gear icon &rsaquo; <b>Print</b>. A preview opens.</li>
+                    <li>Under <b>Print area</b> tick only the cards, sections or tables you want. The preview updates at once. <b>Select all</b> and <b>Clear</b> help.</li>
+                    <li>Optional: turn on the signature block (<b>Prepared by</b>, <b>Checked by</b>, <b>Approved by</b>) and type names and positions. The app remembers them.</li>
+                    <li>Use the zoom and page buttons to check the pages, then print or save as PDF.</li>
+                </ol>
+            </section>
+
+            <section class="gd-sec" id="faq">
+                <h2>Common questions</h2>
+                <dl class="gd-faq">
+                    <dt>It says "Set a pay rate" when I save payroll.</dt>
+                    <dd>Open <b>Project 201 Files</b>, edit that person and fill in the daily, hourly or OT rate.</dd>
+                    <dt>It says a worker is "already recorded for this date".</dt>
+                    <dd>Each person can have one payroll entry per day. Edit the existing entry in the Payroll Log instead.</dd>
+                    <dt>The progress percentage is missing.</dt>
+                    <dd>Planned progress needs project start and end dates, a Program of Works and dates on every item. The message on the page says which one is missing.</dd>
+                    <dt>I opened a project page and ended up in the Client Portal.</dt>
+                    <dd>Project pages open only from inside a client's portal. Pick the client, open the Projects tab and press <b>Open</b>.</dd>
+                    <dt>I recorded something by mistake.</dt>
+                    <dd>Posted entries are not deleted. Reverse them with a reason, or edit them where the page allows it. The Activity Log keeps the full history.</dd>
+                    <dt>Where did my data go after a restore?</dt>
+                    <dd>A restore replaces current data with the file you chose. The app makes a safety copy of what was there just before, so stop, do not restore again, and check that you chose the right backup file.</dd>
+                </dl>
+            </section>
+
+            <p id="gdEmpty" class="gd-empty" hidden>Nothing in the guide matches your search.</p>
+        </div>
+    </div>
+</main>
+
+<script src="../../js/core/storage.js"></script>
+<script src="../../js/core/workspace-core.js"></script>
+<script src="../../js/core/shell.js"></script>
+<script src="../../js/pages/guide.js"></script>
+<script src="../../js/core/header-menu.js"></script>
+<script src="../../assets/vendor/pdf.min.js"></script>
+<script src="../../js/print-preview.js"></script>
+<script src="../../js/core/navigation.js"></script>
+</body>
+</html>

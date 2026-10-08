@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../demo-shim.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S-Curve & Forecast | Cashbook for Contractors</title>
+    <script src="../../js/core/theme.js"></script>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/shell.css">
+    <link rel="stylesheet" href="../../css/analytics.css">
+    <link rel="stylesheet" href="../../css/print-preview.css">
+    <link rel="stylesheet" href="../../css/print-preview-fixes.css">
+    <link rel="stylesheet" href="../../css/design-system.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <img src="../../assets/logo/logo.png" alt="Cashbook for Contractors">
+        <div>
+            <h2 id="projectTitle">Project</h2>
+            <p id="projectClientName">S-Curve & Forecast</p>
+        </div>
+    </div>
+
+    <a href="../project-detail/project-detail.html" class="back-button" data-project-link>
+        &larr; Back to Project
+    </a>
+</header>
+
+<main class="container an-page">
+    <p id="notFoundState" class="empty-state" hidden>
+        Project not found. Open it from the Client Portal.
+    </p>
+
+    <section id="anBanners"></section>
+    <section class="an-tiles" id="anTilesTop" aria-label="Schedule"></section>
+    <section class="an-tiles" id="anTilesBottom" aria-label="Forecast and performance"></section>
+
+    <section class="an-charts wide">
+        <div class="an-card">
+            <h2>S-Curve: Planned vs Actual vs Forecast (%)</h2>
+            <p id="sCurveNote">Planned follows the Program of Works schedule. Actual follows the progress you record. The forecast continues at your recent pace.</p>
+            <canvas id="sCurveChart" aria-label="S-Curve of planned, actual and forecast progress"></canvas>
+            <div id="sCurveLegend"></div>
+        </div>
+    </section>
+
+    <section class="an-charts wide">
+        <div class="an-card">
+            <h2>Financial S-Curve: Planned Value, Earned Value, Actual Cost</h2>
+            <p>Earned value is the budget multiplied by the percent complete. Actual cost is the expenses recorded so far, including payroll, materials and cheques.</p>
+            <canvas id="financialChart" aria-label="Financial S-Curve of planned value, earned value and actual cost"></canvas>
+            <div id="financialLegend"></div>
+        </div>
+    </section>
+
+    <details class="an-help">
+        <summary>How these numbers are worked out</summary>
+        <p><strong>Variance</strong> is actual percent complete minus planned percent complete today. <strong>SPI</strong> is actual divided by planned: below 1 means behind schedule, above 1 means ahead.</p>
+        <p><strong>CPI</strong> is earned value divided by actual cost: below 1 means you have spent more than the work done is worth, above 1 means under cost. <strong>Forecast final cost</strong> is the budget divided by CPI.</p>
+        <p><strong>Monthly rate</strong> is the average progress gained per month over roughly the last 90 days. The <strong>forecast completion</strong> date continues that pace to 100%, and the <strong>delay forecast</strong> compares it with the target end date.</p>
+        <p>Numbers that cannot be trusted yet are left blank with the reason underneath, for example no Program of Works, no costs recorded, or less than two weeks of progress.</p>
+    </details>
+</main>
+
+<script src="../../js/core/storage.js"></script>
+<script src="../../js/core/workspace-core.js"></script>
+<script src="../../js/core/client-brand.js"></script>
+<script src="../../js/core/portfolio-core.js"></script>
+<script src="../../js/core/evm-core.js"></script>
+<script src="../../js/core/mini-charts.js"></script>
+<script src="../../js/core/shell.js"></script>
+<script src="../../js/pages/scurve.js"></script>
+<script src="../../js/core/header-menu.js"></script>
+<script src="../../assets/vendor/pdf.min.js"></script>
+<script src="../../js/print-preview.js"></script>
+<script src="../../js/core/navigation.js"></script>
+</body>
+</html>

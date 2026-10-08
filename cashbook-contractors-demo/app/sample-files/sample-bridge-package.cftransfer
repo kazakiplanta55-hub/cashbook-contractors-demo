@@ -1,0 +1,104 @@
+{
+  "format": "cashbook-family-transfer",
+  "formatVersion": 1,
+  "packageId": "sample-package-0001",
+  "createdAt": "2026-10-03T00:00:00.000Z",
+  "source": {
+    "application": "Cashbook for Business",
+    "deviceName": "Sample"
+  },
+  "exportOptions": {
+    "scope": "all"
+  },
+  "payload": {
+    "clients": [
+      {
+        "profile": {
+          "id": "sample-client-bayview",
+          "name": "Bayview Realty Corp",
+          "business": "Bayview Realty Corp",
+          "tin": "234-567-890-000",
+          "rdo": ""
+        },
+        "cashInEntries": [
+          {
+            "id": "bv-in-1",
+            "date": "2026-10-01",
+            "amount": "250000.00",
+            "totalAmount": "250000.00",
+            "referenceNumber": "OR-5001",
+            "description": "Down payment",
+            "transactionType": "Down Payment",
+            "createdAt": "2026-10-01T08:00:00.000Z"
+          },
+          {
+            "id": "bv-in-2",
+            "date": "2026-10-15",
+            "amount": "120000.00",
+            "totalAmount": "120000.00",
+            "referenceNumber": "OR-5002",
+            "description": "Progress billing 1",
+            "transactionType": "Progress Payment",
+            "createdAt": "2026-10-15T08:00:00.000Z"
+          }
+        ],
+        "cashOutEntries": [
+          {
+            "id": "bv-out-1",
+            "date": "2026-10-02",
+            "amount": "86500.50",
+            "totalAmount": "86500.50",
+            "referenceNumber": "DR-7001",
+            "description": "Cement and sand",
+            "expenseType": "Materials",
+            "createdAt": "2026-10-02T08:00:00.000Z"
+          },
+          {
+            "id": "bv-out-2",
+            "date": "2026-10-05",
+            "amount": "42000.00",
+            "totalAmount": "42000.00",
+            "referenceNumber": "PR-7002",
+            "description": "Weekly labor",
+            "expenseType": "Labor",
+            "createdAt": "2026-10-05T08:00:00.000Z"
+          }
+        ]
+      },
+      {
+        "profile": {
+          "id": "sample-client-reyes",
+          "name": "Ana Reyes",
+          "business": "Reyes Bakery",
+          "tin": "",
+          "rdo": ""
+        },
+        "cashInEntries": [
+          {
+            "id": "ar-in-1",
+            "date": "2026-10-03",
+            "amount": "60000.00",
+            "totalAmount": "60000.00",
+            "referenceNumber": "OR-5101",
+            "description": "Down payment",
+            "transactionType": "Down Payment",
+            "createdAt": "2026-10-03T08:00:00.000Z"
+          }
+        ],
+        "cashOutEntries": [
+          {
+            "id": "ar-out-1",
+            "date": "2026-10-04",
+            "amount": "15750.00",
+            "totalAmount": "15750.00",
+            "referenceNumber": "DR-7101",
+            "description": "Tiles",
+            "expenseType": "Materials",
+            "createdAt": "2026-10-04T08:00:00.000Z"
+          }
+        ]
+      }
+    ]
+  },
+  "checksum": "b154636827689e13aed1fca2599de727d347c5553d18a6c482daa87d0354139e"
+}

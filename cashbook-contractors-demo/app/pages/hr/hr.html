@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../demo-shim.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Resources | Cashbook for Contractors</title>
+    <script src="../../js/core/theme.js"></script>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/print-preview.css">
+    <link rel="stylesheet" href="../../css/print-preview-fixes.css">
+    <link rel="stylesheet" href="../../css/shell.css">
+    <link rel="stylesheet" href="../../css/portal.css">
+    <link rel="stylesheet" href="../../css/file201.css">
+    <link rel="stylesheet" href="../../css/design-system.css">
+</head>
+<body data-mode="company">
+
+<header class="topbar">
+    <div class="brand">
+        <img src="../../assets/logo/logo.png" alt="Cashbook for Contractors">
+        <div>
+            <h2>Cashbook for Contractors</h2>
+            <p>Human Resources</p>
+        </div>
+    </div>
+    <button type="button" class="back-button" data-href="../dashboard/dashboard.html">
+        &larr; Dashboard
+    </button>
+</header>
+
+<main class="container">
+    <section class="form-card">
+        <div class="pt-section-head"><h2>Company 201 Files</h2>
+            <div><button type="button" class="secondary-button" data-act="export-all">Export to Excel</button>
+            <button type="button" class="primary-button" data-act="add">Add Employee</button></div></div>
+        <p class="f201-hint">The main company's own people, with their 201 file and scanned documents (201 details PDF, 2x2 photo, IDs, contracts, credentials). These belong to the company, not to any one project; a project can copy people from here into its own Project 201. Documents are stored on this computer and are included in backup files, so keep those backups somewhere safe.</p>
+        <div class="pt-cards" id="hrTiles"></div>
+        <div class="ledger-toolbar"><label class="form-field"><span>Search</span><input id="f201Search" type="search" placeholder="Name, rank or position" autocomplete="off"></label></div>
+        <p id="f201Count" class="md-count"></p>
+        <div class="ledger-wrap"><table class="ledger-table"><thead><tr>
+            <th>Name</th><th>Position</th><th>Rank</th><th>Status</th><th>Documents</th><th>Date hired</th><th>Contact</th><th></th>
+        </tr></thead><tbody id="f201Body"></tbody></table></div>
+        <p id="f201Empty" class="empty-state" hidden></p>
+        <p id="f201Sub" class="pt-note"></p>
+    </section>
+    
+</main>
+<div id="f201Modal"></div>
+<div id="f201Viewer"></div>
+
+<script src="../../js/core/storage.js"></script>
+<script src="../../js/core/workspace-core.js"></script>
+<script src="../../js/core/client-brand.js"></script>
+<script src="../../js/core/shell.js"></script>
+<script src="../../js/core/xlsx-writer.js"></script>
+<script src="../../js/core/file201-core.js"></script>
+<script src="../../js/pages/file201.js"></script>
+<script src="../../js/core/header-menu.js"></script>
+<script src="../../assets/vendor/pdf.min.js"></script>
+<script src="../../js/print-preview.js"></script>
+<script src="../../js/core/navigation.js"></script>
+</body>
+</html>

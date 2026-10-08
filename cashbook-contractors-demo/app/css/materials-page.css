@@ -1,0 +1,111 @@
+/* Materials & Purchase Orders page. Palette variables only, so dark mode follows automatically. */
+
+.mp { display: flex; flex-direction: column; gap: 20px; }
+
+/* ---- Section jump bar ---- */
+.mp-nav { display: flex; gap: 8px; flex-wrap: wrap; }
+.mp-nav a { border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: 13px; font-weight: 600; color: var(--ink); text-decoration: none; background: var(--card-bg); }
+.mp-nav a:hover { border-color: var(--brand-primary); color: var(--brand-primary); }
+
+/* ---- Summary tiles ---- */
+.mp-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+.mp-tile { background: var(--card-bg); border: 1px solid var(--line); border-left: 4px solid var(--brand-primary); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 3px; box-shadow: 0 2px 10px rgba(0, 0, 0, .05); }
+.mp-tile-label { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+.mp-tile strong { font-size: 22px; color: var(--ink); }
+.mp-tile small { color: var(--muted); font-size: 12px; }
+.mp-tile.warn { border-left-color: var(--brand-accent); }
+.mp-tile.teal { border-left-color: var(--brand-teal); }
+.mp-tile.positive { border-left-color: var(--positive); }
+.mp-tile.positive strong { color: var(--positive); }
+.mp-tile.negative { border-left-color: var(--negative); }
+.mp-tile.negative strong { color: var(--negative); }
+
+/* ---- Cards ---- */
+.mp-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px; box-shadow: 0 2px 10px rgba(0, 0, 0, .05); }
+.mp-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+.mp-card h2 { margin: 0 0 4px; font-size: 18px; color: var(--brand-primary); }
+.mp-sub { margin: 0; color: var(--muted); font-size: 13px; max-width: 640px; }
+.mp-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.mp-hint { color: var(--muted); font-weight: 400; }
+.mp-error { margin: 12px 0 0; color: var(--negative); min-height: 1em; }
+.mp-empty { text-align: center; padding: 28px 16px; color: var(--muted); border: 1px dashed var(--line); border-radius: 12px; margin: 0; }
+.mp-empty[hidden] { display: none !important; }
+
+/* ---- Budget ---- */
+.mp-inline-form { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 14px; }
+.mp-inline-form .form-field { flex: 0 1 280px; margin: 0; }
+.mp-bar { height: 10px; border-radius: 999px; background: rgba(109, 100, 89, .2); overflow: hidden; }
+.mp-bar span { display: block; height: 100%; width: 0; background: var(--positive); border-radius: 999px; }
+.mp-bar.warn span { background: var(--brand-accent); }
+.mp-bar.over span { background: var(--negative); }
+.mp-barlabel { margin: 6px 0 0; font-size: 12px; color: var(--muted); }
+
+/* ---- Stock on hand ---- */
+#stockGrid:empty { display: none; }
+.stock-table .stock-name strong { color: var(--ink); }
+.stock-left-cell { min-width: 150px; }
+.stock-left { display: block; font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 5px; }
+.stock-table .stock-left small { display: inline; font-size: 12px; font-weight: 500; color: var(--muted); }
+.stock-table td { vertical-align: middle; }
+.stock-left.short { color: var(--negative); }
+.stock-level { display: block; height: 5px; width: 120px; max-width: 100%; border-radius: 999px; background: rgba(109, 100, 89, .2); overflow: hidden; }
+.stock-level i { display: block; height: 100%; border-radius: 999px; background: var(--positive); }
+.stock-level.low i { background: var(--brand-accent); }
+.stock-level.short i { background: var(--negative); }
+.stock-unit { display: inline !important; color: var(--muted); font-size: 12px; margin-left: 2px; }
+
+/* ---- Movement form ---- */
+.mp-formcard { border: 1px solid var(--brand-primary); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; background: var(--card-bg); }
+.mp-formcard[hidden] { display: none !important; }
+.mp-formcard h3 { margin: 0 0 14px; color: var(--brand-primary); font-size: 16px; }
+.mp-span { grid-column: 1 / -1; }
+
+/* ---- Movement log ---- */
+.mp-filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+.mp-filters:empty { display: none; }
+.mp-table-wrap { overflow-x: auto; }
+.mp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.mp-table th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); padding: 8px 10px; border-bottom: 2px solid var(--line); white-space: nowrap; background: transparent; }
+.mp-table td { padding: 10px; border-bottom: 1px solid var(--line); color: var(--ink); vertical-align: top; }
+.mp-table tbody tr:hover td { background: rgba(31, 78, 121, .05); }
+.mp-table .mp-num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.mp-table .mp-check { width: 28px; }
+.mp-table small, .mp-small { display: block; color: var(--muted); font-size: 12px; }
+.mp-table .mp-notes { max-width: 220px; overflow-wrap: anywhere; }
+.mp-row-actions { display: flex; gap: 6px; white-space: nowrap; }
+.mp-row-actions button { padding: 4px 10px; font-size: 12px; }
+
+.mp-chip { display: inline-block; border-radius: 999px; padding: 2px 10px; font-size: 12px; font-weight: 700; }
+.mp-chip.in { background: rgba(47, 116, 73, .16); color: var(--positive); }
+.mp-chip.out { background: rgba(163, 70, 47, .16); color: var(--negative); }
+.mp-tag { display: inline-block; margin-top: 4px; border-radius: 6px; padding: 1px 7px; font-size: 11px; font-weight: 700; background: rgba(31, 78, 121, .14); color: var(--brand-primary); }
+html[data-theme="dark"] .mp-tag { color: #8fbfe8; }
+.mp-tag.posted { background: rgba(47, 116, 73, .16); color: var(--positive); }
+
+@media (max-width: 760px) {
+    .mp-card { padding: 16px; }
+    .mp-inline-form .form-field { flex: 1 1 100%; }
+}
+@media print { .mp-nav, .mp-actions, .mp-formcard, .mp-filters, .mp-row-actions { display: none !important; } .mp-card { box-shadow: none; break-inside: avoid; } }
+
+.mp-table-wrap[hidden] { display: none !important; }
+.mp-table td:nth-child(2) { white-space: nowrap; }
+
+/* ---- Stock actions (Use / Receive) and on-hand hint ---- */
+.stock-table .mp-row-actions { justify-content: flex-end; }
+.stock-table .mp-row-actions button[disabled] { opacity: .5; cursor: not-allowed; }
+#materialOnHand { display: block; margin-top: 4px; font-weight: 600; }
+.mp-form-note { margin: 0 0 12px; color: var(--muted); font-size: 13px; }
+.mp-formcard .form-field[hidden] { display: none !important; }
+
+/* ---- Collapsible Material movements ---- */
+.mp-collapse-title { margin: 0 0 4px; }
+.mp-collapse-btn { display: inline-flex; align-items: center; gap: 8px; background: none; border: 0; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; }
+.mp-collapse-btn:hover { opacity: .8; }
+.mp-collapse-btn:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 3px; border-radius: 4px; }
+.mp-chevron { display: inline-block; font-size: 16px; transition: transform .15s ease; }
+#mpMovements.is-collapsed .mp-chevron { transform: rotate(-90deg); }
+#mpMovements.is-collapsed #mpMovementsBody,
+#mpMovements.is-collapsed .mp-sub,
+#mpMovements.is-collapsed #generateMaterialCashOutBtn { display: none; }
+#mpMovements.is-collapsed .mp-card-head { margin-bottom: 0; }

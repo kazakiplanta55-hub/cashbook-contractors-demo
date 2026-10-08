@@ -1,0 +1,55 @@
+/* User Guide page. Uses the app's theme variables, so it follows light and dark mode. */
+.gd-page { max-width: 1180px; }
+.gd-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.gd-hero { padding: 26px 28px; margin-bottom: 20px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 16px; }
+.gd-hero h1 { margin: 0 0 8px; font-size: 24px; color: var(--ink); }
+.gd-hero p { margin: 0 0 14px; color: var(--muted); max-width: 70ch; line-height: 1.55; }
+.gd-search input { width: 100%; max-width: 440px; margin: 0; }
+.gd-count { margin: 10px 0 0 !important; min-height: 1.2em; font-size: 12.5px; }
+
+.gd-layout { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 22px; align-items: start; }
+
+.gd-toc { position: sticky; top: calc(var(--cbc-header-height, 60px) + 14px); display: flex; flex-direction: column; gap: 2px; padding: 14px 10px; max-height: calc(100vh - var(--cbc-header-height, 60px) - var(--cbc-status-height, 28px) - 28px); overflow: auto; background: var(--card-bg); border: 1px solid var(--line); border-radius: 14px; }
+.gd-toc strong { padding: 2px 10px 8px; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.gd-toc a { padding: 7px 10px; border-radius: 8px; color: var(--ink); text-decoration: none; font-size: 13px; }
+.gd-toc a:hover { background: color-mix(in srgb, var(--brand-primary) 8%, transparent); }
+.gd-toc a.active { background: color-mix(in srgb, var(--brand-primary) 14%, transparent); color: var(--brand-primary); font-weight: 700; }
+.gd-toc a[hidden] { display: none; }
+
+.gd-main { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.gd-sec { padding: 24px 28px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 16px; scroll-margin-top: calc(var(--cbc-header-height, 60px) + 16px); }
+.gd-sec[hidden] { display: none; }
+.gd-sec h2 { margin: 0 0 10px; font-size: 19px; color: var(--ink); }
+.gd-sec h3 { margin: 20px 0 8px; font-size: 14.5px; color: var(--brand-primary); }
+.gd-sec p, .gd-sec li, .gd-sec dd { line-height: 1.6; color: var(--ink); }
+.gd-sec p { margin: 0 0 10px; }
+.gd-sec ul { margin: 0 0 10px; padding-left: 20px; }
+.gd-sec li { margin-bottom: 5px; }
+
+.gd-steps { list-style: none; counter-reset: gd; margin: 10px 0 12px; padding: 0 !important; }
+.gd-steps li { counter-increment: gd; position: relative; margin: 0 0 10px; padding: 2px 0 2px 40px; }
+.gd-steps li::before { content: counter(gd); position: absolute; left: 0; top: 0; width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; background: var(--brand-primary); color: #fff; font-size: 12.5px; font-weight: 700; }
+
+.gd-where { display: inline-block; padding: 1px 8px; border: 1px solid var(--line); border-radius: 6px; background: color-mix(in srgb, var(--brand-primary) 7%, var(--card-bg)); color: var(--brand-primary); font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+
+.gd-tip, .gd-note, .gd-warn { padding: 10px 14px; border-radius: 10px; border-left: 4px solid; font-size: 13.5px; }
+.gd-tip { background: color-mix(in srgb, var(--positive) 10%, var(--card-bg)); border-color: var(--positive); }
+.gd-note { background: color-mix(in srgb, var(--brand-primary) 9%, var(--card-bg)); border-color: var(--brand-primary); }
+.gd-warn { background: color-mix(in srgb, var(--negative) 10%, var(--card-bg)); border-color: var(--negative); }
+
+.gd-faq dt { margin-top: 14px; font-weight: 700; color: var(--ink); }
+.gd-faq dd { margin: 3px 0 0; color: var(--muted); }
+.gd-empty { padding: 30px; text-align: center; color: var(--muted); }
+mark.gd-hit { background: color-mix(in srgb, var(--brand-accent) 35%, transparent); color: inherit; border-radius: 3px; padding: 0 1px; }
+
+@media (max-width: 900px) {
+    .gd-layout { grid-template-columns: 1fr; }
+    .gd-toc { position: static; max-height: none; flex-direction: row; flex-wrap: wrap; }
+    .gd-toc strong { width: 100%; }
+}
+@media print {
+    .gd-toc, .gd-search, .gd-count { display: none !important; }
+    .gd-layout { display: block; }
+    .gd-sec { break-inside: avoid-page; box-shadow: none; }
+}

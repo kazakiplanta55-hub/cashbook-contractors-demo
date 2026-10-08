@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../demo-shim.js"></script>
+    <script src="../../js/core/theme.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Cashbook for Contractors</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/print-preview.css">
+    <link rel="stylesheet" href="../../css/print-preview-fixes.css">
+    <link rel="stylesheet" href="../../css/shell.css">
+    <link rel="stylesheet" href="../../css/dashboard-bento.css">
+    <link rel="stylesheet" href="../../css/design-system.css">
+</head>
+<body class="dashboard-page">
+
+<header class="topbar">
+    <div class="brand">
+        <img src="../../assets/logo/logo.png" alt="Cashbook for Contractors">
+        <div>
+            <h2>Cashbook for Contractors</h2>
+            <p>Dashboard</p>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="summary-grid">
+
+        <article class="summary-card">
+            <span>Active Projects</span>
+            <strong id="activeProjects">0</strong>
+        </article>
+
+        <article class="summary-card accent">
+            <span>Total Budget (Active)</span>
+            <strong id="totalBudget">₱0.00</strong>
+        </article>
+
+        <article class="summary-card positive">
+            <span>Total Income (Active)</span>
+            <strong id="totalIncome">₱0.00</strong>
+        </article>
+
+        <article class="summary-card" id="netCard">
+            <span>Net Across Active Projects</span>
+            <strong id="netAcrossProjects">₱0.00</strong>
+        </article>
+    </section>
+
+    <p id="dashboardEmptyState" class="empty-state" hidden>
+        No projects yet. Add a client, then create your first project.
+    </p>
+
+    <section class="dash-toolbar">
+        <label class="form-field"><span>Client</span><select id="dashboardClientFilter"><option value="">All Clients</option></select></label>
+        <label class="form-field"><span>Featured project</span><select id="dashboardProjectFilter"><option value="">Auto (most recently active)</option></select></label>
+    </section>
+    <section class="bento-row">
+        <article class="bento-card bento-hero" id="featuredProjectCard"></article>
+
+        <article class="bento-card bento-budget">
+            <div class="bento-card-header">
+                <span class="bento-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 10h18M3 15h18M9 5v5M15 10v5M9 15v4"/></svg></span>
+                <h3>Budget Summary</h3>
+                <button type="button" class="bento-link screen-only" id="budgetDetailsBtn" aria-haspopup="dialog">Details &rsaquo;</button>
+            </div>
+            <div id="budgetSummaryBody"></div>
+        </article>
+
+        <article class="bento-card bento-timeline">
+            <div class="bento-card-header">
+                <span class="bento-icon navy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="8" rx="1"/><path d="M7 8v3M11 8v4M15 8v3M19 8v4"/></svg></span>
+                <h3>Timeline Status</h3>
+                <button type="button" class="bento-link screen-only" id="timelineDetailsBtn" aria-haspopup="dialog">Details &rsaquo;</button>
+            </div>
+            <div id="timelineMeta"></div>
+            <canvas id="timelineSparkline" width="260" height="70" aria-label="Average progress trend across active projects"></canvas>
+            <div id="timelineBig" class="timeline-big"></div>
+        </article>
+    </section>
+
+    <article class="bento-card" id="dueThisWeekSection">
+        <div class="bento-card-header">
+            <span class="bento-icon amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l5 16H7zM8.7 13h6.6M10.2 8h3.6M4 21h16"/></svg></span>
+            <h3>Due This Week</h3>
+        </div>
+        <div id="dueThisWeekSummary" class="mini-stat-row"></div>
+        <div id="dueThisWeekList"></div>
+        <p id="dueThisWeekEmptyState" class="bento-empty" hidden>
+            Nothing due in the next 7 days.
+        </p>
+    </article>
+
+
+</main>
+
+<script src="../../js/core/storage.js"></script>
+<script src="../../js/core/workspace-core.js"></script>
+<script src="../../js/core/shell.js"></script>
+<script src="../../js/core/portfolio-core.js"></script>
+<script src="../../js/pages/dashboard-popups.js"></script>
+<script src="../../js/pages/dashboard.js"></script>
+<script src="../../js/core/header-menu.js"></script>
+<script src="../../assets/vendor/pdf.min.js"></script>
+<script src="../../js/print-preview.js"></script>
+<script src="../../js/core/navigation.js"></script>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../demo-shim.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materials & Procurement | Cashbook for Contractors</title>
+    <script src="../../js/core/theme.js"></script>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/print-preview.css">
+    <link rel="stylesheet" href="../../css/print-preview-fixes.css">
+    <link rel="stylesheet" href="../../css/shell.css">
+    <link rel="stylesheet" href="../../css/materials-page.css">
+    <link rel="stylesheet" href="../../css/po-list.css">
+    <link rel="stylesheet" href="../../css/design-system.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <img src="../../assets/logo/logo.png" alt="Cashbook for Contractors">
+        <div>
+            <h2 id="projectTitle">Project</h2>
+            <p id="projectClientName">Materials & Procurement</p>
+        </div>
+    </div>
+
+    <a href="../project-detail/project-detail.html" class="back-button" data-project-link>
+        &larr; Back to Project
+    </a>
+</header>
+
+<main class="container mp">
+
+    <nav class="mp-nav" aria-label="On this page">
+        <a href="#mpOverview">Overview</a>
+        <a href="#mpStock">Stock on Hand</a>
+        <a href="#mpMovements">Movements</a>
+        <a href="#purchaseOrders">Purchase Orders</a>
+    </nav>
+
+    <!-- Overview -->
+    <section id="mpOverview" class="mp-tiles" aria-label="Materials summary">
+        <div class="mp-tile accent">
+            <span class="mp-tile-label">Materials Budget</span>
+            <strong id="cardMaterialsBudget">₱0.00</strong>
+            <small>From your Bill of Quantities</small>
+        </div>
+        <div class="mp-tile warn">
+            <span class="mp-tile-label">Actual cost</span>
+            <strong id="cardActualCost">₱0.00</strong>
+            <small>Materials received so far</small>
+        </div>
+        <div class="mp-tile" id="cardBudgetVsActualTile">
+            <span class="mp-tile-label">Budget vs actual</span>
+            <strong id="cardBudgetVsActual">₱0.00</strong>
+            <small id="cardBudgetVsActualNote">Left in the budget</small>
+        </div>
+        <div class="mp-tile teal">
+            <span class="mp-tile-label">Material types</span>
+            <strong id="cardMaterialCount">0</strong>
+            <small>Different materials recorded</small>
+        </div>
+    </section>
+
+    <section class="mp-card">
+        <div class="mp-card-head">
+            <div>
+                <h2>Materials Budget</h2>
+                <p class="mp-sub">Enter the overall figure from your Bill of Quantities. The bar shows how much has been used.</p>
+            </div>
+        </div>
+        <form id="budgetForm" class="mp-inline-form">
+            <label class="form-field">
+                <span>Materials Budget (₱)</span>
+                <input id="materialsBudgetInput" type="number" min="0" step="0.01">
+            </label>
+            <button type="submit" class="primary-button">Save Budget</button>
+        </form>
+        <div class="mp-bar" id="budgetBar" role="img" aria-label="Budget used"><span></span></div>
+        <p class="mp-barlabel" id="budgetBarLabel"></p>
+    </section>
+
+    <!-- Stock on Hand -->
+    <section id="mpStock" class="mp-card">
+        <div class="mp-card-head">
+            <div>
+                <h2>Stock on Hand</h2>
+                <p class="mp-sub">What came in, what was used, and what is left of each material. A green bar means plenty left, amber means 10% or less, red means more was used than came in.</p>
+            </div>
+        </div>
+        <div id="stockGrid" class="mp-table-wrap"></div>
+        <p id="materialSummaryEmptyState" class="mp-empty" hidden>No materials recorded yet. Record a movement or mark a purchase order delivered.</p>
+    </section>
+
+    <!-- Movements -->
+    <section id="mpMovements" class="mp-card">
+        <div class="mp-card-head">
+            <div>
+                <h2 class="mp-collapse-title">
+                    <button type="button" class="mp-collapse-btn" id="movToggle" aria-expanded="true" aria-controls="mpMovementsBody" title="Collapse / expand">
+                        <span class="mp-chevron" aria-hidden="true">&#9662;</span>
+                        <span>Material Movements</span>
+                    </button>
+                </h2>
+                <p class="mp-sub">Every delivery in and every item taken out, newest first. To take stock out, press <b>Use</b> beside the material above, or <b>Record Movement</b>. Nothing is overwritten: each in and out stays on record and the balance is kept.</p>
+            </div>
+            <div class="mp-actions">
+                <button type="button" class="primary-button" id="openMovementForm">Record Movement</button>
+                <button type="button" class="secondary-button" id="generateMaterialCashOutBtn">Post selected to Cash Out</button>
+            </div>
+        </div>
+
+        <div id="mpMovementsBody">
+        <div id="materialFormCard" class="mp-formcard" hidden>
+            <h3 id="materialFormTitle">Add Material Movement</h3>
+            <form id="materialForm">
+                <input type="hidden" id="materialEditId">
+                <div class="form-grid">
+                    <label class="form-field">
+                        <span>Material Name *</span>
+                        <input id="materialName" type="text" list="materialNameList" required autocomplete="off" placeholder="e.g. Cement, Rebar, Plywood">
+                        <datalist id="materialNameList"></datalist>
+                    </label>
+
+                    <label class="form-field">
+                        <span>Direction *</span>
+                        <select id="materialDirection" required>
+                            <option value="in">Stock In (purchased / received)</option>
+                            <option value="out">Stock Out (taken from stock)</option>
+                        </select>
+                    </label>
+
+                    <label class="form-field">
+                        <span>Date *</span>
+                        <input id="materialDate" type="date" required>
+                    </label>
+
+                    <label class="form-field" id="materialReasonField" hidden>
+                        <span>Reason *</span>
+                        <select id="materialReason"></select>
+                    </label>
+
+                    <label class="form-field" id="materialDeliveryField">
+                        <span>Delivery Date</span>
+                        <input id="materialDeliveryDate" type="date">
+                    </label>
+
+                    <label class="form-field">
+                        <span>Quantity *</span>
+                        <input id="materialQuantity" type="number" min="0" step="0.01" required>
+                        <small id="materialOnHand" class="mp-hint"></small>
+                    </label>
+
+                    <label class="form-field">
+                        <span>Unit *</span>
+                        <input id="materialUnit" type="text" required autocomplete="off" placeholder="e.g. bags, pcs, sheets, kg">
+                    </label>
+
+                    <label class="form-field" id="materialUnitCostField">
+                        <span>Unit Cost (₱)</span>
+                        <input id="materialUnitCost" type="number" min="0" step="0.01">
+                    </label>
+
+                    <label class="form-field">
+                        <span>Handled By <small class="mp-hint">(orders/manages)</small></span>
+                        <input id="materialHandledBy" type="text" autocomplete="off" placeholder="Staff who ordered">
+                    </label>
+
+                    <label class="form-field">
+                        <span>Received By <small class="mp-hint">(accepts delivery)</small></span>
+                        <input id="materialReceivedBy" type="text" autocomplete="off" placeholder="Staff who received">
+                    </label>
+
+                    <label class="form-field mp-span">
+                        <span>Notes</span>
+                        <input id="materialNotes" type="text" autocomplete="off">
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="primary-button" id="materialFormSubmit">Save Movement</button>
+                    <button type="button" class="secondary-button" id="materialFormCancel">Cancel</button>
+                </div>
+
+                <p id="materialFormMessage" class="mp-error"></p>
+            </form>
+        </div>
+
+        <div class="mp-filters" id="movFilters" role="group" aria-label="Filter movements"></div>
+
+        <div class="mp-table-wrap">
+            <table class="mp-table">
+                <thead>
+                    <tr>
+                        <th class="mp-check"></th>
+                        <th>Date</th>
+                        <th>Material</th>
+                        <th>Type</th>
+                        <th class="mp-num">Quantity</th>
+                        <th class="mp-num">Balance</th>
+                        <th class="mp-num">Cost</th>
+                        <th>People</th>
+                        <th>Notes</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="materialLogBody"></tbody>
+            </table>
+        </div>
+
+        <p id="materialLogEmptyState" class="mp-empty" hidden>No material movements recorded yet.</p>
+        </div>
+    </section>
+
+    <!-- Purchase Orders -->
+    <section class="mp-card po-section" id="purchaseOrders" aria-labelledby="poTitle">
+        <div class="mp-card-head">
+            <div>
+                <h2 id="poTitle">Purchase Orders</h2>
+                <p class="mp-sub">Supplier orders, their delivery and their payment schedules. Marking a payment posts it to Cash Out.</p>
+            </div>
+            <div class="mp-actions">
+                <button type="button" class="primary-button" id="newPoBtn">New Purchase Order</button>
+            </div>
+        </div>
+        <div class="po-totals" id="poTotals"></div>
+        <div class="po-toolbar">
+            <div class="po-filters" id="poFilters" role="group" aria-label="Filter purchase orders"></div>
+            <input id="poSearch" class="po-search" type="search" placeholder="Search PO no., material or supplier" aria-label="Search purchase orders" autocomplete="off" hidden>
+        </div>
+        <div class="po-colhead" id="poColHead" aria-hidden="true" hidden>
+            <span>PO</span><span>Material</span><span>Quantity</span><span class="po-r">Total</span><span class="po-r">Balance</span><span>Paid</span><span>Status</span>
+        </div>
+        <div id="poList" class="po-list"></div>
+        <div class="po-more" id="poMore"></div>
+        <p id="poEmptyState" class="po-empty" hidden></p>
+    </section>
+
+    <p id="notFoundState" class="empty-state" hidden>
+        Project not found. It may have been deleted.
+    </p>
+
+    <!-- One shared pop-up for the purchase order forms -->
+    <div class="modal-overlay" id="poModal" hidden>
+        <div class="modal-card po-modal" role="dialog" aria-modal="true" aria-labelledby="poModalTitle" id="poModalCard">
+            <h3 id="poModalTitle"></h3>
+            <div id="poModalBody"></div>
+        </div>
+    </div>
+
+</main>
+
+<script src="../../js/core/storage.js"></script>
+<script src="../../js/core/workspace-core.js"></script>
+<script src="../../js/core/client-brand.js"></script>
+<script src="../../js/core/shell.js"></script>
+<script src="../../js/core/stock-core.js"></script>
+<script src="../../js/core/po-core.js"></script>
+<script src="../../js/pages/materials.js"></script>
+<script src="../../js/pages/materials-po.js"></script>
+<script src="../../js/core/header-menu.js"></script>
+<script src="../../assets/vendor/pdf.min.js"></script>
+<script src="../../js/print-preview.js"></script>
+<script src="../../js/core/navigation.js"></script>
+</body>
+</html>

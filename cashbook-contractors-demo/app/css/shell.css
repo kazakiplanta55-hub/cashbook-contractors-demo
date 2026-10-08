@@ -1,0 +1,278 @@
+/* ============================================================
+   PERSISTENT NAVIGATION SHELL
+   Injected by js/core/shell.js on every page except index.html.
+   Same pattern as Cashbook for Business's sidebar shell, adapted
+   to Contractors' multi-page (no-iframe) architecture: a fixed
+   sidebar + header + status bar, with the page content pushed
+   over via body:has(.cbc-sidebar) instead of an iframe host.
+   ============================================================ */
+
+:root {
+    --cbc-nav-width: 248px;
+    --cbc-header-height: 60px;
+    --cbc-status-height: 28px;
+}
+
+/* Space for the shell is reserved by CSS alone (every page that loads this file gets the shell),
+   so content never shifts when shell.js adds the sidebar a moment later. */
+body {
+    padding-left: var(--cbc-nav-width) !important;
+    padding-top: var(--cbc-header-height) !important;
+    padding-bottom: var(--cbc-status-height) !important;
+    box-sizing: border-box;
+    min-height: 100vh;
+}
+
+/* The sidebar replaces "Back to X" navigation with direct links,
+   so the old per-page back buttons are redundant once it's active. */
+body .back-button {
+    display: none !important;
+}
+
+.cbc-sidebar {
+    position: fixed;
+    z-index: 900;
+    inset: 0 auto 0 0;
+    width: var(--cbc-nav-width);
+    overflow: auto;
+    background: #10283d;
+    color: #eaf4fb;
+    transition: width .2s ease;
+    box-shadow: 3px 0 18px rgba(9, 30, 48, .16);
+}
+
+.cbc-sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 15px 18px;
+    border-bottom: 1px solid #29445a;
+    font-weight: 800;
+    line-height: 1.05;
+}
+
+.cbc-sidebar-brand img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+}
+
+.cbc-sidebar-brand small {
+    color: #9fc1d8;
+    font-size: 11px;
+}
+
+.cbc-sidebar nav {
+    padding: 12px;
+}
+
+.cbc-sidebar section {
+    margin-bottom: 13px;
+}
+
+.cbc-sidebar section > strong {
+    display: block;
+    padding: 4px 10px;
+    color: #84a9c2;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+}
+
+.cbc-sidebar a {
+    display: block;
+    padding: 9px 10px;
+    border-radius: 8px;
+    color: #eaf4fb !important;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.cbc-sidebar a:hover,
+.cbc-sidebar a.active {
+    background: #1d4967;
+    color: #fff !important;
+}
+
+.cbc-project-link {
+    line-height: 1.25;
+}
+
+.cbc-project-link small {
+    display: block;
+    margin-top: 1px;
+    color: #9fc1d8;
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.cbc-project-link.active small {
+    color: #cfe3f0;
+}
+
+.cbc-view-all {
+    color: #9fc1d8 !important;
+    font-size: 12px !important;
+    font-style: italic;
+}
+
+.cbc-sidebar-empty {
+    padding: 8px 10px;
+    color: #6f93ab;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.cbc-nav-toggle {
+    position: fixed;
+    z-index: 930;
+    top: 16px;
+    left: calc(var(--cbc-nav-width) + 14px);
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--card-bg);
+    color: var(--ink);
+    cursor: pointer;
+    transition: left .2s ease;
+}
+
+.cbc-global-header {
+    position: fixed;
+    z-index: 910;
+    top: 0;
+    right: 0;
+    left: var(--cbc-nav-width);
+    height: var(--cbc-header-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px 0 58px;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--line);
+    transition: left .2s ease;
+}
+
+.cbc-global-header div {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.cbc-global-header strong {
+    font-size: 14px;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cbc-global-header span {
+    margin-top: 2px;
+    color: var(--muted);
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.cbc-status-bar {
+    position: fixed;
+    z-index: 920;
+    right: 0;
+    bottom: 0;
+    left: var(--cbc-nav-width);
+    height: var(--cbc-status-height);
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 0 18px;
+    background: #10283d;
+    color: #cfe1ed;
+    font-size: 11px;
+    transition: left .2s ease;
+}
+
+.cbc-status-bar .ready {
+    margin-left: auto;
+    color: #79d6a3;
+}
+
+.cbc-nav-collapsed {
+    --cbc-nav-width: 0px;
+}
+
+.cbc-nav-collapsed .cbc-sidebar {
+    width: 0;
+}
+
+html[data-theme="dark"] .cbc-sidebar,
+html[data-theme="dark"] .cbc-status-bar {
+    background: #0b1723;
+}
+
+html[data-theme="dark"] .cbc-global-header {
+    background: #1d2227;
+}
+
+@media (max-width: 800px) {
+    :root {
+        --cbc-nav-width: 0px;
+    }
+
+    .cbc-sidebar {
+        width: 0;
+    }
+
+    .cbc-nav-toggle {
+        left: 12px;
+    }
+
+    .cbc-nav-collapsed {
+        --cbc-nav-width: 248px;
+    }
+
+    .cbc-nav-collapsed .cbc-sidebar {
+        width: 248px;
+    }
+
+    .cbc-nav-collapsed .cbc-nav-toggle {
+        left: 262px;
+    }
+
+    .cbc-status-bar span:not(.ready) {
+        display: none;
+    }
+}
+
+/* ---- Client workspace card ---- */
+.cbc-workspace-card { margin: 12px; padding: 14px; border-radius: 14px; display: flex; flex-direction: column; gap: 3px; color: #fff;
+    background: hsl(var(--ws-hue) 45% 22%); border-left: 6px solid hsl(var(--ws-hue) 70% 55%); }
+.cbc-workspace-card small { opacity: .75; text-transform: uppercase; letter-spacing: .06em; font-size: .7rem; }
+.cbc-workspace-card strong { font-size: 1.05rem; }
+.cbc-workspace-card code { opacity: .85; font-size: .8rem; }
+.cbc-workspace-card .cbc-ws-logo, .cbc-workspace-card .cbc-ws-initials { width: 64px; height: 64px; border-radius: 14px; margin-bottom: 8px; flex: none; }
+.cbc-workspace-card .cbc-ws-logo { object-fit: contain; background: #fff; padding: 5px; box-sizing: border-box; }
+.cbc-workspace-card .cbc-ws-initials { display: grid; place-items: center; font-size: 1.5rem; font-weight: 800; background: rgba(255, 255, 255, .22); }
+.cbc-workspace-card .cbc-ws-exit { margin-top: 8px; padding: 7px 10px; border-radius: 8px; background: rgba(255, 255, 255, .16); color: #fff; text-align: center; text-decoration: none; font-weight: 600; }
+
+/* ---- No-jump placeholders ----
+   Painted by CSS on the very first frame in the exact place and colour of the real sidebar, header and
+   status bar. shell.js then adds the real ones on top, so changing pages looks like only the content changed. */
+html::before, html::after, body::before {
+    content: "";
+    position: fixed;
+    pointer-events: none;
+}
+html::before { z-index: 899; inset: 0 auto 0 0; width: var(--cbc-nav-width); background: #10283d; }
+html::after { z-index: 919; right: 0; bottom: 0; left: var(--cbc-nav-width); height: var(--cbc-status-height); background: #10283d; }
+body::before { z-index: 909; top: 0; right: 0; left: var(--cbc-nav-width); height: var(--cbc-header-height); background: var(--card-bg); border-bottom: 1px solid var(--line); }
+html[data-theme="dark"]::before, html[data-theme="dark"]::after { background: #0b1723; }
+html[data-theme="dark"] body::before { background: #1d2227; }
+@media print { html::before, html::after, body::before { display: none !important; } }
+
+/* Keep the scrollbar's space reserved on every page, so a tab or page with a different height
+   never makes the content slide sideways when the scrollbar appears or disappears. */
+html { scrollbar-gutter: stable; }
+/* Client Portal: a short tab (Profile) must not make the page shrink and jump when switching tabs. */
+#portalPanel { min-height: 60vh; }
+.pt-head { min-height: 130px; }

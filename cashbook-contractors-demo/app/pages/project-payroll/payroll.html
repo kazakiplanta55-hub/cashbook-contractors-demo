@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../demo-shim.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payroll | Cashbook for Contractors</title>
+    <script src="../../js/core/theme.js"></script>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/print-preview.css">
+    <link rel="stylesheet" href="../../css/print-preview-fixes.css">
+    <link rel="stylesheet" href="../../css/shell.css">
+    <link rel="stylesheet" href="../../css/materials-page.css">
+    <link rel="stylesheet" href="../../css/bento.css">
+    <link rel="stylesheet" href="../../css/payroll-page.css">
+    <link rel="stylesheet" href="../../css/design-system.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <img src="../../assets/logo/logo.png" alt="Cashbook for Contractors">
+        <div>
+            <h2 id="projectTitle">Project</h2>
+            <p id="projectClientName">Payroll</p>
+        </div>
+    </div>
+
+    <a href="../project-detail/project-detail.html" class="back-button" data-project-link>
+        &larr; Back to Project
+    </a>
+</header>
+
+<main class="container mp py bn-page">
+
+    <nav class="mp-nav" aria-label="On this page">
+        <a href="#pyOverview">Overview</a>
+        <a href="#pyRecord">Record Payroll</a>
+        <a href="#pyCashOut">Cash Out</a>
+        <a href="#pyLog">Payroll Log</a>
+    </nav>
+
+    <p id="pyNoRate" class="bn-note" hidden></p>
+
+    <!-- Overview -->
+    <section id="pyOverview" class="bn-tiles" aria-label="Payroll summary">
+        <div class="bn-tile"><span class="bn-tile-label">Crew</span><strong id="pyTileWorkers">0</strong><small id="pyTileWorkersNote">On this project</small></div>
+        <div class="bn-tile teal"><span class="bn-tile-label">Total payroll</span><strong id="pyTilePaid">₱0.00</strong><small id="pyTilePaidNote">All recorded payments</small></div>
+        <div class="bn-tile warn"><span class="bn-tile-label">Not yet in Cash Out</span><strong id="pyTileUnposted">₱0.00</strong><small id="pyTileUnpostedNote">Nothing waiting</small></div>
+        <div class="bn-tile positive"><span class="bn-tile-label">Posted to Cash Out</span><strong id="pyTilePosted">₱0.00</strong><small>Locked until reversed</small></div>
+    </section>
+
+    <div class="bn-grid">
+
+        <!-- Record Payroll (separate from the log) -->
+        <section id="pyRecord" class="bn-card bn-span-8">
+            <div class="bn-head">
+                <div>
+                    <h2 class="bn-title">Record Payroll</h2>
+                    <p class="bn-sub">Log one day at a time. Pay is worked out from each person's rates, which are kept on the <a href="../project-201/project-201.html" data-project-link>Project 201 Files</a> page.</p>
+                </div>
+                <div class="bn-seg" role="tablist" aria-label="Entry mode">
+                    <button type="button" role="tab" id="tabDaily" aria-selected="true">Daily Timesheet</button>
+                    <button type="button" role="tab" id="tabSingle" aria-selected="false">Single Entry</button>
+                </div>
+            </div>
+
+            <!-- Daily timesheet -->
+            <div id="dailyPanel" role="tabpanel" aria-labelledby="tabDaily">
+                <div class="ts-bar">
+                    <div class="ts-date">
+                        <button type="button" class="secondary-button" id="tsPrev" aria-label="Previous day">&lsaquo;</button>
+                        <input id="tsDate" type="date" aria-label="Timesheet date">
+                        <button type="button" class="secondary-button" id="tsNext" aria-label="Next day">&rsaquo;</button>
+                        <span id="tsWeekday" class="bn-chip info"></span>
+                    </div>
+                    <div class="bn-actions">
+                        <button type="button" class="secondary-button" id="tsAllPresent">Mark All Present</button>
+                        <button type="button" class="secondary-button" id="tsCopyPrev" title="Copy attendance from the last day that has entries">Same as Last Day</button>
+                        <button type="button" class="secondary-button" id="tsClear">Clear</button>
+                    </div>
+                </div>
+                <div id="tsRows" class="ts-rows"></div>
+                <p id="tsEmpty" class="bn-empty" hidden>No crew on this project yet. Add people on the <a href="../project-201/project-201.html" data-project-link>Project 201 Files</a> page, then record their days here.</p>
+                <div class="ts-foot">
+                    <div class="ts-total"><span id="tsSummary">Nothing marked yet</span><strong id="tsTotal">₱0.00</strong></div>
+                    <button type="button" class="primary-button" id="tsSave">Save Day</button>
+                </div>
+                <p id="tsMessage" class="bn-msg" aria-live="polite"></p>
+            </div>
+
+            <!-- Single entry (also used to edit a log entry) -->
+            <div id="singlePanel" role="tabpanel" aria-labelledby="tabSingle" hidden>
+                <form id="payrollForm">
+                    <h3 id="payrollFormTitle" class="ts-formtitle">Record Payroll Payment</h3>
+                    <div class="form-grid">
+                        <label class="form-field"><span>Worker *</span><select id="payrollWorker" required></select></label>
+                        <label class="form-field"><span>Date *</span><input id="payrollDate" type="date" required></label>
+                        <label class="form-field"><span>Days Worked *</span>
+                            <input id="payrollDays" type="number" min="0" step="0.5" placeholder="1.0 full day · 0.5 half-day">
+                            <small class="mp-hint">Half-day steps: 0.5, 1.0, 1.5 … or 6.0 for a full week in one entry.</small>
+                        </label>
+                        <label class="form-field"><span>Or Hours Worked (partial day)</span>
+                            <input id="payrollHours" type="number" min="0" max="24" step="0.25" placeholder="e.g. 2">
+                            <small class="mp-hint">For a short day, such as 2 hours. Paid at the hourly rate, or the daily rate ÷ 8. Overtime is separate.</small>
+                        </label>
+                        <label class="form-field"><span>Regular Pay Basis</span>
+                            <select id="payrollRateType">
+                                <option value="auto">Automatic (daily rate, otherwise hourly × 8)</option>
+                                <option value="daily">Daily rate × days</option>
+                                <option value="hourly">Hourly rate × 8 × days</option>
+                            </select>
+                        </label>
+                        <input type="hidden" id="payrollBasic" value="0">
+                        <label class="form-field"><span>Gross / Adjusted Salary</span><input id="payrollGrossPreview" type="text" disabled></label>
+                        <p id="payrollRateSummary" class="py-rate-summary" aria-live="polite">Select a worker and enter days worked to calculate pay.</p>
+                        <label class="form-field mp-span"><span>Notes</span><input id="payrollNotes" type="text" autocomplete="off"></label>
+                    </div>
+
+                    <button type="button" class="secondary-button py-extra-btn" id="toggleExtraPay">Add Extra Pay / Deductions</button>
+
+                    <div id="extraPayFields" class="form-grid py-extra" hidden>
+                        <label class="form-field"><span>Overtime Hours</span>
+                            <input id="payrollOvertimeHours" type="number" min="0" step="0.25" value="0">
+                            <small class="mp-hint">Uses the worker's OT rate, or 125% of the regular hourly-equivalent rate.</small>
+                        </label>
+                        <label class="form-field"><span>Calculated OT Pay (₱)</span><input id="payrollOtPay" type="number" min="0" step="0.01" value="0" readonly aria-readonly="true"></label>
+                        <label class="form-field"><span>Allowance (₱)</span><input id="payrollAllowance" type="number" min="0" step="0.01" value="0"></label>
+                        <label class="form-field"><span>Night Diff (₱)</span><input id="payrollNightDiff" type="number" min="0" step="0.01" value="0"></label>
+                        <label class="form-field"><span>Holiday Fee (₱)</span><input id="payrollHoliday" type="number" min="0" step="0.01" value="0"></label>
+                        <label class="form-field"><span>Other Fee (₱) <small class="mp-hint">(negative to deduct, e.g. -700)</small></span><input id="payrollOtherFee" type="number" step="0.01" value="0"></label>
+                        <label class="form-field mp-span"><span>Other Fee Note <small class="mp-hint">(e.g. Cash Advance)</small></span><input id="payrollOtherNote" type="text" autocomplete="off" placeholder="Cash Advance, Task bonus, etc."></label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="primary-button" id="payrollFormSubmit">Save Payroll Payment</button>
+                        <button type="button" class="secondary-button" id="payrollFormCancel">Cancel</button>
+                    </div>
+                    <p id="payrollFormMessage" class="mp-error"></p>
+                </form>
+            </div>
+        </section>
+
+        <!-- Cash Out -->
+        <section id="pyCashOut" class="bn-card bn-span-4">
+            <div class="bn-head">
+                <div>
+                    <h2 class="bn-title">Post to Cash Out</h2>
+                    <p class="bn-sub">Pick a pay period. Only unposted records in that period are included. Posted records stay locked until their Cash Out is reversed.</p>
+                </div>
+            </div>
+            <div class="bn-seg co-presets" id="coPresets" role="group" aria-label="Pay period">
+                <button type="button" data-preset="week">This Week</button>
+                <button type="button" data-preset="lastweek">Last Week</button>
+                <button type="button" data-preset="first">1st–15th</button>
+                <button type="button" data-preset="second">16th–End</button>
+            </div>
+            <div class="mp-inline-form co-dates">
+                <label class="form-field"><span>From Date</span><input id="cashOutFrom" type="date"></label>
+                <label class="form-field"><span>To Date</span><input id="cashOutTo" type="date"></label>
+            </div>
+            <div class="co-preview" aria-live="polite">
+                <span id="coPreviewText">Choose a period to see what will be posted.</span>
+                <strong id="coPreviewTotal"></strong>
+            </div>
+            <button type="button" class="primary-button co-post" id="generateCashOutBtn">Post Payroll to Cash Out</button>
+            <p id="cashOutMessage" class="bn-msg" aria-live="polite"></p>
+        </section>
+
+        <!-- Payroll Log (Gmail-style) -->
+        <section id="pyLog" class="bn-card">
+            <div class="bn-head">
+                <div>
+                    <h2 class="bn-title">Payroll Log</h2>
+                    <p class="bn-sub">Newest first, 30 per page. Open any entry to see its pay breakdown.</p>
+                </div>
+                <div class="bn-actions">
+                    <button type="button" class="secondary-button" id="logToggleAll">Expand Page</button>
+                </div>
+            </div>
+            <div class="lg-bar">
+                <input id="logSearch" type="search" class="lg-search" placeholder="Search worker, date or note" autocomplete="off" aria-label="Search the payroll log">
+                <div class="bn-seg" id="logFilter" role="group" aria-label="Filter by status">
+                    <button type="button" data-filter="all" aria-pressed="true">All</button>
+                    <button type="button" data-filter="unposted" aria-pressed="false">Unposted</button>
+                    <button type="button" data-filter="posted" aria-pressed="false">Posted</button>
+                </div>
+                <div class="lg-pager">
+                    <span id="logRange" aria-live="polite">0 entries</span>
+                    <button type="button" class="secondary-button" id="logNewer" aria-label="Newer entries">&lsaquo;</button>
+                    <button type="button" class="secondary-button" id="logOlder" aria-label="Older entries">&rsaquo;</button>
+                </div>
+            </div>
+            <div id="payrollTableBody" class="lg-list"></div>
+            <p id="payrollEmptyState" class="bn-empty" hidden>No payroll payments recorded yet.</p>
+        </section>
+
+    </div>
+
+    <p id="notFoundState" class="empty-state" hidden>
+        Project not found. It may have been deleted.
+    </p>
+
+</main>
+
+<script src="../../js/core/storage.js"></script>
+<script src="../../js/core/workspace-core.js"></script>
+<script src="../../js/core/client-brand.js"></script>
+<script src="../../js/core/shell.js"></script>
+<script src="../../js/pages/payroll.js"></script>
+<script src="../../js/core/header-menu.js"></script>
+<script src="../../assets/vendor/pdf.min.js"></script>
+<script src="../../js/print-preview.js"></script>
+<script src="../../js/core/navigation.js"></script>
+</body>
+</html>

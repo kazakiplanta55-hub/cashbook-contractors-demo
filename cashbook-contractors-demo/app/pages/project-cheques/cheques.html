@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../demo-shim.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheque Register | Cashbook for Contractors</title>
+    <script src="../../js/core/theme.js"></script>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/bento.css">
+    <link rel="stylesheet" href="../../css/cheques-page.css">
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/print-preview.css">
+    <link rel="stylesheet" href="../../css/print-preview-fixes.css">
+    <link rel="stylesheet" href="../../css/shell.css">
+    <link rel="stylesheet" href="../../css/design-system.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <img src="../../assets/logo/logo.png" alt="Cashbook for Contractors">
+        <div>
+            <h2 id="projectTitle">Project</h2>
+            <p id="projectClientName">Cheque Register</p>
+        </div>
+    </div>
+
+    <a href="../project-detail/project-detail.html" class="back-button" data-project-link>
+        &larr; Back to Project
+    </a>
+</header>
+
+<main class="container bn-page">
+
+    <section class="bn-tiles" aria-label="Cheque summary">
+        <div class="bn-tile warn"><span class="bn-tile-label">Pending — Issued</span><strong id="pendingIssuedTotal">₱0.00</strong><small id="pendingIssuedNote">You pay</small></div>
+        <div class="bn-tile teal"><span class="bn-tile-label">Pending — Received</span><strong id="pendingReceivedTotal">₱0.00</strong><small id="pendingReceivedNote">They pay you</small></div>
+        <div class="bn-tile" id="maturedTile"><span class="bn-tile-label">Matured cheques</span><strong id="overdueCount">0</strong><small id="maturedNote">Past maturity, not yet cleared</small></div>
+        <div class="bn-tile" id="soonTile"><span class="bn-tile-label">Maturing in 7 days</span><strong id="dueSoonCount">0</strong><small id="dueSoonNote">Nothing coming up</small></div>
+    </section>
+
+    <section class="bn-card cq-toolbar">
+        <div class="cq-tools">
+            <input id="chequeSearch" type="search" class="cq-search" placeholder="Search payee, cheque number, bank or note" autocomplete="off" aria-label="Search cheques">
+            <div class="bn-seg" id="chequeFilter" role="group" aria-label="Filter cheques">
+                <button type="button" data-filter="all" aria-pressed="true">All</button>
+                <button type="button" data-filter="attention" aria-pressed="false">Needs Attention</button>
+                <button type="button" data-filter="pending" aria-pressed="false">Pending</button>
+                <button type="button" data-filter="cleared" aria-pressed="false">Cleared</button>
+                <button type="button" data-filter="bounced" aria-pressed="false">Bounced</button>
+            </div>
+            <button type="button" class="primary-button" id="chequeAddToggle">Add Cheque</button>
+        </div>
+    </section>
+
+    <section class="bn-card" id="chequeFormCard" hidden>
+        <div class="bn-head">
+            <div>
+                <h2 class="bn-title" id="chequeFormTitle">Add Cheque</h2>
+                <p class="bn-sub">Record a cheque you issued or received. Mark it Cleared on its row once the bank clears it, and it posts to Cash Out automatically.</p>
+            </div>
+        </div>
+        <form id="chequeForm">
+            <div class="form-grid">
+                <label class="form-field">
+                    <span>Type *</span>
+                    <select id="chequeType" required>
+                        <option value="issued">Issued (you're paying someone)</option>
+                        <option value="received">Received (someone's paying you)</option>
+                    </select>
+                </label>
+                <label class="form-field">
+                    <span>Cheque Number *</span>
+                    <input id="chequeNumber" type="text" required autocomplete="off">
+                </label>
+                <label class="form-field">
+                    <span>Bank Name *</span>
+                    <input id="bankName" type="text" required autocomplete="off">
+                </label>
+                <label class="form-field" id="partyLabelField">
+                    <span>Payee (who you're paying) *</span>
+                    <input id="partyName" type="text" required autocomplete="off">
+                </label>
+                <label class="form-field">
+                    <span>Amount (₱) *</span>
+                    <input id="chequeAmount" type="number" min="0" step="0.01" required>
+                </label>
+                <label class="form-field">
+                    <span>Maturity Date *</span>
+                    <input id="chequeDueDate" type="date" required>
+                </label>
+                <label class="form-field" style="grid-column: 1 / -1;">
+                    <span>Notes</span>
+                    <input id="chequeNotes" type="text" autocomplete="off">
+                </label>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="primary-button">Save Cheque</button>
+                <button type="button" class="secondary-button" id="chequeCancel">Cancel</button>
+            </div>
+            <p id="chequeFormMessage" class="bn-msg err" aria-live="polite"></p>
+        </form>
+    </section>
+
+    <div class="bn-grid" id="chequeLists">
+        <section class="bn-card bn-span-6">
+            <div class="bn-head">
+                <div>
+                    <h2 class="bn-title">Cheques Issued</h2>
+                    <p class="bn-sub" id="issuedSummary">You pay</p>
+                </div>
+            </div>
+            <div id="issuedTableBody" class="cq-list"></div>
+            <p id="issuedEmptyState" class="bn-empty" hidden>No cheques issued yet.</p>
+        </section>
+
+        <section class="bn-card bn-span-6">
+            <div class="bn-head">
+                <div>
+                    <h2 class="bn-title">Cheques Received</h2>
+                    <p class="bn-sub" id="receivedSummary">They pay you</p>
+                </div>
+            </div>
+            <div id="receivedTableBody" class="cq-list"></div>
+            <p id="receivedEmptyState" class="bn-empty" hidden>No cheques received yet.</p>
+        </section>
+    </div>
+
+    <p id="notFoundState" class="empty-state" hidden>
+        Project not found. It may have been deleted.
+    </p>
+
+</main>
+
+<script src="../../js/core/storage.js"></script>
+<script src="../../js/core/workspace-core.js"></script>
+<script src="../../js/core/client-brand.js"></script>
+<script src="../../js/core/shell.js"></script>
+<script src="../../js/pages/cheques.js"></script>
+<script src="../../js/core/header-menu.js"></script>
+<script src="../../assets/vendor/pdf.min.js"></script>
+<script src="../../js/print-preview.js"></script>
+<script src="../../js/core/navigation.js"></script>
+</body>
+</html>

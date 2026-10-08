@@ -1,0 +1,193 @@
+{
+  "app": "cashbook-for-contractors",
+  "backupFormatVersion": 2,
+  "exportedAt": "2026-10-03T00:00:00.000Z",
+  "clients": [
+    {
+      "id": "sample-client-bayview",
+      "clientName": "Bayview Realty Corp",
+      "businessName": "Bayview Realty Corp",
+      "contactNumber": "02 8123 4567",
+      "clientEmail": "projects@bayview.example",
+      "tin": "234-567-890-000",
+      "clientAddress": "Roxas Blvd, Pasay City",
+      "createdAt": "2026-09-01T08:00:00.000Z",
+      "updatedAt": "2026-09-01T08:00:00.000Z"
+    },
+    {
+      "id": "sample-client-reyes",
+      "clientName": "Ana Reyes",
+      "businessName": "Reyes Bakery",
+      "contactNumber": "0918 765 4321",
+      "clientEmail": "ana@example.com",
+      "tin": "",
+      "clientAddress": "45 Rizal Ave, Marikina",
+      "createdAt": "2026-09-01T08:00:00.000Z",
+      "updatedAt": "2026-09-01T08:00:00.000Z"
+    }
+  ],
+  "projects": [
+    {
+      "id": "sample-project-tower",
+      "clientId": "sample-client-bayview",
+      "projectName": "Bayview Warehouse Annex",
+      "siteAddress": "Lot 5, Pasay City",
+      "budget": "1500000",
+      "status": "Ongoing",
+      "startDate": "2026-09-15",
+      "targetEndDate": "2027-02-28",
+      "percentComplete": 35,
+      "notes": "Sample project for testing imports.",
+      "roles": [
+        {
+          "id": "role-foreman",
+          "name": "Foreman"
+        },
+        {
+          "id": "role-mason",
+          "name": "Mason"
+        },
+        {
+          "id": "role-helper",
+          "name": "Helper"
+        }
+      ],
+      "workers": [
+        {
+          "id": "w1",
+          "name": "Ramon Cruz",
+          "role": "Foreman",
+          "dailyRate": 1200,
+          "hourlyRate": 150,
+          "otRate": 190,
+          "createdAt": "2026-09-02T08:00:00.000Z"
+        },
+        {
+          "id": "w2",
+          "name": "Jose Mercado",
+          "role": "Mason",
+          "dailyRate": 850,
+          "hourlyRate": 106.25,
+          "otRate": 133,
+          "createdAt": "2026-09-02T08:00:00.000Z"
+        },
+        {
+          "id": "w3",
+          "name": "Mario Dizon",
+          "role": "Helper",
+          "dailyRate": 610,
+          "hourlyRate": 76.25,
+          "otRate": 95,
+          "createdAt": "2026-09-02T08:00:00.000Z"
+        }
+      ],
+      "incomeEntries": [
+        {
+          "id": "t-in-1",
+          "date": "2026-10-01",
+          "amount": "250000.00",
+          "description": "Down payment",
+          "referenceNo": "OR-5001",
+          "category": "Down Payment",
+          "sourceType": "manual",
+          "sourceId": "t-in-1",
+          "sourceIds": [
+            "t-in-1"
+          ],
+          "sourceKey": "manual:t-in-1",
+          "postingStatus": "posted",
+          "postedAt": "2026-10-01T08:00:00.000Z",
+          "createdAt": "2026-10-01T08:00:00.000Z"
+        }
+      ],
+      "expenseEntries": [
+        {
+          "id": "t-out-1",
+          "date": "2026-10-02",
+          "amount": "86500.50",
+          "description": "Cement and sand",
+          "referenceNo": "DR-7001",
+          "category": "Materials",
+          "sourceType": "manual",
+          "sourceId": "t-out-1",
+          "sourceIds": [
+            "t-out-1"
+          ],
+          "sourceKey": "manual:t-out-1",
+          "postingStatus": "posted",
+          "postedAt": "2026-10-02T08:00:00.000Z",
+          "createdAt": "2026-10-02T08:00:00.000Z"
+        },
+        {
+          "id": "t-out-2",
+          "date": "2026-10-05",
+          "amount": "42000.00",
+          "description": "Weekly labor",
+          "referenceNo": "PR-7002",
+          "category": "Labor",
+          "sourceType": "manual",
+          "sourceId": "t-out-2",
+          "sourceIds": [
+            "t-out-2"
+          ],
+          "sourceKey": "manual:t-out-2",
+          "postingStatus": "posted",
+          "postedAt": "2026-10-05T08:00:00.000Z",
+          "createdAt": "2026-10-05T08:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "sample-project-bakery",
+      "clientId": "sample-client-reyes",
+      "projectName": "Reyes Bakery Renovation",
+      "siteAddress": "45 Rizal Ave, Marikina",
+      "budget": "480000",
+      "status": "Ongoing",
+      "startDate": "2026-10-01",
+      "targetEndDate": "2026-12-15",
+      "percentComplete": 10,
+      "notes": "",
+      "roles": [],
+      "workers": [],
+      "incomeEntries": [
+        {
+          "id": "t-in-2",
+          "date": "2026-10-03",
+          "amount": "60000.00",
+          "description": "Down payment",
+          "referenceNo": "OR-5101",
+          "category": "Down Payment",
+          "sourceType": "manual",
+          "sourceId": "t-in-2",
+          "sourceIds": [
+            "t-in-2"
+          ],
+          "sourceKey": "manual:t-in-2",
+          "postingStatus": "posted",
+          "postedAt": "2026-10-03T08:00:00.000Z",
+          "createdAt": "2026-10-03T08:00:00.000Z"
+        }
+      ],
+      "expenseEntries": [
+        {
+          "id": "t-out-3",
+          "date": "2026-10-04",
+          "amount": "15750.00",
+          "description": "Tiles",
+          "referenceNo": "DR-7101",
+          "category": "Materials",
+          "sourceType": "manual",
+          "sourceId": "t-out-3",
+          "sourceIds": [
+            "t-out-3"
+          ],
+          "sourceKey": "manual:t-out-3",
+          "postingStatus": "posted",
+          "postedAt": "2026-10-04T08:00:00.000Z",
+          "createdAt": "2026-10-04T08:00:00.000Z"
+        }
+      ]
+    }
+  ]
+}

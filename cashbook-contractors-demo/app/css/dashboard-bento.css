@@ -1,0 +1,837 @@
+/* ============================================================
+   BENTO DASHBOARD
+   Scoped to body.dashboard-page so no other page is affected.
+   Reuses the existing brand palette (navy / amber / teal on a
+   warm cream background) — just a different card language:
+   rounder corners, softer shadows, a hero card, small stat
+   chips, and a couple of data-driven infographic widgets.
+   ============================================================ */
+
+/* Page width and the page title bar come from css/design-system.css, so the Dashboard matches every other page. */
+
+/* =========================
+   STAT STRIP
+========================= */
+
+body.dashboard-page .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 14px;
+    margin: 8px 0 20px;
+}
+
+body.dashboard-page .summary-card {
+    border-left: none;
+    border-radius: 16px;
+    padding: 16px 18px;
+    box-shadow: 0 3px 14px rgba(23, 41, 61, .06);
+}
+
+body.dashboard-page .summary-card span {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .04em;
+}
+
+body.dashboard-page .summary-card strong {
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 8px;
+}
+
+/* =========================
+   BENTO ROWS / CARDS
+========================= */
+
+.bento-row {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+    align-items: stretch;
+}
+
+.bento-row-secondary {
+    grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 1080px) {
+    .bento-row,
+    .bento-row-secondary {
+        grid-template-columns: 1fr;
+    }
+}
+
+.bento-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    padding: 22px 24px;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+}
+
+.bento-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.bento-card-header h3 {
+    font-size: 15px;
+    color: var(--ink);
+    flex: 1;
+}
+
+.bento-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.bento-icon.teal { background: #e4eeee; color: var(--brand-teal); }
+.bento-icon.navy { background: #eef3f8; color: var(--brand-primary); }
+.bento-icon.amber { background: #f5ead9; color: var(--brand-accent); }
+
+.bento-subtext {
+    font-size: 12px;
+    color: var(--muted);
+    margin: -8px 0 12px;
+}
+
+/* =========================
+   HERO CARD — Featured Project
+========================= */
+
+.bento-hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--brand-primary-dark) 0%, var(--brand-primary) 62%, var(--brand-teal) 130%);
+    color: #f2f6fa;
+    justify-content: space-between;
+    min-height: 230px;
+}
+
+.bento-hero-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #bcd6ea;
+}
+
+.bento-hero h2 {
+    font-size: 24px;
+    margin: 8px 0 4px;
+    color: #ffffff;
+    max-width: 80%;
+}
+
+.bento-hero-meta {
+    font-size: 13px;
+    color: #cfe0ee;
+}
+
+.bento-hero-illustration {
+    position: absolute;
+    right: -6px;
+    bottom: -6px;
+    opacity: .9;
+    pointer-events: none;
+}
+
+.bento-hero-footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 18px;
+    position: relative;
+    z-index: 1;
+}
+
+.bento-hero-crew {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar-stack {
+    display: flex;
+}
+
+.avatar-chip {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    border: 2px solid var(--brand-primary-dark);
+    margin-left: -10px;
+}
+
+.avatar-chip:first-child { margin-left: 0; }
+
+.bento-hero-crew-count {
+    font-size: 12px;
+    color: #dbe8f2;
+    line-height: 1.3;
+}
+
+.bento-hero-crew-count strong {
+    display: block;
+    font-size: 15px;
+    color: #fff;
+}
+
+.bento-hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: #10283d;
+    color: #fff !important;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.bento-hero-cta:hover {
+    background: #0b1e2f;
+}
+
+.bento-hero-progress {
+    margin-top: 16px;
+    position: relative;
+    z-index: 1;
+}
+
+.bento-hero-progress-track {
+    width: 70%;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .22);
+    overflow: hidden;
+}
+
+.bento-hero-progress-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: #ffffff;
+}
+
+.bento-hero-progress-label {
+    font-size: 12px;
+    color: #dbe8f2;
+    margin-top: 6px;
+}
+
+.bento-empty {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.bento-hero .bento-empty {
+    color: #dbe8f2;
+}
+
+/* =========================
+   BUDGET SUMMARY CARD
+========================= */
+
+.budget-limit {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.budget-over-note {
+    color: var(--brand-accent);
+    font-weight: 600;
+}
+
+.budget-spent {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 4px 0 2px;
+}
+
+.budget-spent small {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+}
+
+.budget-segments {
+    display: flex;
+    gap: 3px;
+    margin: 14px 0 16px;
+    height: 34px;
+}
+
+.budget-segments span {
+    flex: 1;
+    border-radius: 3px;
+    background: #e5eaee;
+}
+
+.budget-segments span.filled {
+    background: var(--brand-teal);
+}
+
+.budget-segments span.over {
+    background: var(--negative);
+}
+
+.budget-breakdown {
+    display: flex;
+    gap: 22px;
+    margin-top: auto;
+}
+
+.budget-breakdown div strong {
+    display: block;
+    font-size: 16px;
+    color: var(--ink);
+}
+
+.budget-breakdown div span {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .03em;
+}
+
+html[data-theme="dark"] .budget-segments span {
+    background: #2b333a;
+}
+
+/* =========================
+   TIMELINE STATUS CARD
+========================= */
+
+.timeline-range {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 2px;
+}
+
+.timeline-status-pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+}
+
+.timeline-status-pill.on-track { background: #e7f2ec; color: var(--positive); }
+.timeline-status-pill.behind { background: #fbeee0; color: var(--brand-accent); }
+.timeline-status-pill.unknown { background: #eef3f8; color: var(--brand-primary); }
+
+#timelineSparkline {
+    width: 100%;
+    height: 56px;
+    margin-bottom: 10px;
+}
+
+.timeline-big {
+    margin-top: auto;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.timeline-big strong {
+    font-size: 30px;
+    color: var(--ink);
+}
+
+.timeline-big span {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.3;
+}
+
+/* =========================
+   PHASE PROGRESS (ARCS)
+========================= */
+
+.gantt-elapsed {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.gantt-elapsed small {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    margin-left: 6px;
+}
+
+.gantt-late-chip {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--negative);
+}
+
+.gantt-arcs-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 6px 0 4px;
+}
+
+.gantt-legend {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.gantt-legend div {
+    text-align: center;
+    flex: 1;
+}
+
+.gantt-legend strong {
+    display: block;
+    font-size: 15px;
+    color: var(--ink);
+}
+
+.gantt-legend span {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+/* =========================
+   MILESTONES CARD
+========================= */
+
+.milestone-toggle {
+    display: inline-flex;
+    background: var(--bg);
+    border-radius: 999px;
+    padding: 3px;
+    gap: 2px;
+}
+
+.milestone-toggle button {
+    border: none;
+    background: none;
+    font: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    padding: 5px 11px;
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.milestone-toggle button.active {
+    background: var(--card-bg);
+    color: var(--brand-primary);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
+}
+
+.milestone-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.milestone-cell {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background: #e5eaee;
+    flex-shrink: 0;
+}
+
+.milestone-cell.done { background: var(--brand-teal); }
+.milestone-cell.overdue { background: #fbe3da; border: 2px solid var(--negative); }
+
+.milestone-footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.milestone-footer strong {
+    font-size: 22px;
+    color: var(--ink);
+}
+
+.milestone-footer span {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+html[data-theme="dark"] .milestone-cell {
+    background: #2b333a;
+}
+
+html[data-theme="dark"] .milestone-cell.overdue {
+    background: #3a2a24;
+}
+
+/* =========================
+   SECONDARY SECTIONS
+   These sections (Due This Week, charts, client overview,
+   recent projects) are now each wrapped in a real .bento-card,
+   same as the top row. The rules below strip the OLD nested
+   card look (colored borders, smaller radius, its own shadow)
+   from the elements rendered *inside* those wrappers, so it
+   reads as one flat tile instead of a card nested in a card.
+========================= */
+
+body.dashboard-page .bento-card > h2,
+body.dashboard-page .bento-card .chart-legend {
+    margin-top: 0;
+}
+
+body.dashboard-page main.container > .bento-card {
+    margin-bottom: 16px;
+}
+
+/* Client Overview tiles: drop the teal top-border accent and the
+   tile's own shadow — the grid already sits inside a bento card. */
+body.dashboard-page .client-overview-card {
+    border-top: none;
+    border-radius: 12px;
+    box-shadow: none;
+    background: var(--bg);
+}
+
+/* Recent Project rows: same idea — flatten into the wrapper card,
+   keep just a thin divider between rows instead of a shadowed box. */
+body.dashboard-page .project-card {
+    box-shadow: none;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    margin-bottom: 10px;
+}
+
+body.dashboard-page .project-card:hover {
+    box-shadow: none;
+    border-color: var(--brand-teal);
+}
+
+body.dashboard-page #recentProjects .project-card:last-child {
+    margin-bottom: 0;
+}
+
+body.dashboard-page .bento-card select {
+    padding: 6px 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font: inherit;
+    font-size: 13px;
+    background: var(--card-bg);
+    color: var(--ink);
+}
+
+/* =========================
+   FILTER BAR
+========================= */
+
+.bento-filter-bar {
+    flex-direction: row;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+    padding: 16px 24px;
+}
+
+.bento-filter-bar .form-field {
+    min-width: 220px;
+    flex: 1;
+}
+
+.bento-filter-bar select {
+    padding: 9px 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font: inherit;
+    background: var(--card-bg);
+    color: var(--ink);
+}
+
+.bento-filter-hint {
+    flex-basis: 100%;
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0;
+}
+
+.bento-empty {
+    color: var(--muted);
+    font-size: 13px;
+    padding: 12px 0;
+}
+
+/* =========================
+   VISUAL POLISH FOR THE "PLAIN" CARDS
+   Mini colored stat rows, icon chips, avatars, and status accents so
+   Due This Week / Actual vs Planned / Net Cash Flow / Participation /
+   Client Overview / Recent Projects read as part of the same colorful
+   bento family as the Hero/Budget/Timeline row, not a flatter afterthought.
+========================= */
+
+.mini-stat-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 26px;
+    margin-bottom: 16px;
+}
+
+.mini-stat-row:empty {
+    margin-bottom: 0;
+}
+
+.mini-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.mini-stat strong {
+    font-size: 22px;
+    color: var(--ink);
+}
+
+.mini-stat span {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .03em;
+}
+
+.mini-stat.positive strong { color: var(--positive); }
+.mini-stat.negative strong { color: var(--negative); }
+.mini-stat.accent strong { color: var(--brand-accent); }
+.mini-stat.teal strong { color: var(--brand-teal); }
+.mini-stat.navy strong { color: var(--brand-primary); }
+
+/* Due This Week — icon chip per row, amount pushed to the right */
+#dueThisWeekSection .due-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+#dueThisWeekSection .due-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+#dueThisWeekSection .due-item-amount {
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.due-item-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+}
+
+.due-item.overdue .due-item-icon {
+    background: #fbe3da;
+}
+
+.due-item.upcoming .due-item-icon {
+    background: #f5ead9;
+}
+
+html[data-theme="dark"] .due-item.overdue .due-item-icon {
+    background: #3a2a24;
+}
+
+html[data-theme="dark"] .due-item.upcoming .due-item-icon {
+    background: #3a331f;
+}
+
+/* Client Participation — value in the donut hole, richer legend rows */
+.participation-layout {
+    position: relative;
+}
+
+.donut-center-label {
+    position: absolute;
+    left: 110px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 108px;
+    text-align: center;
+    pointer-events: none;
+    line-height: 1.2;
+}
+
+.donut-center-label strong {
+    display: block;
+    font-size: 13px;
+    color: var(--ink);
+}
+
+.donut-center-label span {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .03em;
+}
+
+.participation-legend-row {
+    align-items: center;
+}
+
+.participation-legend-bar-track {
+    flex: 1;
+    height: 5px;
+    border-radius: 999px;
+    background: var(--bg);
+    margin: 0 10px;
+    overflow: hidden;
+}
+
+.participation-legend-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+}
+
+/* Client Overview — avatar chip per tile */
+.client-overview-card .client-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+/* Recent Projects — colored status accent instead of a plain border */
+body.dashboard-page #recentProjects .project-card {
+    border-left-width: 4px;
+    border-left-style: solid;
+    padding-left: 16px;
+}
+
+body.dashboard-page #recentProjects .project-card.ongoing {
+    border-left-color: var(--brand-primary);
+}
+
+body.dashboard-page #recentProjects .project-card.completed {
+    border-left-color: var(--positive);
+}
+
+body.dashboard-page #recentProjects .project-card.on-hold {
+    border-left-color: var(--brand-accent);
+}
+
+/* ---- Dashboard cleanup: compact toolbar ---- */
+.dash-toolbar { display: flex; flex-wrap: wrap; gap: 12px 16px; margin: 0 0 14px; }
+.dash-toolbar .form-field { min-width: 220px; margin: 0; }
+.bento-icon.amber svg { color: #b5651d; }
+.bento-icon.teal svg { color: #1f7a7a; }
+.bento-icon.navy svg { color: #1f4e79; }
+.bento-icon svg { width: 20px; height: 20px; }
+
+/* =========================
+   DASHBOARD POPUPS (View Projects, Budget Summary, Timeline Status)
+========================= */
+.bento-link {
+    border: 0; background: transparent; color: var(--brand-primary); font: inherit; font-size: 13px; font-weight: 600;
+    cursor: pointer; padding: 4px 8px; border-radius: 8px;
+}
+.bento-link:hover { background: rgba(128, 128, 128, .16); }
+.bento-link:focus-visible, .bento-hero-cta:focus-visible, .dp-close:focus-visible { outline: 3px solid var(--brand-accent); outline-offset: 2px; }
+button.bento-hero-cta { border: 0; cursor: pointer; font-family: inherit; }
+
+.dp-card { max-width: 760px; max-height: calc(100vh - 48px); display: flex; flex-direction: column; padding: 0; overflow: hidden; }
+.dp-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 20px 24px 12px; border-bottom: 1px solid var(--line); }
+.dp-head h3 { margin: 0 0 2px; }
+.dp-head p { margin: 0; color: var(--muted); font-size: 13px; }
+.dp-close { border: 0; background: transparent; color: var(--ink); font-size: 28px; line-height: 1; cursor: pointer; padding: 0 8px; border-radius: 8px; }
+.dp-close:hover { background: rgba(128, 128, 128, .2); }
+.dp-body { padding: 16px 24px 22px; overflow-y: auto; }
+.dp-list { display: grid; gap: 12px; }
+.dp-proj, .dp-tl { padding: 14px 16px; border-radius: 14px; border: 1px solid var(--line); background: rgba(128, 128, 128, .06); }
+.dp-proj small { color: var(--muted); }
+.dp-proj-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.dp-pill { padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; color: #fff; background: #1f4e79; }
+.dp-pill.on-hold { background: #b7791f; }
+.dp-pill.completed { background: #2f7449; }
+.dp-bar { height: 10px; border-radius: 999px; background: rgba(128, 128, 128, .28); overflow: hidden; margin: 8px 0 6px; }
+.dp-bar span { display: block; height: 100%; background: var(--brand-teal); }
+.dp-proj-meta { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 13px; align-items: center; }
+.dp-proj-meta a { margin-left: auto; color: var(--brand-primary); font-weight: 600; }
+.dp-foot { margin: 14px 0 0; color: var(--muted); font-size: 12.5px; line-height: 1.5; }
+.dp-foot a { color: var(--brand-primary); }
+
+.dp-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.dp-tile { padding: 14px 16px; border-radius: 14px; border-top: 4px solid var(--line); background: rgba(128, 128, 128, .08); display: flex; flex-direction: column; gap: 4px; }
+.dp-tile small { text-transform: uppercase; letter-spacing: .05em; font-size: 11px; color: var(--muted); }
+.dp-tile strong { font-size: 20px; }
+.dp-tile span { font-size: 11.5px; color: var(--muted); line-height: 1.35; }
+.dp-tile.in { border-top-color: #2f9e63; } .dp-tile.in strong { color: #2f9e63; }
+.dp-tile.out { border-top-color: #c0563a; } .dp-tile.out strong { color: #c0563a; }
+.dp-tile.coll { border-top-color: #2f8f8a; }
+.dp-tile.pay { border-top-color: #c97a2b; }
+.dp-scroll { overflow-x: auto; }
+.dp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.dp-table th, .dp-table td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; }
+.dp-table .num { text-align: right; white-space: nowrap; }
+.dp-table tfoot td { font-weight: 800; border-top: 2px solid var(--line); border-bottom: 0; }
+
+.dp-tone { padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; background: rgba(128, 128, 128, .25); }
+.dp-tone.ok { background: rgba(47, 158, 99, .22); color: #2f9e63; }
+.dp-tone.late { background: rgba(217, 83, 79, .22); color: #d9534f; }
+.dp-axis { margin: 12px 0 8px; }
+.dp-axis-row { display: grid; grid-template-columns: 64px 1fr; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 12px; color: var(--muted); }
+.dp-track { position: relative; height: 16px; border-radius: 8px; background: rgba(128, 128, 128, .16); }
+.dp-track i { position: absolute; top: 2px; bottom: 2px; border-radius: 6px; }
+.dp-track i.c, .dp-axis-legend i.c { background: #1f4e79; }
+.dp-track i.r, .dp-axis-legend i.r { background: #2f9e63; }
+.dp-track i.r.late, .dp-axis-legend i.r.late { background: #d9534f; }
+.dp-track i.r.unknown, .dp-axis-legend i.r.unknown { background: #8a8f98; }
+.dp-track i.p, .dp-axis-legend i.p { background: repeating-linear-gradient(45deg, #2f9e63, #2f9e63 4px, rgba(47, 158, 99, .35) 4px, rgba(47, 158, 99, .35) 8px); }
+.dp-track i.p.late, .dp-axis-legend i.p.late { background: repeating-linear-gradient(45deg, #d9534f, #d9534f 4px, rgba(217, 83, 79, .35) 4px, rgba(217, 83, 79, .35) 8px); }
+.dp-track b { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--brand-accent); }
+.dp-axis-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 11.5px; color: var(--muted); margin-left: 72px; }
+.dp-axis-legend i { display: inline-block; width: 14px; height: 8px; border-radius: 3px; margin-right: 5px; vertical-align: middle; }
+.dp-axis-legend i.t { width: 2px; height: 12px; background: var(--brand-accent); border-radius: 0; }
+.dp-tl-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; }
+.dp-tl-cols small { text-transform: uppercase; letter-spacing: .05em; font-size: 11px; color: var(--muted); }
+.dp-tl-cols p { margin: 3px 0 0; font-size: 13px; }
+@media (max-width: 640px) { .dp-tl-cols { grid-template-columns: 1fr; } .dp-axis-row { grid-template-columns: 52px 1fr; } .dp-axis-legend { margin-left: 0; } }
+@media print { .dp-overlay { display: none !important; } }

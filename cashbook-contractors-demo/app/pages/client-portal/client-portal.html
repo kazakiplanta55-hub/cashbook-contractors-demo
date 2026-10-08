@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../demo-shim.js"></script>
+    <script src="../../js/core/theme.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Portal | Cashbook for Contractors</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/print-preview.css">
+    <link rel="stylesheet" href="../../css/print-preview-fixes.css">
+    <link rel="stylesheet" href="../../css/shell.css">
+    <link rel="stylesheet" href="../../css/portal.css">
+    <link rel="stylesheet" href="../../css/design-system.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <img src="../../assets/logo/logo.png" alt="Cashbook for Contractors">
+        <div>
+            <h2>Cashbook for Contractors</h2>
+            <p>Client Portal</p>
+        </div>
+    </div>
+
+    <button type="button" class="back-button" data-href="../dashboard/dashboard.html">
+        &larr; Dashboard
+    </button>
+</header>
+
+<main class="container portal-login-page">
+
+    <section class="portal-login" aria-labelledby="portalLoginTitle">
+        <img class="portal-login-logo" src="../../assets/logo/logo.png" alt="">
+        <h1 id="portalLoginTitle">Cashbook for Contractors</h1>
+        <p class="portal-login-tagline">Open a client portal to manage its profile, projects and payments.</p>
+
+        <div class="portal-login-card">
+            <form id="portalOpenForm" autocomplete="off">
+                <label class="form-field">
+                    <span>Find a client</span>
+                    <input id="clientSearch" type="text" placeholder="Type a name or business...">
+                </label>
+                <label class="form-field">
+                    <span>Client</span>
+                    <select id="clientPicker"></select>
+                </label>
+                <button type="submit" id="openPortalButton" class="primary-button portal-open">Open Portal</button>
+            </form>
+            <p id="portalOpenMessage" class="portal-login-message" role="status"></p>
+
+            <div class="portal-divider"><span>or</span></div>
+
+            <button type="button" id="createProfileButton" class="portal-create" aria-expanded="false" aria-controls="registerPanel">Create New Profile</button>
+            <p class="portal-login-link"><a href="../projects/projects.html">Add / edit projects</a></p>
+        </div>
+    </section>
+
+    <div id="registerPanel" class="portal-register" hidden>
+        <section class="form-card">
+            <h2 id="formTitle">New Client Profile</h2>
+            <p class="portal-register-hint">Fill in the profile below. Saved clients appear in Master Data and in the client list above.</p>
+
+            <form id="clientForm">
+                <div class="form-grid">
+                    <label class="form-field">
+                        <span>Client Name *</span>
+                        <input id="clientName" type="text" required autocomplete="off">
+                    </label>
+
+                    <label class="form-field">
+                        <span>Business Name</span>
+                        <input id="businessName" type="text" autocomplete="off">
+                    </label>
+
+                    <label class="form-field">
+                        <span>Contact Number</span>
+                        <input id="contactNumber" type="text" autocomplete="off">
+                    </label>
+
+                    <label class="form-field">
+                        <span>Email</span>
+                        <input id="clientEmail" type="email" autocomplete="off">
+                    </label>
+
+                    <label class="form-field">
+                        <span>TIN (for Accountant Edition transfer)</span>
+                        <input id="clientTin" type="text" autocomplete="off" placeholder="000-000-000-000">
+                    </label>
+
+                    <label class="form-field" style="grid-column: 1 / -1;">
+                        <span>Address</span>
+                        <input id="clientAddress" type="text" autocomplete="off">
+                    </label>
+
+                    <label class="form-field">
+                        <span>Client logo (optional)</span>
+                        <input id="clientLogo" type="file" accept="image/png,image/jpeg,image/webp">
+                    </label>
+
+                    <label class="form-field">
+                        <span>Brand color (used in the Client Portal)</span>
+                        <input id="clientBrandColor" type="color" value="#1f4e79">
+                    </label>
+
+                    <div class="form-field" id="clientLogoPreviewBox" hidden>
+                        <img id="clientLogoPreview" alt="" style="max-height: 56px; max-width: 160px;">
+                        <button type="button" id="clientLogoRemove" class="secondary-button">Remove Logo</button>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="primary-button">Save Client</button>
+                    <button type="button" id="cancelCreateButton" class="secondary-button">Cancel</button>
+                </div>
+
+                <p id="formMessage" style="margin-top: 12px; color: var(--negative);"></p>
+            </form>
+        </section>
+    </div>
+
+</main>
+
+<script src="../../js/core/storage.js"></script>
+<script src="../../js/core/workspace-core.js"></script>
+<script src="../../js/core/client-brand.js"></script>
+<script src="../../js/core/shell.js"></script>
+<script src="../../js/pages/client-portal.js"></script>
+<script src="../../js/core/header-menu.js"></script>
+<script src="../../assets/vendor/pdf.min.js"></script>
+<script src="../../js/print-preview.js"></script>
+<script src="../../js/core/navigation.js"></script>
+</body>
+</html>

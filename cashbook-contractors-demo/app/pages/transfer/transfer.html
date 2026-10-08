@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../demo-shim.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Transfer | Cashbook for Contractors</title>
+    <script src="../../js/core/theme.js"></script>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/print-preview.css">
+    <link rel="stylesheet" href="../../css/print-preview-fixes.css">
+    <link rel="stylesheet" href="../../css/shell.css">
+    <link rel="stylesheet" href="../../css/settings.css">
+    <link rel="stylesheet" href="../../css/design-system.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <img src="../../assets/logo/logo.png" alt="Cashbook for Contractors">
+        <div>
+            <h2>Cashbook for Contractors</h2>
+            <p>Data Transfer</p>
+        </div>
+    </div>
+
+    <button type="button" class="back-button" data-href="../dashboard/dashboard.html">
+        &larr; Dashboard
+    </button>
+</header>
+
+<main class="container">
+    <div class="aset">
+        <nav class="aset-nav" aria-label="Transfer sections">
+            <button type="button" class="aset-tab" data-panel="send">Send to Accountant</button>
+            <button type="button" class="aset-tab" data-panel="import">Import Package</button>
+            <button type="button" class="aset-tab" data-panel="full">Full Data Package</button>
+        </nav>
+
+        <div class="aset-content">
+            <section class="aset-panel" id="send">
+                <h2>Send to Accountant</h2>
+                <p class="aset-lead">Only Cash In and Cash Out entries are sent, per client. Budgets, progress, materials, purchase orders, and payroll stay here. Each entry is tagged with the project it came from.</p>
+
+                <div class="aset-group">
+                    <div class="aset-row">
+                        <div class="aset-row-text">
+                            <span class="aset-row-title">Export transfer package</span>
+                            <span class="aset-row-desc">Creates a .cftransfer file for the Accountant Edition.</span>
+                        </div>
+                        <div class="aset-row-control"><button type="button" id="exportButton" class="primary-button">Export Transfer Package (.cftransfer)</button></div>
+                    </div>
+                    <p id="exportMessage" class="aset-message"></p>
+                </div>
+
+                <div class="aset-group">
+                    <h3>Clients Included</h3>
+                    <p class="aset-lead" style="padding: 6px 20px 0; margin-bottom: 8px; font-size: .85rem;">Clients are matched by TIN on the receiving end. Add a TIN to the client profile so repeat transfers update the same client instead of creating a new one.</p>
+                    <div class="aset-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Client</th>
+                                    <th>TIN</th>
+                                    <th>Cash In Entries</th>
+                                    <th>Cash Out Entries</th>
+                                </tr>
+                            </thead>
+                            <tbody id="clientSummaryBody"></tbody>
+                        </table>
+                    </div>
+                    <p id="clientSummaryEmptyState" class="empty-state" hidden>
+                        No income or expense entries recorded yet — nothing to transfer.
+                    </p>
+                </div>
+            </section>
+
+            <section class="aset-panel" id="import">
+                <h2>Import Package</h2>
+                <p class="aset-lead">Bring Cash In and Cash Out from Cashbook for Business or the Accountant Edition into one of your projects, or a complete client package: the client, its projects, materials, purchase orders, cheques, payroll and programs of work. Clients are matched by TIN, then by name. Entries already recorded are skipped, so importing the same file twice is safe.</p>
+
+                <div class="aset-group">
+                    <div class="aset-row">
+                        <div class="aset-row-text">
+                            <span class="aset-row-title">Transfer package file</span>
+                            <span class="aset-row-desc">Choose a .cftransfer file to preview before importing.</span>
+                        </div>
+                        <div class="aset-row-control"><input type="file" id="importPackageFile" accept=".cftransfer,application/json"></div>
+                    </div>
+                    <p id="importPackageMessage" class="aset-message"></p>
+                    <div class="aset-scroll"><div id="importPackagePlan" style="overflow-x: auto;"></div></div>
+                    <div class="aset-row" id="importPackageActions" style="border-top: 0; padding-top: 0;">
+                        <div class="aset-row-text"></div>
+                        <div class="aset-row-control"><button type="button" id="importPackageConfirm" class="primary-button" hidden>Import Entries</button></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="aset-panel" id="full">
+                <h2>Full Data Package</h2>
+                <p class="aset-lead">Everything in this app: clients, projects, workers, payroll, materials, purchase orders, cheques, programs of work and activity logs. Use it to move to another computer or to combine two copies of the app.</p>
+
+                <div class="aset-group">
+                    <div class="aset-row">
+                        <div class="aset-row-text">
+                            <span class="aset-row-title">Export full data</span>
+                            <span class="aset-row-desc">Save all app data to one file.</span>
+                        </div>
+                        <div class="aset-row-control"><button type="button" id="fullExportButton" class="primary-button">Export Full Data</button></div>
+                    </div>
+                    <div class="aset-row">
+                        <div class="aset-row-text">
+                            <span class="aset-row-title"><label for="fullMode">Import mode</label></span>
+                            <span class="aset-row-desc">Merge adds what is missing. Replace overwrites everything with the file.</span>
+                        </div>
+                        <div class="aset-row-control">
+                            <select id="fullMode">
+                                <option value="merge">Merge: keep what I have and add the rest</option>
+                                <option value="replace">Replace: overwrite everything with the file</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="aset-row">
+                        <div class="aset-row-text">
+                            <span class="aset-row-title">Import full data</span>
+                            <span class="aset-row-desc">Choose a full data file, then press Import Full Data.</span>
+                        </div>
+                        <div class="aset-row-control">
+                            <input type="file" id="fullImportFile" accept=".json,application/json">
+                            <button type="button" id="fullImportButton" class="secondary-button">Import Full Data</button>
+                        </div>
+                    </div>
+                    <p id="fullMessage" class="aset-message"></p>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+
+<script src="../../js/core/storage.js"></script>
+<script src="../../js/core/workspace-core.js"></script>
+<script src="../../js/core/shell.js"></script>
+<script src="../../js/core/transfer-core.js"></script>
+<script src="../../js/pages/transfer.js"></script>
+<script src="../../js/pages/transfer-import.js"></script>
+<script src="../../js/core/settings-layout.js"></script>
+<script src="../../js/core/header-menu.js"></script>
+<script src="../../assets/vendor/pdf.min.js"></script>
+<script src="../../js/print-preview.js"></script>
+<script src="../../js/core/navigation.js"></script>
+</body>
+</html>

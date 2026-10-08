@@ -1,0 +1,291 @@
+/* Print preview usability and fitting corrections. */
+.cf-print-preview {
+    height: 100vh;
+    min-height: 0;
+}
+
+.cf-print-settings,
+.cf-preview-workspace,
+.cf-page-stage {
+    min-height: 0;
+}
+
+.cf-pages {
+    display: grid;
+    gap: 28px;
+    margin: 0 auto;
+}
+
+.cf-pdf-stage {
+    flex: 1;
+    min-height: 0;
+    padding: 18px;
+    background: #dfe4e8;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable both-edges;
+}
+
+.cf-pdf-pages {
+    display: grid;
+    justify-items: center;
+    gap: 28px;
+    width: max-content;
+    min-width: 100%;
+    min-height: 100%;
+    padding: 2px 0 24px;
+}
+
+.cf-pdf-page {
+    position: relative;
+    flex: none;
+    background: #fff;
+    box-shadow: 0 3px 18px rgba(24, 39, 51, .24);
+}
+
+.cf-pdf-page canvas {
+    display: block;
+    max-width: none;
+    background: #fff;
+}
+
+.cf-pdf-page-label {
+    position: absolute;
+    right: 8px;
+    bottom: 6px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(28, 43, 55, .72);
+    color: #fff;
+    font: 11px/1.4 Arial, sans-serif;
+}
+
+.cf-pdf-loading {
+    align-self: start;
+    margin: 40px;
+    color: #4b5d6b;
+    font-weight: 700;
+}
+
+.cf-print-settings {
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+}
+
+.cf-preview-toolbar {
+    flex-wrap: wrap;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.cf-zoom-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.cf-zoom-controls button {
+    min-width: 34px;
+    height: 34px;
+    padding: 0 10px;
+    border: 1px solid #c8d1d9;
+    border-radius: 6px;
+    background: #fff;
+    color: #33495e;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.cf-zoom-controls output {
+    min-width: 46px;
+    color: #445665;
+    font-size: 12px;
+    text-align: center;
+}
+
+.cf-page-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cf-page-controls button,
+.cf-page-controls input {
+    height: 32px;
+    box-sizing: border-box;
+    border: 1px solid #c8d1d9;
+    border-radius: 6px;
+    background: #fff;
+    color: #33495e;
+}
+
+.cf-page-controls button {
+    min-width: 32px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.cf-page-controls button:disabled {
+    opacity: .45;
+    cursor: default;
+}
+
+.cf-page-controls label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    font-size: 12px;
+}
+
+.cf-page-controls input {
+    width: 52px;
+    padding: 4px 5px;
+    text-align: center;
+}
+
+.cf-scale-row[hidden] {
+    display: none !important;
+}
+
+.cf-page-stage {
+    justify-content: flex-start;
+    overflow: scroll;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable both-edges;
+}
+
+.cf-paper {
+    flex: 0 0 auto;
+    margin: 0 auto;
+}
+
+.cf-paper-content,
+.cf-paper-content > * {
+    box-sizing: border-box;
+    min-width: 0 !important;
+}
+
+.cf-paper-content {
+    overflow: hidden !important;
+}
+
+.cf-paper-content::after {
+    display: none;
+}
+
+.cf-paper-content .table-wrap,
+.cf-paper-content .report-table-wrap,
+.cf-paper-content .bulk-client-table-wrap {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+.cf-paper-content * {
+    scrollbar-width: none;
+}
+
+.cf-paper-content *::-webkit-scrollbar {
+    display: none;
+}
+
+.cf-paper-content > * {
+    width: auto;
+    max-width: none !important;
+    overflow: visible !important;
+}
+
+.cf-paper-content .content,
+.cf-paper-content .reports-page,
+.cf-paper-content .workspace-page,
+.cf-paper-content .account-title-page {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+html[data-theme="dark"] .cf-zoom-controls button {
+    border-color: #4b5d6b;
+    background: #17212a;
+    color: #e4ebf0;
+}
+
+html[data-theme="dark"] .cf-zoom-controls output {
+    color: #d9e2e9;
+}
+
+html[data-theme="dark"] .cf-page-controls button,
+html[data-theme="dark"] .cf-page-controls input {
+    border-color: #4b5d6b;
+    background: #17212a;
+    color: #e4ebf0;
+}
+
+@media print {
+    .cf-paper {
+        zoom: 1 !important;
+    }
+
+    .cf-printing .cf-pages {
+        display: block;
+        margin: 0;
+    }
+
+    .cf-printing .cf-paper {
+        display: block !important;
+        position: relative !important;
+        box-sizing: border-box !important;
+        width: var(--paper-width) !important;
+        height: var(--paper-height) !important;
+        min-height: var(--paper-height) !important;
+        margin: 0 !important;
+        break-after: page;
+        page-break-after: always;
+        break-inside: avoid-page;
+        page-break-inside: avoid;
+        overflow: hidden;
+    }
+
+    .cf-printing .cf-paper:last-child {
+        break-after: auto;
+        page-break-after: auto;
+    }
+
+    .cf-printing .cf-paper-content > * {
+        width: auto;
+    }
+}
+
+/* Signature block options in the print preview settings */
+.cf-sign-options[hidden]{display:none}
+.cf-sign-options{display:flex;flex-direction:column;gap:10px}
+.cf-sign-group{display:flex;flex-direction:column;gap:6px;margin:0;padding:10px;border:1px solid #cbd3da;border-radius:8px;min-width:0}
+.cf-sign-group .cf-text-option{width:100%;box-sizing:border-box}
+
+/* Print area: choose which parts of the page are printed */
+.cf-areas[hidden]{display:none}
+.cf-areas{display:flex;flex-direction:column;gap:8px;padding:12px;border:1px solid #9db9d1;border-radius:8px;background:#f3f8fc}
+.cf-areas-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:13px;color:#1f4e79}
+.cf-areas-count{font-size:11px;color:#5d6b77}
+.cf-areas-hint{margin:0;font-size:11px;color:#5d6b77}
+.cf-areas-actions{display:flex;gap:6px}
+.cf-areas-actions button{flex:1;min-height:30px;border:1px solid #c8d1d9;border-radius:6px;background:#fff;color:#33495e;font-size:12px;font-weight:700;cursor:pointer}
+.cf-areas-list{display:flex;flex-direction:column;gap:2px;max-height:240px;overflow:auto}
+.cf-area-row{padding:5px 4px;border-radius:5px;font-size:13px;font-weight:600;color:#22374a;cursor:pointer}
+.cf-area-row:hover{background:#e3eef7}
+.cf-area-row span{min-width:0;overflow-wrap:anywhere}
+html[data-theme="dark"] .cf-areas{background:#17212a;border-color:#4b5d6b}
+html[data-theme="dark"] .cf-areas-head{color:#9cc4e6}
+html[data-theme="dark"] .cf-area-row{color:#e4ebf0}
+html[data-theme="dark"] .cf-area-row:hover{background:#22313d}
+html[data-theme="dark"] .cf-areas-actions button{border-color:#4b5d6b;background:#17212a;color:#e4ebf0}
+
+/* Settings panel: nothing may spill past the panel edge (custom margin boxes were cut off) */
+.cf-print-settings{overflow-x:hidden}
+.cf-print-settings>*{min-width:0;max-width:100%}
+.cf-custom-margins{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.cf-custom-margins label,.cf-custom-margins input{min-width:0;width:100%;box-sizing:border-box}
+.cf-print-settings select,.cf-text-option,.cf-print-settings input[type="text"]{width:100%;box-sizing:border-box}
+.cf-export-excel{min-height:42px;border:1px solid #1f6f43;border-radius:8px;background:#fff;color:#1f6f43;font-weight:800;font-size:14px;cursor:pointer}
+.cf-export-excel:hover{background:#e8f4ec}
+html[data-theme="dark"] .cf-export-excel{background:#17212a;border-color:#58b887;color:#8fd8b0}
+html[data-theme="dark"] .cf-export-excel:hover{background:#1d3a2c}

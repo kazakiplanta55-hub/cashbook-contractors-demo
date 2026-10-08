@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../demo-shim.js"></script>
+    <script src="../../js/core/theme.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Cashbook for Contractors</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/theme.css">
+    <link rel="stylesheet" href="../../css/print-preview.css">
+    <link rel="stylesheet" href="../../css/print-preview-fixes.css">
+    <link rel="stylesheet" href="../../css/shell.css">
+    <link rel="stylesheet" href="../../css/design-system.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <img src="../../assets/logo/logo.png" alt="Cashbook for Contractors">
+        <div>
+            <h2>Cashbook for Contractors</h2>
+            <p>Projects</p>
+        </div>
+    </div>
+
+    <button type="button" class="back-button" data-href="../dashboard/dashboard.html">
+        &larr; Dashboard
+    </button>
+</header>
+
+<main class="container">
+
+    <section class="form-card">
+        <h2 id="formTitle">Add Project</h2>
+
+        <form id="projectForm">
+            <input type="hidden" id="projectId">
+
+            <div class="form-grid">
+                <label class="form-field">
+                    <span>Client *</span>
+                    <select id="clientId" required></select>
+                </label>
+
+                <label class="form-field">
+                    <span>Project Name *</span>
+                    <input id="projectName" type="text" required autocomplete="off">
+                </label>
+
+                <label class="form-field" style="grid-column: 1 / -1;">
+                    <span>Site Address</span>
+                    <input id="siteAddress" type="text" autocomplete="off">
+                </label>
+
+                <label class="form-field">
+                    <span>Budget (₱) *</span>
+                    <input id="budget" type="number" min="0" step="0.01" required>
+                </label>
+
+                <label class="form-field">
+                    <span>Status</span>
+                    <select id="status">
+                        <option value="Ongoing">Ongoing</option>
+                        <option value="On Hold">On Hold</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </label>
+
+                <label class="form-field">
+                    <span>Start Date *</span>
+                    <input id="startDate" type="date" required>
+                </label>
+
+                <label class="form-field">
+                    <span>Target End Date</span>
+                    <input id="targetEndDate" type="date">
+                </label>
+
+                <label class="form-field" style="grid-column: 1 / -1;">
+                    <span>Notes</span>
+                    <textarea id="notes" rows="3"></textarea>
+                </label>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="primary-button">Save Project</button>
+                <button type="button" id="cancelEditButton" class="secondary-button" hidden>Cancel Edit</button>
+            </div>
+
+            <p id="formMessage" style="margin-top: 12px; color: var(--negative);"></p>
+        </form>
+    </section>
+
+    <section style="margin-bottom: 14px; display: flex; gap: 16px; align-items: flex-end;">
+        <label class="form-field" style="max-width: 240px;">
+            <span>Filter by Status</span>
+            <select id="statusFilter">
+                <option value="all">All Statuses</option>
+                <option value="Ongoing">Ongoing</option>
+                <option value="On Hold">On Hold</option>
+                <option value="Completed">Completed</option>
+                <option value="Archived">Archived Projects</option>
+            </select>
+        </label>
+    </section>
+
+    <section id="projectList"></section>
+
+    <p id="projectEmptyState" class="empty-state" hidden>
+        No projects yet. Add your first project above.
+    </p>
+
+</main>
+
+<script src="../../js/core/storage.js"></script>
+<script src="../../js/core/workspace-core.js"></script>
+<script src="../../js/core/shell.js"></script>
+<script src="../../js/pages/projects.js"></script>
+<script src="../../js/core/header-menu.js"></script>
+<script src="../../assets/vendor/pdf.min.js"></script>
+<script src="../../js/print-preview.js"></script>
+<script src="../../js/core/navigation.js"></script>
+</body>
+</html>

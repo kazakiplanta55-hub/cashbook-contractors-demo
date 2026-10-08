@@ -1,0 +1,43 @@
+/* S-Curve & Forecast page and Portfolio overview: KPI tiles, charts, tables. */
+.an-page { max-width: 1280px; }
+.an-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(176px, 1fr)); gap: 12px; margin-bottom: 14px; }
+.an-tile { background: var(--card-bg); border-radius: 12px; padding: 14px 16px; box-shadow: 0 2px 10px rgba(0, 0, 0, .06); border-left: 4px solid var(--line); display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.an-tile small { text-transform: uppercase; letter-spacing: .05em; font-size: 11px; color: var(--muted); }
+.an-tile strong { font-size: 22px; line-height: 1.2; overflow-wrap: anywhere; }
+.an-tile span { font-size: 12px; color: var(--muted); line-height: 1.35; }
+.an-tile.ok { border-left-color: #2f9e63; } .an-tile.ok strong { color: #2f9e63; }
+.an-tile.warn { border-left-color: #c97a2b; } .an-tile.warn strong { color: #c97a2b; }
+.an-tile.bad { border-left-color: #d9534f; } .an-tile.bad strong { color: #d9534f; }
+.an-tile.na strong { color: var(--muted); font-weight: 600; }
+html[data-theme="dark"] .an-tile { box-shadow: none; border: 1px solid var(--line); border-left-width: 4px; }
+
+.an-charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 16px; margin-bottom: 16px; }
+.an-charts.wide { grid-template-columns: 1fr; }
+.an-card { background: var(--card-bg); border-radius: 12px; padding: 18px 20px 14px; box-shadow: 0 2px 10px rgba(0, 0, 0, .06); position: relative; min-width: 0; }
+html[data-theme="dark"] .an-card { box-shadow: none; border: 1px solid var(--line); }
+.an-card h2 { margin: 0 0 4px; font-size: 16px; color: var(--brand-primary); }
+.an-card > p { margin: 0 0 10px; font-size: 12.5px; color: var(--muted); }
+.an-card canvas { display: block; width: 100%; height: 300px; }
+.an-card canvas.short { height: 260px; }
+.an-donut-row { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.an-donut-row canvas { width: 240px; height: 240px; flex: none; }
+.an-donut-row .cbc-chart-legend { flex-direction: column; align-items: flex-start; gap: 8px; }
+.cbc-chart-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 8px; font-size: 12.5px; color: var(--muted); }
+.cbc-chart-legend i { display: inline-block; width: 14px; height: 8px; border-radius: 3px; margin-right: 6px; vertical-align: middle; }
+.cbc-chart-tip { position: absolute; z-index: 5; pointer-events: none; background: #1d2227; color: #e8edf2; border-radius: 8px; padding: 8px 10px; font-size: 12px; line-height: 1.5; box-shadow: 0 4px 14px rgba(0, 0, 0, .3); white-space: nowrap; }
+.cbc-chart-tip i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; }
+.an-banner { margin: 0 0 14px; padding: 10px 14px; border-radius: 10px; background: rgba(201, 122, 43, .16); font-size: 13px; line-height: 1.45; }
+.an-banner.info { background: rgba(79, 143, 196, .16); }
+.an-help { margin: 0 0 24px; }
+.an-help summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
+.an-help p { margin: 6px 0; font-size: 13px; line-height: 1.55; color: var(--muted); }
+.an-filter { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; margin-bottom: 16px; }
+.an-table-wrap { overflow-x: auto; }
+.an-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.an-table th, .an-table td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+.an-table .num { text-align: right; }
+.an-table td.ok { color: #2f9e63; font-weight: 700; } .an-table td.warn { color: #c97a2b; font-weight: 700; } .an-table td.bad { color: #d9534f; font-weight: 700; } .an-table td.na { color: var(--muted); }
+.an-pill { padding: 2px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 700; color: #fff; background: #1f4e79; }
+.an-pill.on-hold { background: #b7791f; } .an-pill.completed { background: #2f7449; }
+@media (max-width: 760px) { .an-charts { grid-template-columns: 1fr; } }
+@media print { .an-filter, .back-button { display: none !important; } .an-card, .an-tile { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; } }

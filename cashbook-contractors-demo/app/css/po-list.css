@@ -1,0 +1,160 @@
+/* Purchase Orders list (Materials page). Uses the app palette variables so dark mode follows automatically. */
+
+
+.po-filters { display: flex; gap: 6px; flex-wrap: wrap; }
+.po-filter { border: 1px solid var(--line); background: transparent; color: var(--ink); border-radius: 999px; padding: 6px 12px; font-size: 13px; cursor: pointer; font-family: inherit; }
+.po-filter b { margin-left: 4px; color: var(--muted); font-weight: 600; }
+.po-filter:hover { border-color: var(--brand-primary); }
+.po-filter.active { background: var(--brand-primary); border-color: var(--brand-primary); color: #fff; }
+.po-filter.active b { color: #fff; opacity: .85; }
+
+
+
+
+.po-badge { flex: none; border-radius: 999px; padding: 4px 11px; font-size: 12px; font-weight: 700; white-space: nowrap; background: rgba(109, 100, 89, .16); color: var(--ink); }
+.po-badge.paid { background: rgba(47, 116, 73, .16); color: var(--positive); }
+.po-badge.overdue { background: rgba(163, 70, 47, .16); color: var(--negative); }
+.po-badge.partial, .po-badge.unpaid { background: rgba(201, 122, 43, .18); color: var(--brand-accent-dark); }
+html[data-theme="dark"] .po-badge.partial, html[data-theme="dark"] .po-badge.unpaid { color: var(--brand-accent); }
+
+
+
+.po-table-wrap { overflow-x: auto; }
+.po-sched { width: 100%; border-collapse: collapse; font-size: 13px; }
+.po-sched th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); padding: 6px 8px; border-bottom: 1px solid var(--line); }
+.po-sched td { padding: 8px; border-bottom: 1px solid var(--line); color: var(--ink); }
+.po-sched tr:last-child td { border-bottom: 0; }
+.po-sched .po-num { text-align: right; font-variant-numeric: tabular-nums; }
+.po-sched .po-none { color: var(--muted); font-style: italic; }
+.po-row-overdue td { background: rgba(163, 70, 47, .07); }
+
+.po-chip { display: inline-block; border-radius: 999px; padding: 2px 9px; font-size: 12px; font-weight: 600; background: rgba(109, 100, 89, .14); color: var(--ink); white-space: nowrap; }
+.po-chip.paid { background: rgba(47, 116, 73, .16); color: var(--positive); }
+.po-chip.overdue { background: rgba(163, 70, 47, .16); color: var(--negative); }
+.po-chip.soon { background: rgba(201, 122, 43, .18); color: var(--brand-accent-dark); }
+html[data-theme="dark"] .po-chip.soon { color: var(--brand-accent); }
+
+.po-noschedule { margin: 4px 0 0; color: var(--muted); font-size: 13px; font-style: italic; }
+
+.po-empty { text-align: center; padding: 36px 20px; color: var(--muted); border: 1px dashed var(--line); border-radius: 12px; line-height: 1.6; }
+.po-empty[hidden] { display: none !important; }
+.po-empty strong { color: var(--ink); }
+
+
+/* ---- Actions and pop-up forms (status changes) ---- */
+.po-filters:empty { display: none; }
+
+.po-delivery { display: inline-block; margin-top: 6px; border-radius: 999px; padding: 2px 10px; font-size: 12px; font-weight: 600; background: rgba(109, 100, 89, .14); color: var(--muted); }
+.po-delivery.done { background: rgba(47, 116, 73, .16); color: var(--positive); }
+
+.po-sched th:last-child, .po-sched td:last-child { text-align: right; }
+.po-rowactions { white-space: nowrap; }
+.po-link { border: 0; background: transparent; color: var(--brand-primary); font: inherit; font-size: 12px; cursor: pointer; padding: 2px 6px; border-radius: 6px; }
+.po-link:hover { background: rgba(31, 78, 121, .12); text-decoration: underline; }
+.po-link.strong { font-weight: 700; }
+.po-link.danger { color: var(--negative); }
+html[data-theme="dark"] .po-link { color: #8fbfe8; }
+html[data-theme="dark"] .po-link.danger { color: var(--negative); }
+.po-paidnote { display: block; margin-top: 2px; font-size: 11px; color: var(--muted); }
+.po-unsched { margin: 8px 0 0; font-size: 12px; color: var(--brand-accent-dark); }
+html[data-theme="dark"] .po-unsched { color: var(--brand-accent); }
+
+
+.po-modal { max-width: 640px; max-height: 90vh; overflow-y: auto; }
+.po-modal .form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.po-sched-edit { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+.po-sched-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.po-rowform { display: grid; grid-template-columns: 1fr 1fr auto; gap: 8px; margin-bottom: 8px; }
+.po-rowform input { padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--card-bg); color: var(--ink); font: inherit; }
+.po-sched-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+@media print { .po-cardactions, .po-rowactions, #newPoBtn { display: none !important; } }
+
+.po-modal .mp-sub { margin: 0 0 12px; }
+.po-modal .form-grid + .mp-sub { margin: 12px 0 0; }
+
+/* Stock hint inside the purchase order form */
+.po-stockinfo { font-size: 13px; color: var(--muted); border: 1px dashed var(--line); border-radius: 10px; padding: 8px 12px; }
+.po-stockinfo:empty { display: none; }
+.po-stockinfo.found { border-style: solid; border-color: var(--positive); color: var(--ink); background: rgba(47, 116, 73, .08); }
+.po-stockinfo.near { border-style: solid; border-color: var(--brand-accent); color: var(--ink); background: rgba(210, 140, 40, .1); }
+.po-stockinfo .po-link { border: 0; background: none; padding: 0; font: inherit; font-weight: 700; color: var(--brand-primary); text-decoration: underline; cursor: pointer; }
+html[data-theme="dark"] .po-stockinfo .po-link { color: #8fbfe8; }
+.po-modal .form-grid .mp-span { grid-column: 1 / -1; }
+
+/* ================= Compact purchase order list (one row per order) ================= */
+.po-totals { display: flex; flex-wrap: wrap; gap: 6px 22px; padding: 10px 14px; margin-bottom: 12px; border: 1px solid var(--line); border-radius: 10px; background: rgba(109, 100, 89, .06); }
+.po-totals:empty { display: none; }
+.po-total { display: flex; align-items: baseline; gap: 7px; border: 0; padding: 0; }
+.po-total span { font-size: 12px; color: var(--muted); }
+.po-total strong { font-size: 15px; color: var(--ink); }
+.po-total small { font-size: 12px; color: var(--muted); }
+.po-total.good strong { color: var(--positive); }
+.po-total.warn strong { color: var(--brand-accent-dark); }
+html[data-theme="dark"] .po-total.warn strong { color: var(--brand-accent); }
+.po-total.bad strong { color: var(--negative); }
+
+.po-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 10px 16px; flex-wrap: wrap; margin-bottom: 10px; }
+.po-toolbar .po-filters { margin: 0; }
+.po-search { flex: 0 1 280px; min-width: 180px; padding: 7px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--card-bg); color: var(--ink); font: inherit; font-size: 13px; }
+.po-search[hidden] { display: none; }
+
+/* Shared column layout for the header and every row */
+.po-colhead, .po-row { display: grid; grid-template-columns: minmax(112px, .8fr) minmax(130px, 1.7fr) minmax(76px, .7fr) minmax(92px, .9fr) minmax(92px, .9fr) minmax(88px, .8fr) minmax(150px, 1.1fr); gap: 4px 12px; align-items: center; }
+.po-colhead { padding: 6px 12px 6px 14px; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); border-bottom: 2px solid var(--line); }
+.po-colhead[hidden] { display: none; }
+.po-r { text-align: right; font-variant-numeric: tabular-nums; }
+
+.po-list { display: flex; flex-direction: column; }
+.po-card { border-bottom: 1px solid var(--line); border-left: 3px solid transparent; min-width: 0; background: transparent; }
+.po-card.overdue { border-left-color: var(--negative); }
+.po-card.partial, .po-card.unpaid { border-left-color: var(--brand-accent); }
+.po-card.paid { border-left-color: var(--positive); }
+.po-card.open { background: rgba(31, 78, 121, .045); }
+.po-row { padding: 9px 12px 9px 11px; cursor: pointer; font-size: 13px; color: var(--ink); }
+.po-row:hover { background: rgba(31, 78, 121, .06); }
+.po-name { margin: 0; font-size: 13px; }
+.po-toggle { display: inline-flex; align-items: center; gap: 7px; border: 0; background: none; padding: 2px 0; font: inherit; font-weight: 700; color: var(--brand-primary); cursor: pointer; text-align: left; }
+html[data-theme="dark"] .po-toggle { color: #8fbfe8; }
+.po-caret { width: 0; height: 0; border-left: 5px solid currentColor; border-top: 4px solid transparent; border-bottom: 4px solid transparent; transition: transform .12s; flex: none; }
+.po-card.open .po-caret { transform: rotate(90deg); }
+.po-what { min-width: 0; }
+.po-what strong, .po-what small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.po-what small { color: var(--muted); font-size: 12px; }
+.po-cell { min-width: 0; }
+.po-cell.warn { color: var(--negative); font-weight: 700; }
+.po-prog { display: flex; align-items: center; gap: 7px; }
+.po-prog small { color: var(--muted); font-size: 12px; white-space: nowrap; }
+.po-bar { display: block; flex: 1 1 36px; max-width: 70px; height: 6px; border-radius: 999px; background: rgba(109, 100, 89, .2); overflow: hidden; }
+.po-bar span { display: block; height: 100%; background: var(--positive); }
+.po-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+.po-tags .po-badge, .po-tags .po-delivery { margin: 0; padding: 2px 8px; font-size: 11px; }
+
+.po-detail { padding: 4px 16px 14px 28px; }
+.po-detail[hidden] { display: none; }
+.po-barlabel { margin: 4px 0 8px; font-size: 12px; color: var(--muted); }
+.po-cardactions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.po-cardactions button { padding: 6px 12px; font-size: 13px; }
+.po-cardactions .po-danger { margin-left: auto; color: var(--negative); border-color: var(--negative); }
+.po-cardactions .po-danger:hover { background: var(--negative); color: #fff; }
+.po-sched { max-width: 640px; }
+
+.po-more { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding-top: 12px; }
+.po-more:empty { display: none; }
+.po-more .po-count { font-size: 12px; color: var(--muted); }
+.po-more button.secondary-button { padding: 6px 14px; font-size: 13px; }
+
+/* Narrow screens: each order becomes a small two-line card with labelled values */
+@media (max-width: 900px) {
+    .po-colhead { display: none; }
+    .po-row { grid-template-columns: 1fr 1fr; }
+    .po-name, .po-what, .po-tags { grid-column: 1 / -1; }
+    .po-cell::before { content: attr(data-label); display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+    .po-r { text-align: left; }
+    .po-detail { padding-left: 14px; }
+}
+@media print {
+    .po-toolbar, .po-more, .po-cardactions, .po-rowactions, #newPoBtn { display: none !important; }
+    .po-detail[hidden] { display: block !important; }
+    .po-card { break-inside: avoid; }
+}
+@media (max-width: 900px) { .po-prog { flex-wrap: wrap; } .po-prog::before { flex-basis: 100%; content: attr(data-label); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); } .po-prog.po-cell::before { display: block; } }
